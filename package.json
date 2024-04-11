@@ -12,7 +12,7 @@
     "test:staged": "yarn test --findRelatedTests",
     "test:coverage": "yarn test --coverage",
     "lint": "eslint src --ext .ts,.js,.tsx,.jsx,.vue ",
-    "lint:fix": "eslint src --fix && yarn prettier -w \"src\" --config .prettierrc.yml",
+    "lint:fix": "eslint src --fix && yarn prettier -w \"src\" --config .prettierrc.yml"
   },
   "dependencies": {
     "vue": "^3.4.21",

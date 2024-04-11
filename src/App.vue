@@ -1,8 +1,8 @@
 <script setup lang="ts">
+import Example from './views/Example.vue';
 </script>
 
-<template>
-</template>
+<template></template>
 
 <style scoped>
 .logo {

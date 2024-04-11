@@ -40,7 +40,6 @@ interface ChartData {
 
 const props = defineProps<{
   chartData: Record<string, number>;
-  chartOptions: ChartOptions<'bar'>;
 }>()
 
 const chartOptions: ChartOptions<'bar'> = reactive({
@@ -85,14 +84,14 @@ const chartOptions: ChartOptions<'bar'> = reactive({
     datalabels: {
       display: true,
       color: 'black',
-      anchor: 'end',
       align: 'end',
+      anchor: 'end',
+      formatter: (value: any) => {
+        return value + "%";
+      },
       font: {
         size: 12,
         weight: 'bold'
-      },
-      formatter: (value: any) => {
-        return value + "%";
       }
     }
   }

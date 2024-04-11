@@ -8,8 +8,10 @@
 import BarChart from './components/charts/BarChart.vue';
 
 const data = {
-  "Cloud Sell": 0.65,
-  "Cloud Build": 0.59,
+  "Cloud Sell": 65,
+  "Cloud Build": 59,
+  "Cloud 2": 75,
+  "Cloud 4": 100,
 };
 
 </script>

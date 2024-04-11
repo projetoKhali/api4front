@@ -22,14 +22,18 @@ const props = defineProps({
     flex-direction: column;
     gap: 7;
 
-    margin: 10px;
-
     width: 253px;
     height: 137px;
     border-radius: 9px;
 
     background-color: #ffffff;
-    box-shadow: 0 5px 0 0 rgba(0, 0, 0, 0.1);;
+    box-shadow: 0 5px 0 0 rgba(0, 0, 0, 0.1);
+    border: 3px solid transparent;
+    transition: border-color 0.3s, transform 0.3s;
+}
+
+.count-card:hover{
+    transform: scale(1.05);
 }
 
 .title-card {

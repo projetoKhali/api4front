@@ -2,7 +2,9 @@
 import Example from './views/Example.vue';
 </script>
 
-<template></template>
+<template>
+  <Example />
+</template>
 
 <style scoped>
 .logo {

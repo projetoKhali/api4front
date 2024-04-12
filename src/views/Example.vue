@@ -4,11 +4,6 @@
     <a>Back to home</a>
   </router-link>
 </template>
-<script>
-export default {
-  name: 'Example',
-};
-</script>
 
 <style scoped>
 h1 {

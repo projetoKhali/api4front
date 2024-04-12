@@ -1,16 +1,13 @@
+<script lang="ts">
+import router from '../router'
+</script>
 <template>
   <nav>
-    <router-link :to="'/'">
-      <a>Home</a>
-    </router-link>
-    <router-link :to="'/about'">
-      <a>About</a>
-    </router-link>
-    <div>
-      <div>
-        bla
-      </div>
-    </div>
+    <ul v-for="route in $router.options.routes" :key="route.path">
+      <router-link :to="route.path">
+        <a>{{ route.name }}</a>
+      </router-link>
+    </ul>
   </nav>
 </template>
 

@@ -11,6 +11,16 @@ export default {
 </script>
 
 <style scoped>
+* {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  gap: 0.5em;
+
+}
+a {
+  align-items: baseline;
+}
 h1 {
   color: green;
 }

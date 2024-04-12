@@ -6,6 +6,11 @@
 </template>
 
 <style scoped>
+* {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
 h1 {
   color: magenta;
 }

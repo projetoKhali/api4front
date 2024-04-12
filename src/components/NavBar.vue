@@ -11,3 +11,12 @@ import router from '../router'
   </nav>
 </template>
 
+<style scoped>
+* {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0 20px;
+  background-color: #f0f0f0;
+}
+</style>

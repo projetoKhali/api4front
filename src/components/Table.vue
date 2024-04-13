@@ -14,51 +14,61 @@ const props = defineProps({
 </script>
 
 <template>
-    <table class="table">
-        <thead>
-            <tr class="title-table">
-                <th v-for="(item, index) in $props.head" :key="index">
-                    {{ item }}
-                </th>
-            </tr>
-        </thead>
-        <tbody v-for="(obj_line, index) in $props.body" :key="index">
-            <td v-for="(column, index) in obj_line" :key="index">
-                {{ column }}
-            </td>
-        </tbody>
-    </table>
+    <div class="scrollable-table">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th v-for="(item, index) in $props.head" :key="index">
+                        {{ item }}
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="(line, index) in $props.body" :key="index">
+                    <td v-for="(cell, index) in line" :key="index">
+                        {{ cell }}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
 </template>
 
 <style scoped>
-.table{
-    background-color: #fff;
+.scrollable-table {
+    height: 300px;
+    width: 100%;
+    overflow-y: auto;
     border-radius: 9px;
-    height: 233px;
-    width: 800px;
+}
+
+
+
+.table {
+    background-color: #fff;
+    width: 100%;
     table-layout: fixed;
-    overflow-y: scroll;
+    margin: 0;
 
     font-family: "Inter", sans-serif;
-    padding-top: 7px;
     padding-bottom: 20px;
 }
 
-.title-table{
-    font-size: 20px;
+.table th {
+    background-color: #fff;
+    position: sticky;
+    top: 0;
 }
 
-th{
+th {
+    font-size: 20px;
     vertical-align: top;
-    line-height: auto;
     font-weight: 600;
-    margin: 0;
-    padding: 0;
+    height: 100%;
 }
 
 td {
     line-height: 2.5;
 }
-
 </style>

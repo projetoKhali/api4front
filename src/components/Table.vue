@@ -16,7 +16,7 @@ const props = defineProps({
 <template>
     <div class="table">
         <thead>
-            <tr>
+            <tr class="header">
                 <th v-for="(item, index) in $props.head" :key="index">
                     {{ item }}
                 </th>
@@ -28,18 +28,30 @@ const props = defineProps({
             </td>
         </tbody>
     </div>
+    
 </template>
 
 <style scoped>
 .table{
     display: flex;
     flex-direction: column;
+    background-color: #f8f9fa; /* Cor de fundo do cabeçalho */
+    border-radius: 9px;
+    gap: 30px;
+    padding-top: ;
 }
 
+.header{
+    display: flex;
+    justify-content: space-evenly;
+    
+}
 
 .row{
     display: flex;
     justify-content: space-evenly;
 }
+
+
 
 </style>

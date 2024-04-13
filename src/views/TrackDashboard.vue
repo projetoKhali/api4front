@@ -1,15 +1,18 @@
 <template>
     <div class="dashboard-container">
       <div class="cards">
-        <CountCard titulo="Total de parceiros" :numero="150"/>
-        <CountCard titulo="Total de expertises" :numero="150"/>
-        <CountCard titulo="Total de qualificadores" :numero="150"/>
+        <CountCard title="Total de parceiros" :number="150"/>
+        <CountCard title="Total de expertises" :number="150"/>
+        <CountCard title="Total de qualificadores" :number="150"/>
       </div>
       <div class="chart-wrapper">
         <PieChart :chartData="formattedPieChartData" />
       </div>
       <div> 
         <ProgressBar :tracks="tracksData" />
+      </div>
+      <div>
+        <Table :head="tableHead" :body="tableBody" />
       </div>
     </div>
   </template>
@@ -19,6 +22,7 @@
   import PieChart from '../components/charts/PieChart.vue';
   import CountCard from '../components/CountCard.vue';
   import ProgressBar from '../components/ProgressBar.vue';
+  import Table from '../components/Table.vue';
   
   interface Qualifier {
     name: string;
@@ -75,6 +79,13 @@
     'DEEa': 50
   }
 };
+
+const tableHead = ['Coluna 1', 'Coluna 2', 'Coluna 3'];
+const tableBody = [
+  ['Dado 1', 'Dado 2', 'Dado 3'],
+  ['Dado 4', 'Dado 5', 'Dado 6'],
+  ['Dado 7', 'Dado 8', 'Dado 9']
+];
   
   const getParceiroData = async () => {
     try {

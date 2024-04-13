@@ -37,7 +37,7 @@ const props = defineProps({
 
 <style scoped>
 .scrollable-table {
-    width: 100%;
+    width: 300px;
     height: 233px;
 
     padding-right: 10px;

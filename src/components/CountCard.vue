@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { defineProps, ref } from 'vue'
+import { defineProps } from 'vue'
 
 const props = defineProps({
-    titulo: String,
-    numero: Number
+    title: String,
+    number: Number
 })
 
 </script>
@@ -11,8 +11,8 @@ const props = defineProps({
 <template>
 
     <div class="count-card">
-        <h3 class="title-card">{{ titulo }}</h3>
-        <h1 class="number-card">{{ numero }}</h1>
+        <h3 class="title-card">{{ title }}</h3>
+        <h1 class="number-card">{{ number }}</h1>
     </div>
 </template>
 

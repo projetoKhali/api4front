@@ -3,10 +3,12 @@ import router from '../router'
 </script>
 <template>
   <nav>
-    <ul v-for="route in $router.options.routes" :key="route.path">
-      <router-link :to="route.path">
-        <a>{{ route.name }}</a>
-      </router-link>
+    <ul>
+      <li v-for="route in $router.options.routes" :key="route.path">
+        <router-link :to="route.path" :class="'router-link'">
+          {{ route.name }}
+        </router-link>
+      </li>
     </ul>
   </nav>
 </template>
@@ -18,5 +20,10 @@ import router from '../router'
   align-items: center;
   padding: 0 20px;
   background-color: #f0f0f0;
+}
+
+.router-link {
+  color: #FFCCFF;
+  text-decoration: none;
 }
 </style>

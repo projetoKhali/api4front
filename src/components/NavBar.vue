@@ -17,10 +17,20 @@ import router from '../router'
 <style scoped>
 * {
   display: flex;
-  justify-content: space-around;
+  justify-content: start;
   align-items: center;
   padding: 0 20px;
-  background-color: #f0f0f0;
+}
+
+nav {
+  background-color: #361A4D;
+  border-bottom: 4px solid #B782E3;
+}
+
+ul {
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  width: 100%;
 }
 
 .oracle-logo {
@@ -35,5 +45,10 @@ import router from '../router'
 .router-link {
   color: #FFCCFF;
   text-decoration: none;
+}
+
+.router-link-active {
+  color: white;
+  text-decoration: underline white 4px;
 }
 </style>

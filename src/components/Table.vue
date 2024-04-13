@@ -47,6 +47,7 @@ const props = defineProps({
 
     scrollbar-width: 7px; /* Ajusta a largura da barra de rolagem */
     scrollbar-color: transparent; /* Ajusta a cor do polegar e da trilha da barra de rolagem */
+    box-shadow: 0 5px 0 0 rgba(0, 0, 0, 0.1);
 }
 
 .table {

@@ -14,44 +14,51 @@ const props = defineProps({
 </script>
 
 <template>
-    <div class="table">
+    <table class="table">
         <thead>
-            <tr class="header">
+            <tr class="title-table">
                 <th v-for="(item, index) in $props.head" :key="index">
                     {{ item }}
                 </th>
             </tr>
         </thead>
-        <tbody class="row" v-for="(obj_line, index) in $props.body" :key="index">
+        <tbody v-for="(obj_line, index) in $props.body" :key="index">
             <td v-for="(column, index) in obj_line" :key="index">
                 {{ column }}
             </td>
         </tbody>
-    </div>
-    
+    </table>
+
 </template>
 
 <style scoped>
 .table{
-    display: flex;
-    flex-direction: column;
-    background-color: #f8f9fa; /* Cor de fundo do cabeçalho */
+    background-color: #fff;
     border-radius: 9px;
-    gap: 30px;
-    padding-top: ;
+    height: 233px;
+    width: 800px;
+    table-layout: fixed;
+    overflow-y: scroll;
+
+    font-family: "Inter", sans-serif;
+    padding-top: 7px;
+    padding-bottom: 20px;
 }
 
-.header{
-    display: flex;
-    justify-content: space-evenly;
-    
+.title-table{
+    font-size: 20px;
 }
 
-.row{
-    display: flex;
-    justify-content: space-evenly;
+th{
+    vertical-align: top;
+    line-height: auto;
+    font-weight: 600;
+    margin: 0;
+    padding: 0;
 }
 
-
+td {
+    line-height: 2.5;
+}
 
 </style>

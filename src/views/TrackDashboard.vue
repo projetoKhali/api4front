@@ -1,10 +1,15 @@
 <template>
     <div class="dashboard-container">
-      <div class="chart-wrapper">
-        <!-- Removido o gráfico de barras -->
+      <div class="cards">
+        <CountCard titulo="Total de parceiros" :numero="150"/>
+        <CountCard titulo="Total de expertises" :numero="150"/>
+        <CountCard titulo="Total de qualificadores" :numero="150"/>
       </div>
       <div class="chart-wrapper">
         <PieChart :chartData="formattedPieChartData" />
+      </div>
+      <div> 
+        <ProgressBar :tracks="tracksData" />
       </div>
     </div>
   </template>
@@ -12,6 +17,8 @@
   <script setup lang="ts">
   import { ref, onMounted } from 'vue';
   import PieChart from '../components/charts/PieChart.vue';
+  import CountCard from '../components/CountCard.vue';
+  import ProgressBar from '../components/ProgressBar.vue';
   
   interface Qualifier {
     name: string;
@@ -57,6 +64,17 @@
   const formattedPieChartData = ref<{
     [key: string]: number;
   }>({});
+
+  const tracksData = {
+  'Build': {
+    'OCL': 20,
+    'OGG': 40,
+    'AAA': 10,
+    'DEE': 50,
+    'AAAa': 10,
+    'DEEa': 50
+  }
+};
   
   const getParceiroData = async () => {
     try {
@@ -238,5 +256,9 @@
   
   .chart-wrapper {
     flex: 1;
+  }
+  .cards {
+   display: flex;
+   gap: 10px;
   }
   </style>

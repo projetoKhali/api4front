@@ -1,0 +1,3 @@
+interface TrackQualifierSchema{
+    name: String
+}

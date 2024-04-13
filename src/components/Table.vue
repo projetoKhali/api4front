@@ -37,27 +37,33 @@ const props = defineProps({
 
 <style scoped>
 .scrollable-table {
-    height: 300px;
     width: 100%;
+    height: 233px;
+
+    padding-right: 10px;
     overflow-y: auto;
     border-radius: 9px;
+    background-color: #fff;
+
+    scrollbar-width: 7px; /* Ajusta a largura da barra de rolagem */
+    scrollbar-color: transparent; /* Ajusta a cor do polegar e da trilha da barra de rolagem */
 }
 
-
-
 .table {
-    background-color: #fff;
-    width: 100%;
     table-layout: fixed;
+    width: 100%;
     margin: 0;
 
     font-family: "Inter", sans-serif;
+    color: #000;
     padding-bottom: 20px;
 }
 
 .table th {
+    padding-top: 7px;
     background-color: #fff;
     position: sticky;
+    padding-bottom: 25px;
     top: 0;
 }
 
@@ -71,4 +77,16 @@ th {
 td {
     line-height: 2.5;
 }
+
+/* Estiliza a barra de rolagem para Chrome, Safari e Opera */
+.scrollable-table::-webkit-scrollbar {
+    width: 7px;
+}
+
+.scrollable-table::-webkit-scrollbar-thumb { /*scroller*/
+    background-color: #A4A3A3;
+    height: 46px;
+    border-radius: 4px;
+}
+
 </style>

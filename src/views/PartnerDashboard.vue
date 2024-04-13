@@ -1,7 +1,13 @@
 <template>
   <div class="dashboard-container">
+    <div> 
+      <StatCircle :percentage="calcularPorcentagemTotalFinalizadas(parceiros)" />
+    </div>
     <div class="chart-wrapper">
       <BarChart :chartData="formattedBarChartData" />
+    </div>
+    <div>
+      <ProgressBar :tracks="tracksData" />
     </div>
     <div class="chart-wrapper">
       <PieChart :chartData="formattedPieChartData" />
@@ -11,8 +17,11 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
+import StatCircle from '../components/StatCircle.vue';
 import BarChart from '../components/charts/BarChart.vue';
 import PieChart from '../components/charts/PieChart.vue';
+import ProgressBar from '../components/ProgressBar.vue';
+
 
 interface Expertise {
   name: string;
@@ -60,6 +69,21 @@ const formattedBarChartData = ref<{
 const formattedPieChartData = ref<{
   [key: string]: number;
 }>({});
+
+const tracksData = {
+  'Build': {
+    'OCL': 20,
+    'OGG': 40
+  },
+  'Cloud': {
+    'AAA': 10,
+    'DEE': 50
+  },
+  'Clouda': {
+    'AAAa': 10,
+    'DEEa': 50
+  }
+};
 
 const getParceiroData = async () => {
   try {
@@ -145,7 +169,7 @@ const getParceiroData = async () => {
                   name: "Qualifier8",
                   description: "Descrição do Qualificador1",
                   startDate: "2023-01-01",
-                  endDate: null,
+                  endDate: "2023-03-10",
                 },
               ],
             },
@@ -190,6 +214,26 @@ const calcularPorcentagemFinalizadas = (parceiroData: ParceiroData) => {
   });
 
   return data;
+};
+
+const calcularPorcentagemTotalFinalizadas = (parceiro: ParceiroData) => {
+  let totalTracks = 1;
+  let tracksComEndDate = 0;
+
+  if (parceiro && parceiro.tracks) {
+    totalTracks = parceiro.tracks.length;
+
+    parceiro.tracks.forEach(track => {
+      if (track.expertises.some(expertise => expertise.endDate !== null)) {
+        tracksComEndDate++;
+      }
+    });
+  }
+
+  const porcentagem = totalTracks > 0 ? (tracksComEndDate / totalTracks) * 100 : 0;
+  console.log('Porcentagem de tracks com endDate:', porcentagem);
+
+  return porcentagem;
 };
 
 const calcularEstadoExpertises = (parceiroData: ParceiroData) => {

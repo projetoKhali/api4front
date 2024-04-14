@@ -1,8 +1,8 @@
 import { PartnerQualifierSchema } from './PartnerQualifier';
 
-export interface PartnerExpertiseSchema{
-    name: String,
-    startDate: Date,
-    endDate: Date,
-    qualifier: PartnerQualifierSchema[]
+export interface PartnerExpertiseSchema {
+  name: string;
+  startDate: Date;
+  endDate: Date;
+  qualifier: PartnerQualifierSchema[];
 }

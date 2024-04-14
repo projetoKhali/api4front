@@ -4,7 +4,7 @@
       <BarChart :chartData="barChartData" />
     </div>
     <div class="chart-wrapper">
-      <PieChart :chartData="pieChartData"/>
+      <PieChart :chartData="pieChartData" />
     </div>
   </div>
 </template>
@@ -14,16 +14,16 @@ import BarChart from '../components/charts/BarChart.vue';
 import PieChart from '../components/charts/PieChart.vue';
 
 const barChartData = {
-  "Cloud Sell": 65,
-  "Cloud Build": 59,
-  "Cloud 2": 75,
-  "Cloud 4": 100,
+  'Cloud Sell': 65,
+  'Cloud Build': 59,
+  'Cloud 2': 75,
+  'Cloud 4': 100,
 };
 
 const pieChartData = {
-  "Finaizados": 20,
-  "Em progresso": 12,
-  "Não iniciou": 5,
+  'Finaizados': 20,
+  'Em progresso': 12,
+  'Não iniciou': 5,
 };
 </script>
 

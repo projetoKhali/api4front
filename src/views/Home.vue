@@ -16,7 +16,6 @@ export default {
   display: flex;
   justify-content: center;
   gap: 0.5em;
-
 }
 a {
   align-items: baseline;

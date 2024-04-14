@@ -1,5 +1,5 @@
-export interface TrackPartnerExpertiseSchema{
-    name: String,
-    startDate: Date,
-    endDate: Date
+export interface TrackPartnerExpertiseSchema {
+  name: string;
+  startDate: Date;
+  endDate: Date;
 }

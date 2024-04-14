@@ -1,3 +1,3 @@
-export interface TrackQualifierSchema{
-    name: String
+export interface TrackQualifierSchema {
+  name: string;
 }

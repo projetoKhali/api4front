@@ -14,9 +14,9 @@ import {
   CategoryScale,
   LinearScale,
   ChartOptions,
-} from "chart.js";
-import { Bar } from "vue-chartjs";
-import { reactive } from "vue";
+} from 'chart.js';
+import { Bar } from 'vue-chartjs';
+import { reactive } from 'vue';
 
 ChartJS.register(
   CategoryScale,
@@ -24,7 +24,7 @@ ChartJS.register(
   BarElement,
   Title,
   Tooltip,
-  Legend
+  Legend,
 );
 
 export interface ChartData {
@@ -40,7 +40,7 @@ export interface ChartData {
 
 const props = defineProps<{
   chartData: Record<string, number>;
-}>()
+}>();
 
 const chartOptions: ChartOptions<'bar'> = reactive({
   maintainAspectRatio: false,
@@ -55,7 +55,7 @@ const chartOptions: ChartOptions<'bar'> = reactive({
       ticks: {
         display: true,
       },
-      barThickness:'flex',
+      barThickness: 'flex',
       grid: {
         display: false,
       },
@@ -63,10 +63,10 @@ const chartOptions: ChartOptions<'bar'> = reactive({
   },
   plugins: {
     legend: {
-      display: false
+      display: false,
     },
     tooltip: {
-      enabled: true
+      enabled: true,
     },
     title: {
       display: true,
@@ -74,12 +74,12 @@ const chartOptions: ChartOptions<'bar'> = reactive({
       color: 'black',
       font: {
         size: 18,
-        weight: 'bold'
+        weight: 'bold',
       },
       padding: {
         top: 20,
-        bottom: 10
-      }
+        bottom: 10,
+      },
     },
     datalabels: {
       display: true,
@@ -87,29 +87,31 @@ const chartOptions: ChartOptions<'bar'> = reactive({
       align: 'end',
       anchor: 'end',
       formatter: (value: any) => {
-        return value + "%";
+        return value + '%';
       },
       font: {
         size: 12,
-        weight: 'bold'
-      }
-    }
-  }
+        weight: 'bold',
+      },
+    },
+  },
 });
 
 const defaultDatasetOptions = {
-  backgroundColor: "rgba(148,223,74,1.00)",
-  borderColor: "rgba(148,223,74,1.00)",
+  backgroundColor: 'rgba(148,223,74,1.00)',
+  borderColor: 'rgba(148,223,74,1.00)',
   borderWidth: 2,
 };
 
 const chartData: ChartData = reactive({
-  labels: Object.keys(props.chartData), 
-  datasets: [{
-    label: "Progresso",
-    data: Object.values(props.chartData),
-    ...defaultDatasetOptions,
-  }],
+  labels: Object.keys(props.chartData),
+  datasets: [
+    {
+      label: 'Progresso',
+      data: Object.values(props.chartData),
+      ...defaultDatasetOptions,
+    },
+  ],
 });
 </script>
 

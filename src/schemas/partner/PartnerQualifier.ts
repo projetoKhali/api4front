@@ -1,4 +1,4 @@
-export interface PartnerQualifierSchema{
-    name: String,
-    completed: boolean
+export interface PartnerQualifierSchema {
+  name: string;
+  completed: boolean;
 }

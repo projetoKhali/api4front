@@ -1,10 +1,10 @@
-import { TrackPartnerExpertiseSchema } from "./TrackPartnerExpertise";
-import { TrackPartnerQualifierSchema } from "./TrackPartnerQualifier";
+import { TrackPartnerExpertiseSchema } from './TrackPartnerExpertise';
+import { TrackPartnerQualifierSchema } from './TrackPartnerQualifier';
 
-export interface TrackPartnerSchema{
-    name: String,
-    location: String,
-    startDate: Date,
-    expertises: TrackPartnerExpertiseSchema[],
-    qualifiers: TrackPartnerQualifierSchema[]
+export interface TrackPartnerSchema {
+  name: string;
+  location: string;
+  startDate: Date;
+  expertises: TrackPartnerExpertiseSchema[];
+  qualifiers: TrackPartnerQualifierSchema[];
 }

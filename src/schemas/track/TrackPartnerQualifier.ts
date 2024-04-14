@@ -1,5 +1,5 @@
-export interface TrackPartnerQualifierSchema{
-    name: String,
-    startDate: Date,
-    endDate: Date
+export interface TrackPartnerQualifierSchema {
+  name: string;
+  startDate: Date;
+  endDate: Date;
 }

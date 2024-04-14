@@ -5,9 +5,9 @@
 </template>
 
 <script setup lang="ts">
-import { Chart as ChartJS, Title, Tooltip, Legend, ArcElement } from "chart.js";
-import { Pie } from "vue-chartjs";
-import { reactive, defineProps, watch } from "vue";
+import { Chart as ChartJS, Title, Tooltip, Legend, ArcElement } from 'chart.js';
+import { Pie } from 'vue-chartjs';
+import { reactive, defineProps, watch } from 'vue';
 
 ChartJS.register(ArcElement, Title, Tooltip, Legend);
 
@@ -64,16 +64,21 @@ function getRandomColor() {
   return colors[Math.floor(Math.random() * colors.length)];
 }
 
-watch(() => props.chartData, (newValue) => {
-  chartData = {
-    labels: Object.keys(newValue),
-    datasets: [{
-      label: 'Expertises',
-      data: Object.values(newValue),
-      backgroundColor: Object.keys(newValue).map(() => getRandomColor()),
-    }]
-  };
-});
+watch(
+  () => props.chartData,
+  newValue => {
+    chartData = {
+      labels: Object.keys(newValue),
+      datasets: [
+        {
+          label: 'Expertises',
+          data: Object.values(newValue),
+          backgroundColor: Object.keys(newValue).map(() => getRandomColor()),
+        },
+      ],
+    };
+  },
+);
 </script>
 
 <style scoped>

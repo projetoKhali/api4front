@@ -1,58 +1,58 @@
 <script setup lang="ts">
-import { defineProps } from 'vue'
+import { defineProps } from 'vue';
 
 const props = defineProps({
-    title: String,
-    number: Number
-})
-
+  title: String,
+  number: Number,
+});
 </script>
 
 <template>
-
-    <div class="count-card">
-        <h3 class="title-card">{{ title }}</h3>
-        <h1 class="number-card">{{ number }}</h1>
-    </div>
+  <div class="count-card">
+    <h3 class="title-card">{{ title }}</h3>
+    <h1 class="number-card">{{ number }}</h1>
+  </div>
 </template>
 
 <style scoped>
 .count-card {
-    display: flex;
-    flex-direction: column;
-    gap: 7;
+  display: flex;
+  flex-direction: column;
+  gap: 7;
 
-    width: 253px;
-    height: 137px;
-    border-radius: 9px;
+  width: 253px;
+  height: 137px;
+  border-radius: 9px;
 
-    background-color: #ffffff;
-    box-shadow: 0 5px 0 0 rgba(0, 0, 0, 0.1);
-    border: 3px solid transparent;
-    transition: border-color 0.3s, transform 0.3s;
+  background-color: #ffffff;
+  box-shadow: 0 5px 0 0 rgba(0, 0, 0, 0.1);
+  border: 3px solid transparent;
+  transition:
+    border-color 0.3s,
+    transform 0.3s;
 }
 
-.count-card:hover{
-    transform: scale(1.05);
+.count-card:hover {
+  transform: scale(1.05);
 }
 
 .title-card {
-    margin: 22px 0 0 0;
+  margin: 22px 0 0 0;
 
-    font-family: "Inter", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 400;
-    font-variation-settings: "slnt" 0;
-    color: #000;
+  font-family: 'Inter', sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-variation-settings: 'slnt' 0;
+  color: #000;
 }
 
 .number-card {
-    margin: 0px 0px 26px 0px;
-    
-    font-family: "Inter", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 400;
-    font-variation-settings: "slnt" 0;
-    color: #000;
+  margin: 0px 0px 26px 0px;
+
+  font-family: 'Inter', sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-variation-settings: 'slnt' 0;
+  color: #000;
 }
 </style>

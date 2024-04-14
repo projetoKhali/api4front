@@ -1,8 +1,10 @@
 <template>
   <div class="dashboard-container">
     <div class="chart-container">
-      <div class="statcircle-container"> 
-        <StatCircle :percentage="calcularPorcentagemTotalFinalizadas(parceiros)" />
+      <div class="statcircle-container">
+        <StatCircle
+          :percentage="calcularPorcentagemTotalFinalizadas(parceiros)"
+        />
       </div>
       <div class="barchart-container">
         <BarChart :chartData="formattedBarChartData" />
@@ -33,8 +35,6 @@ const formattedBarChartData = ref<{ [key: string]: number }>({});
 const formattedPieChartData = ref<{ [key: string]: number }>({});
 const tracksData = ref<{ [key: string]: { [key: string]: number } }>({});
 
-
-
 onMounted(async () => {
   try {
     // const url = 'URL_DO_SEU_ENDPOINT_2';
@@ -60,7 +60,9 @@ const calcularPorcentagemFinalizadas = (parceiroData: PartnerSchema[]) => {
 
   parceiroData.forEach(parceiro => {
     parceiro.tracks.forEach(track => {
-      const expertisesFinalizadas = track.expertises.filter(expertise => expertise.endDate !== null).length;
+      const expertisesFinalizadas = track.expertises.filter(
+        expertise => expertise.endDate !== null,
+      ).length;
       const totalExpertises = track.expertises.length;
       const porcentagem = (expertisesFinalizadas / totalExpertises) * 100 || 0;
       data[track.name] = porcentagem;
@@ -85,7 +87,8 @@ const calcularPorcentagemTotalFinalizadas = (parceiroData: PartnerSchema[]) => {
     });
   });
 
-  const porcentagem = totalExpertises > 0 ? (expertisesFinalizadas / totalExpertises) * 100 : 0;
+  const porcentagem =
+    totalExpertises > 0 ? (expertisesFinalizadas / totalExpertises) * 100 : 0;
   console.log('Porcentagem de expertises concluídas:', porcentagem);
 
   return porcentagem;
@@ -93,20 +96,23 @@ const calcularPorcentagemTotalFinalizadas = (parceiroData: PartnerSchema[]) => {
 
 const calcularEstadoExpertises = (parceiroData: PartnerSchema[]) => {
   const data: { [key: string]: number } = {
-    "Finalizados": 0,
-    "Em progresso": 0,
-    "Não iniciou": 0,
+    'Finalizados': 0,
+    'Em progresso': 0,
+    'Não iniciou': 0,
   };
 
   parceiroData.forEach(parceiro => {
     parceiro.tracks.forEach(track => {
       track.expertises.forEach(expertise => {
         if (expertise.endDate) {
-          data["Finalizados"]++;
-        } else if (expertise.qualifier && expertise.qualifier.some(qualifier => qualifier.endDate)) {
-          data["Em progresso"]++;
+          data['Finalizados']++;
+        } else if (
+          expertise.qualifier &&
+          expertise.qualifier.some(qualifier => qualifier.endDate)
+        ) {
+          data['Em progresso']++;
         } else {
-          data["Não iniciou"]++;
+          data['Não iniciou']++;
         }
       });
     });
@@ -124,8 +130,13 @@ const formatarTracksData = (parceiroData: PartnerSchema[]) => {
 
       track.expertises.forEach(expertise => {
         const totalQualifiers = expertise.qualifier.length;
-        const qualifiersConcluidos = expertise.qualifier.filter(qualifier => qualifier.endDate !== null).length;
-        const progress = totalQualifiers > 0 ? (qualifiersConcluidos / totalQualifiers) * 100 : 0;
+        const qualifiersConcluidos = expertise.qualifier.filter(
+          qualifier => qualifier.endDate !== null,
+        ).length;
+        const progress =
+          totalQualifiers > 0
+            ? (qualifiersConcluidos / totalQualifiers) * 100
+            : 0;
         trackProgress[expertise.name] = progress;
       });
 
@@ -135,20 +146,19 @@ const formatarTracksData = (parceiroData: PartnerSchema[]) => {
 
   tracksData.value = formattedData;
 };
-
 </script>
 
 <style scoped>
 .dashboard-container {
   display: flex;
-  flex-wrap: wrap; 
+  flex-wrap: wrap;
 }
 
 .chart-container {
-  display: flex; 
-  align-items: center; 
-  height: 140px; 
-  gap: 20px; 
+  display: flex;
+  align-items: center;
+  height: 140px;
+  gap: 20px;
 }
 
 .statcircle-container,
@@ -156,13 +166,13 @@ const formatarTracksData = (parceiroData: PartnerSchema[]) => {
 }
 
 .progressbar-container {
-  flex: 0.7; 
-  height: 80px; 
+  flex: 0.7;
+  height: 80px;
 }
 
 .piechart-container {
-  flex: 1.4; 
-  height: 140px; 
+  flex: 1.4;
+  height: 140px;
   padding-top: 20px;
 }
 </style>

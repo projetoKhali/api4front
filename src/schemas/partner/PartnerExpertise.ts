@@ -1,4 +1,4 @@
-interface PartnerExpertiseSchema{
+export interface PartnerExpertiseSchema{
     name: String,
     startDate: Date,
     endDate: Date,

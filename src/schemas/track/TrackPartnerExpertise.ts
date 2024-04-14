@@ -1,4 +1,4 @@
-interface TrackPartnerExpertiseSchema{
+export interface TrackPartnerExpertiseSchema{
     name: String,
     startDate: Date,
     endDate: Date

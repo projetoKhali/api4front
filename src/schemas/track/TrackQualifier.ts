@@ -1,3 +1,3 @@
-interface TrackQualifierSchema{
+export interface TrackQualifierSchema{
     name: String
 }

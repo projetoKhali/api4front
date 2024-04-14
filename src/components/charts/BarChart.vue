@@ -27,7 +27,7 @@ ChartJS.register(
   Legend
 );
 
-interface ChartData {
+export interface ChartData {
   labels: string[];
   datasets: {
     label: string;

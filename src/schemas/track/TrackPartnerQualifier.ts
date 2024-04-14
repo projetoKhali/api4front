@@ -1,4 +1,4 @@
-interface TrackPartnerQualifierSchema{
+export interface TrackPartnerQualifierSchema{
     name: String,
     startDate: Date,
     endDate: Date

@@ -4,11 +4,6 @@ import TrackDashboard from '../views/TrackDashboard.vue';
 
 const routes = [
   {
-    path: '/',
-    name: 'Home',
-    component: () => {},
-  },
-  {
     path: '/partner',
     name: 'Partner',
     component: PartnerDashboard,

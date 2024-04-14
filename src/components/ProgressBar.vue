@@ -1,40 +1,16 @@
 <template>
   <div id="progressbar">
-    <div class="labeltrack">Cloud Build</div>
+    <div v-for="(trackData, trackName) in tracks" :key="trackName" class="track-wrapper">
+      <div class="labeltrack">{{ trackName }}</div>
 
-    <div class="wrapper">
-      <div class="container">
-        <div class="toplabel">Powered by Oracle Cloud</div>
-        <div class="bar-wrapper">
-          <div class="shell">
-            <div class="bar" :style="{ width: progress + '%' }">
-              <span>{{ progress }}%</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="wrapper">
-      <div class="container">
-        <div class="label1">Oracle Cloud Marketplace</div>
-        <div class="bar-wrapper">
-          <div class="shell">
-            <div class="bar" :style="{ width: progress2 + '%' }">
-              <span>{{ progress2 }}%</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="wrapper">
-      <div class="container">
-        <div class="label2">Public Support for Oracle Cloud</div>
-        <div class="bar-wrapper">
-          <div class="shell">
-            <div class="bar" :style="{ width: progress3 + '%' }">
-              <span>{{ progress3 }}%</span>
+      <div v-for="(progress, expertiseName) in trackData" :key="expertiseName" class="wrapper">
+        <div class="container">
+          <div class="toplabel">{{ expertiseName }}</div>
+          <div class="bar-wrapper">
+            <div class="shell">
+              <div class="bar" :style="{ width: progress + '%' }">
+                <span>{{ progress }}%</span>
+              </div>
             </div>
           </div>
         </div>
@@ -45,18 +21,13 @@
 
 <script>
 export default {
-  data() {
-    return {
-      progress: 50, // Primeiro valor inicial de progresso
-      progress2: 30, // Segundo valor inicial de progresso
-      progress3: 70 // Terceiro valor inicial de progresso
-    };
-  }
+  props: {
+    tracks: Object,
+  },
 };
 </script>
 
 <style scoped>
-
 #progressbar {
   display: flex;
   flex-direction: column;
@@ -69,6 +40,10 @@ export default {
   box-shadow: 0 5px 0 0 rgba(0, 0, 0, 0.1);
   border-radius: 5px;
   transition: border-color 0.3s, transform 0.3s;
+}
+
+.track-wrapper {
+  margin-bottom: 20px;
 }
 
 .wrapper {
@@ -90,21 +65,6 @@ export default {
   color: #333;
   font-weight: semi-bold;
   padding-right: 10px;
-}
-
-.label1 {
-  display: flex;
-  margin-right: 1px; 
-  color: #333;
-  font-size: 1em;
-  padding-right: 50px;
-}
-
-.label2 {
-  display: flex;
-  margin-right: 10px; 
-  color: #333;
-  font-size: 1em;
 }
 
 .bar-wrapper {
@@ -134,14 +94,9 @@ export default {
   font-size: 0.7em;
 }
 
-.shell {
-  margin-bottom: 20px;
-}
-
-.container {  /* Maintain Flexbox styles */
+.container {
   display: flex;
   justify-content: space-between; /* Adjust as needed */
-  align-items: center; /* Adjust as needed */
+  align-items: center;
 }
-
 </style>

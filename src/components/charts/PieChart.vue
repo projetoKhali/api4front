@@ -1,4 +1,3 @@
-<!-- PieChart.vue -->
 <template>
   <div class="chart-container">
     <Pie :data="chartData" />
@@ -8,7 +7,7 @@
 <script setup lang="ts">
 import { Chart as ChartJS, Title, Tooltip, Legend, ArcElement } from "chart.js";
 import { Pie } from "vue-chartjs";
-import { reactive, defineProps } from "vue";
+import { reactive, defineProps, watch } from "vue";
 
 ChartJS.register(ArcElement, Title, Tooltip, Legend);
 
@@ -26,7 +25,7 @@ const chartOptions = reactive({
     },
     title: {
       display: true,
-      text: 'Avanço das Expertises por Status',
+      text: props.title || 'Avanço das Expertises por Status',
       color: 'black',
       font: {
         size: 18,
@@ -47,7 +46,7 @@ const chartOptions = reactive({
   },
 });
 
-const chartData = reactive({
+let chartData = reactive({
   labels: Object.keys(props.chartData),
   datasets: [{
     label: 'Expertises',
@@ -62,12 +61,23 @@ function getRandomColor() {
   const colors = Math.random() < 0.5 ? greenTones : purpleTones;
   return colors[Math.floor(Math.random() * colors.length)];
 }
+
+watch(() => props.chartData, (newValue) => {
+  chartData = {
+    labels: Object.keys(newValue),
+    datasets: [{
+      label: 'Expertises',
+      data: Object.values(newValue),
+      backgroundColor: Object.keys(newValue).map(() => getRandomColor()),
+    }]
+  };
+});
 </script>
 
 <style scoped>
 .chart-container {
-  border-radius: 10px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  box-shadow: 0px 5px 0 0 rgba(0, 0, 0, 0.1);
   padding: 20px;
   width: 300px;
   height: 300px;

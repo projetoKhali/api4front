@@ -1,4 +1,4 @@
 interface PartnerTrackSchema{
-    name: String,
+    name: string,
     expertises: PartnerExpertiseSchema[]
 }

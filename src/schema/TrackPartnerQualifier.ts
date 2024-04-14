@@ -1,5 +1,5 @@
 interface TrackPartnerQualifierSchema{
-    name: String,
+    name: string,
     startDate: Date,
     endDate: Date
 }

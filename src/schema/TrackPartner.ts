@@ -1,6 +1,6 @@
 interface TrackPartnerSchema{
-    name: String,
-    location: String,
+    name: string,
+    location: string,
     startDate: Date,
     expertises: TrackPartnerExpertiseSchema[],
     qualifiers: TrackPartnerQualifierSchema[]

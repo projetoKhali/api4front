@@ -16,7 +16,7 @@ import {
   ChartOptions,
 } from "chart.js";
 import { Bar } from "vue-chartjs";
-import { reactive } from "vue";
+import { reactive, watch } from "vue";
 
 ChartJS.register(
   CategoryScale,
@@ -103,7 +103,7 @@ const defaultDatasetOptions = {
   borderWidth: 2,
 };
 
-const chartData: ChartData = reactive({
+let chartData: ChartData = reactive({
   labels: Object.keys(props.chartData), 
   datasets: [{
     label: "Progresso",
@@ -111,12 +111,23 @@ const chartData: ChartData = reactive({
     ...defaultDatasetOptions,
   }],
 });
+
+watch(() => props.chartData, (newValue) => {
+  chartData = {
+    labels: Object.keys(newValue), 
+    datasets: [{
+      label: "Progresso",
+      data: Object.values(newValue),
+      ...defaultDatasetOptions,
+    }],
+  };
+});
 </script>
 
 <style scoped>
 .chart-container {
-  border-radius: 10px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  box-shadow: 0px 5px 0 0 rgba(0, 0, 0, 0.1);
   padding: 20px;
   width: 300px;
   height: 300px;

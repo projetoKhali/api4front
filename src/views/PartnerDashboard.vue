@@ -1,15 +1,17 @@
 <template>
   <div class="dashboard-container">
-    <div> 
-      <StatCircle :percentage="calcularPorcentagemTotalFinalizadas(parceiros)" />
+    <div class="chart-container">
+      <div class="statcircle-container"> 
+        <StatCircle :percentage="calcularPorcentagemTotalFinalizadas(parceiros)" />
+      </div>
+      <div class="barchart-container">
+        <BarChart :chartData="formattedBarChartData" />
+      </div>
     </div>
-    <div class="chart-wrapper">
-      <BarChart :chartData="formattedBarChartData" />
-    </div>
-    <div>
+    <div class="progressbar-container">
       <ProgressBar :tracks="tracksData" />
     </div>
-    <div class="chart-wrapper">
+    <div class="piechart-container">
       <PieChart :chartData="formattedPieChartData" />
     </div>
   </div>
@@ -262,11 +264,28 @@ const calcularEstadoExpertises = (parceiroData: ParceiroData) => {
 <style scoped>
 .dashboard-container {
   display: flex;
-  justify-content: space-between;
-  padding: 20px;
+  flex-wrap: wrap; 
 }
 
-.chart-wrapper {
-  flex: 1;
+.chart-container {
+  display: flex; 
+  align-items: center; 
+  height: 140px; 
+  gap: 20px; 
+}
+
+.statcircle-container,
+.barchart-container {
+}
+
+.progressbar-container {
+  flex: 0.7; 
+  height: 80px; 
+}
+
+.piechart-container {
+  flex: 1.4; 
+  height: 140px; 
+  padding-top: 20px;
 }
 </style>

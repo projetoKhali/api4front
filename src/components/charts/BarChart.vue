@@ -126,8 +126,8 @@ watch(() => props.chartData, (newValue) => {
 
 <style scoped>
 .chart-container {
-  border-radius: 10px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  box-shadow: 0px 5px 0 0 rgba(0, 0, 0, 0.1);
   padding: 20px;
   width: 300px;
   height: 300px;

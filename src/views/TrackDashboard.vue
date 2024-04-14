@@ -1,21 +1,23 @@
 <template>
-    <div class="dashboard-container">
-      <div class="cards">
-        <CountCard title="Total de parceiros" :number="150"/>
-        <CountCard title="Total de expertises" :number="150"/>
-        <CountCard title="Total de qualificadores" :number="150"/>
-      </div>
-      <div class="chart-wrapper">
+  <div class="dashboard-container">
+    <div class="cards">
+      <CountCard title="Total de parceiros" :number="150"/>
+      <CountCard title="Total de expertises" :number="150"/>
+      <CountCard title="Total de qualificadores" :number="150"/>
+    </div>
+    <div class="chart-wrapper">
+      <div class="piechart-container">
         <PieChart :chartData="formattedPieChartData" />
       </div>
-      <div> 
+      <div class="progressbar-container">
         <ProgressBar :tracks="tracksData" />
       </div>
-      <div>
-        <Table :head="tableHead" :body="tableBody" />
-      </div>
     </div>
-  </template>
+    <div class-="table-container">
+      <Table :head="tableHead" :body="tableBody" />
+    </div>
+  </div>
+</template>
   
   <script setup lang="ts">
   import { ref, onMounted } from 'vue';
@@ -261,15 +263,28 @@ const tableBody = [
   <style scoped>
   .dashboard-container {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     padding: 20px;
   }
-  
-  .chart-wrapper {
-    flex: 1;
+
+  .table-container {
+    height: 5px;
   }
+  .piechart-container {
+    height: 20px;
+  }
+
   .cards {
-   display: flex;
-   gap: 10px;
+    display: flex;
+    gap: 10px;
   }
-  </style>
+
+  .chart-wrapper {
+    display: flex;
+    gap: 20px;
+  }
+
+  .chart-wrapper > div {
+    flex: 1; /* Each chart takes equal width */
+  }
+</style>

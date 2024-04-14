@@ -13,7 +13,7 @@
         <PieChart :chartData="formattedPieChartData" />
       </div>
       <div class="progressbar-container">
-        <ProgressBar :tracks="tracksData" />
+        <ProgressBar :tracks="progressBarData" />
       </div>
     </div>
     <div>

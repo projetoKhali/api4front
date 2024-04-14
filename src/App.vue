@@ -1,17 +1,16 @@
+<script setup lang="ts">
+import Example from './views/Example.vue';
+import NavBar from './components/NavBar.vue';
+import './styles.css'
+</script>
+
 <template>
-  <div>
-    <BarChart :chartData="data" />
-  </div>
+  <NavBar />
+  <router-view />
 </template>
 
-<script setup lang="ts">
-import BarChart from './components/charts/BarChart.vue';
-
-const data = {
-  "Cloud Sell": 65,
-  "Cloud Build": 59,
-  "Cloud 2": 75,
-  "Cloud 4": 100,
+<script lang="ts">
+export default {
+  name: 'App',
 };
-
 </script>

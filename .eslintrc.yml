@@ -1,0 +1,88 @@
+---
+env:
+  es2021: true
+  node: true
+  jest: true
+extends:
+  - eslint:recommended
+  - plugin:@typescript-eslint/recommended
+  - prettier
+parser: '@typescript-eslint/parser'
+parserOptions:
+  extraFileExtensions:
+    - .vue
+  ecmaVersion: latest
+  sourceType: module
+  project: ./tsconfig.json
+plugins:
+  - '@typescript-eslint'
+rules:
+  # Enforce 2-space indentation
+  indent:
+    - error
+    - 2
+
+  # Enforce consistent line breaks
+  linebreak-style:
+    - 'error'
+    - 'unix'
+
+  # Enforce single quotes for strings
+  quotes: ['error', 'single']
+
+  # Enforce semicolon usage
+  semi: ['error', 'always']
+
+  # Require the use of === and !==
+  eqeqeq: 'error'
+
+  # Remove whitespace after line content
+  no-trailing-spaces: 'error'
+
+  # Prevent 2+ empty lines in sequence
+  no-multiple-empty-lines: ['error', { 'max': 1 }]
+
+  # Enforce camel case for variable names
+  camelcase: ['error', { 'properties': 'always' }]
+
+  # Disallow irregular whitespaces
+  # (such as non-breaking spaces or Unicode special characters)
+  no-irregular-whitespace: 'error'
+
+  # Encourage the use of `let` or `const` over `var` for variable declarations
+  no-var: 'error'
+
+  # Encourage using `const` for variables that are not reassigned
+  prefer-const: 'error'
+
+  # Encourage using early return statements to increase code readability
+  no-else-return: 'error'
+
+  # Enforce a specific style for arrow function bodies
+  arrow-body-style: ['error', 'as-needed']
+
+  # Discourage the use of "magic numbers"
+  # (hard-coded numbers without explanation)
+  no-magic-numbers:
+    - 'error'
+    - 'ignore':
+        - -1
+        - 0
+        - 1
+      'enforceConst': true
+
+  # Detect and disallow unnecessary `return` statements
+  no-useless-return: 'error'
+
+  # Require space after `,`
+  comma-spacing: ['error', { 'before': false, 'after': true }]
+
+  # Require space after `:`
+  key-spacing: ['error', { 'beforeColon': false, 'afterColon': true }]
+
+  # Require spaces around `=>`
+  arrow-spacing: ['error', { 'before': true, 'after': true }]
+
+  # Ensure spaces around infix operators
+  # such as `=`, `+=`, `-=`, `/=`, `*=`, `!=`, `==`, `===`, `!==`, `>=` and `<=`
+  space-infix-ops: ['error', { 'int32Hint': true }]

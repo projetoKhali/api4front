@@ -2,9 +2,9 @@ import axios from 'axios';
 import { TrackSchema } from '../schema/Track';
 
 export default {
-  async getDataFromEndpoint1(): Promise<TrackSchema[]> {
+  async getDataFromEndpoint1(url: string): Promise<TrackSchema[]> {
     try {
-      const response = await axios.get<any[]>('URL_DO_SEU_ENDPOINT_1');
+      const response = await axios.get<any[]>(url);
       const tracks: TrackSchema[] = response.data.map((item: any) => ({
         name: item.name,
         expertises: item.expertises.map((expertiseItem: any) => ({
@@ -31,7 +31,7 @@ export default {
       }));
       return tracks;
     } catch (error) {
-      console.error('Erro ao obter dados do endpoint 1:', error);
+      console.error('Erro ao obter dados das Tracks:', error);
       throw error;
     }
   }

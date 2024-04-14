@@ -1,10 +1,10 @@
 import axios from 'axios';
-import { PartnerSchema } from '../schemas/Partner';
+import { PartnerSchema } from '../schema/Partner';
 
 export default {
-  async getDataFromEndpoint2(): Promise<PartnerSchema[]> {
+  async getDataFromEndpoint2(url: string): Promise<PartnerSchema[]> {
     try {
-      const response = await axios.get<any[]>('URL_DO_SEU_ENDPOINT_2');
+      const response = await axios.get<any[]>(url);
       const partners: PartnerSchema[] = response.data.map((item: any) => ({
         name: item.name,
         location: item.location,
@@ -24,7 +24,7 @@ export default {
       }));
       return partners;
     } catch (error) {
-      console.error('Erro ao obter dados do endpoint 2:', error);
+      console.error('Erro ao obter dados do Parceiro:', error);
       throw error;
     }
   }

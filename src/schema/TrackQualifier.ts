@@ -1,3 +1,3 @@
 interface TrackQualifierSchema{
-    name: String
+    name: string
 }

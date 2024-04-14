@@ -1,5 +1,5 @@
 export interface PartnerSchema{
-    name: String,
-    location: String,
+    name: string,
+    location: string,
     tracks: PartnerTrackSchema[]
 }

@@ -1,5 +1,5 @@
 export interface TrackSchema{
-    name: String,
+    name: string,
     expertises: TrackExpertiseSchema[],
     partners: TrackPartnerSchema[]
 }

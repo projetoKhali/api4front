@@ -1,5 +1,5 @@
 interface TrackPartnerExpertiseSchema{
-    name: String,
+    name: string,
     startDate: Date,
     endDate: Date
 }

@@ -3,7 +3,7 @@
     <div class="chart-container">
       <div class="statcircle-container">
         <StatCircle
-          :percentage="calcularPorcentagemTotalFinalizadas(parceiros)"
+          :percentage="calcularPorcentagemTotalFinalizadas(partner)"
         />
       </div>
       <div class="barchart-container">

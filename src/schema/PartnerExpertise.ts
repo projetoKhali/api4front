@@ -1,5 +1,5 @@
 interface PartnerExpertiseSchema{
-    name: String,
+    name: string,
     startDate: Date,
     endDate: Date,
     qualifier: PartnerQualifierSchema[]

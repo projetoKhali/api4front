@@ -1,4 +1,4 @@
 interface TrackExpertiseSchema{
-    name: String,
+    name: string,
     qualifier: TrackQualifierSchema[]
 }

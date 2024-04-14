@@ -1,9 +1,9 @@
 <template>
   <div class="dashboard-container">
     <div class="cards">
-      <CountCard title="Total de parceiros" :number="150"/>
-      <CountCard title="Total de expertises" :number="150"/>
-      <CountCard title="Total de qualificadores" :number="150"/>
+      <CountCard title="Total de parceiros" :number="totalParceiros" />
+      <CountCard title="Total de expertises" :number="totalExpertises" />
+      <CountCard title="Total de qualificadores" :number="totalQualificadores" />
     </div>
     <div class="chart-wrapper">
       <div class="piechart-container">
@@ -13,257 +13,219 @@
         <ProgressBar :tracks="tracksData" />
       </div>
     </div>
-    <div class-="table-container">
-      <Table :head="tableHead" :body="tableBody" />
+    <div>
+      <h2>Tabela de Expertises</h2>
+      <Table :head="tableHeadExpertises" :body="tableBodyExpertises" />
+    </div>
+    <div>
+      <h2>Tabela de Qualificadores</h2>
+      <Table :head="tableHeadQualificadores" :body="tableBodyQualificadores" />
     </div>
   </div>
 </template>
-  
-  <script setup lang="ts">
-  import { ref, onMounted } from 'vue';
-  import PieChart from '../components/charts/PieChart.vue';
-  import CountCard from '../components/CountCard.vue';
-  import ProgressBar from '../components/ProgressBar.vue';
-  import Table from '../components/Table.vue';
-  
-  interface Qualifier {
-    name: string;
-    description: string;
-    startDate: string;
-    endDate: string | null;
-  }
-  
-  interface Expertise {
-    name: string;
-    description: string;
-    qualifiers: Qualifier[];
-  }
-  
-  interface Partner {
-  name: string;
-  startDate: string;
-  location: string;
-  expertises: Expertise[];
-  qualifiers: Qualifier[];
-}
 
-  interface Track {
-    name: string;
-    description: string;
-    expertises: Expertise[];
-  }
-  
-  interface ParceiroData {
-    tracks: Track[];
-    partners: Partner[];
-  }
-  
-  const parceiros = ref<ParceiroData>({
-    tracks: [],
-    partners: [],
-  });
-  
-  const pieChartData = ref<{
-    [key: string]: number;
-  }>({});
-  
-  const formattedPieChartData = ref<{
-    [key: string]: number;
-  }>({});
+<script setup lang="ts">
+import { ref, onMounted } from 'vue';
+import PieChart from '../components/charts/PieChart.vue';
+import CountCard from '../components/CountCard.vue';
+import ProgressBar from '../components/ProgressBar.vue';
+import Table from '../components/Table.vue';
+import { getDataMocked } from '../service/TrackService';
+import { TrackSchema } from '../schema/Track';
 
-  const tracksData = {
-  'Build': {
-    'OCL': 20,
-    'OGG': 40,
-    'AAA': 10,
-    'DEE': 50,
-    'AAAa': 10,
-    'DEEa': 50
-  }
-};
+const track = ref<TrackSchema[]>([]);
+const progressBarData = ref<{ [key: string]: { [key: string]: number } }>({});
+const formattedPieChartData = ref<{ [key: string]: number }>({});
+const tableHeadExpertises = ['Expertise', 'Número de Parceiros', 'Tempo Médio de Conclusão'];
+const tableBodyExpertises = ref<Array<[string, number, number]>>([]);
+const tableHeadQualificadores = ['Qualificador', 'Número de Parceiros', 'Tempo Médio de Conclusão'];
+const tableBodyQualificadores = ref<Array<[string, number, number]>>([]);
+const totalParceiros = ref(0);
+const totalExpertises = ref(0);
+const totalQualificadores = ref(0);
 
-const tableHead = ['Coluna 1', 'Coluna 2', 'Coluna 3'];
-const tableBody = [
-  ['Dado 1', 'Dado 2', 'Dado 3'],
-  ['Dado 4', 'Dado 5', 'Dado 6'],
-  ['Dado 7', 'Dado 8', 'Dado 9']
-];
-  
-  const getParceiroData = async () => {
-    try {
-      const mockParceiroData: ParceiroData = {
-          tracks: [
-            {
-              name: "Track1",
-              description: "Descrição da Track1",
-              expertises: [
-                {
-                  name: "Expertise1",
-                  description: "Descrição da Expertise1",
-                  startDate: "2023-01-01",
-                  endDate: null,
-                  qualifiers: [
-                    {
-                      name: "Qualifier1",
-                      description: "Descrição do Qualificador1",
-                      startDate: "2023-01-01",
-                      endDate: null
-                    },
-                    {
-                      name: "Qualifier2",
-                      description: "Descrição do Qualificador2",
-                      startDate: "2023-01-01",
-                      endDate: null
-                    },
-                    {
-                      name: "Qualifier3",
-                      description: "Descrição do Qualificador3",
-                      startDate: "2023-01-01",
-                      endDate: null
-                    }
-                  ]
-                },
-                {
-                  name: "Expertise2",
-                  description: "Descrição da Expertise2",
-                  startDate: "2023-01-01",
-                  endDate: null,
-                  qualifiers: []
-                }
-              ]
-            }
-          ],
-          partners: [
-            {
-              name: "Parceiro1",
-              startDate: "2023-01-01",
-              location: "São Paulo",
-              expertises: [
-                {
-                  name: "Expertise1",
-                  description: "Descrição da Expertise1",
-                  startDate: "2023-01-01",
-                  endDate: null
-                },
-                {
-                  name: "Expertise2",
-                  description: "Descrição da Expertise2",
-                  startDate: "2023-01-01",
-                  endDate: "2023-02-28"
-                }
-              ],
-              qualifiers: [
-                {
-                  name: "Qualifier1",
-                  description: "Descrição do Qualificador1",
-                  startDate: "2023-01-01",
-                  endDate: null
-                },
-                {
-                  name: "Qualifier2",
-                  description: "Descrição do Qualificador2",
-                  startDate: "2023-01-01",
-                  endDate: null
-                }
-              ]
-            },
-            {
-              name: "Parceiro2",
-              startDate: "2023-02-01",
-              location: "Rio de Janeiro",
-              expertises: [
-                {
-                  name: "Expertise3",
-                  description: "Descrição da Expertise3",
-                  startDate: "2023-02-01",
-                  endDate: null
-                },
-                {
-                  name: "Expertise4",
-                  description: "Descrição da Expertise4",
-                  startDate: "2023-02-01",
-                  endDate: "2023-03-15"
-                }
-              ],
-              qualifiers: [
-                {
-                  name: "Qualifier3",
-                  description: "Descrição do Qualificador3",
-                  startDate: "2023-02-01",
-                  endDate: null
-                }
-              ]
-            }
-          ]
-        } as unknown as ParceiroData;
-  
-      return mockParceiroData;
-    } catch (error) {
-      console.error('Erro ao obter dados do parceiro:', error);
-      throw error;
-    }
-  };
-  
-  onMounted(async () => {
-    try {
-      const parceiroData = await getParceiroData();
-      console.log('Dados dos parceiros:', parceiroData);
-  
-      pieChartData.value = calcularEstadoExpertises(parceiroData);
-      console.log('Dados do gráfico de pizza:', pieChartData.value);
-  
-      formattedPieChartData.value = pieChartData.value;
-    } catch (error) {
-      console.error('Erro ao carregar dados dos parceiros:', error);
-    }
-  });
-  
-  const calcularEstadoExpertises = (parceiroData: ParceiroData) => {
+onMounted(async () => {
+  try {
+    track.value = await getDataMocked();
+    console.log('Dados da track:', track.value);
+    
+    calcularPieChartData();
+    preencherTabelaExpertises();
+    preencherTabelaQualificadores();
+    calcularProgressBarData();
+    calcularTotais(); 
+  } catch (error) {
+    console.error('Erro ao carregar dados dos parceiros:', error);
+  }
+});
+
+const calcularPieChartData = () => {
   const data: { [key: string]: number } = {
     "Finalizadas": 0,
     "Em progresso": 0,
     "Não iniciadas": 0,
   };
 
-  const expertiseCount: { [key: string]: number } = {};
-
-  parceiroData.tracks.forEach(track => {
-    track.expertises.forEach(expertise => {
-      const expertiseName = expertise.name;
-      if (!expertiseCount[expertiseName]) {
-        expertiseCount[expertiseName] = 0;
-      }
-      expertiseCount[expertiseName]++;
-    });
-  });
-
-  parceiroData.partners.forEach(partner => {
-    partner.expertises.forEach(expertise => {
-      const expertiseName = expertise.name;
-      if (expertiseCount[expertiseName]) {
-        if (expertise.qualifiers && expertise.qualifiers.length > 0) {
-          const hasFinishedQualifier = expertise.qualifiers.some(qualifier => qualifier.endDate !== null);
-          if (hasFinishedQualifier) {
-            data["Finalizadas"] += 1;
-          } else {
-            data["Em progresso"] += 1;
-          }
+  track.value.forEach((track) => {
+    track.partners.forEach((partner) => {
+      partner.expertises.forEach((expertise) => {
+        if (expertise.endDate !== null) {
+          data["Finalizadas"]++;
+        } else if (expertise.startDate !== null) {
+          data["Em progresso"]++;
         } else {
-          data["Não iniciadas"] += 1;
+          data["Não iniciadas"]++;
         }
-        delete expertiseCount[expertiseName];
-      }
+      });
     });
   });
 
-  return data;
+  formattedPieChartData.value = data;
 };
-  </script>
-  
-  <style scoped>
+
+const preencherTabelaExpertises = () => {
+  const dadosTabela: Array<[string, number, number]> = [];
+
+  track.value.forEach((track) => {
+    track.partners.forEach((partner) => {
+      partner.expertises.forEach((expertise) => {
+        const index = dadosTabela.findIndex((item) => item[0] === expertise.name);
+        if (index === -1) {
+          dadosTabela.push([
+            expertise.name,
+            1,
+            calcularTempoMedioConclusaoExpertise(expertise.name),
+          ]);
+        } else {
+          dadosTabela[index][1]++;
+        }
+      });
+    });
+  });
+
+  tableBodyExpertises.value = dadosTabela;
+};
+
+const preencherTabelaQualificadores = () => {
+  const dadosTabela: Array<[string, number, number]> = [];
+
+  track.value.forEach((track) => {
+    track.partners.forEach((partner) => {
+      partner.qualifiers.forEach((qualifier) => {
+          const index = dadosTabela.findIndex((item) => item[0] === qualifier.name);
+          if (index === -1) {
+            dadosTabela.push([
+              qualifier.name,
+              1,
+              calcularTempoMedioConclusaoQualifier(qualifier.name),
+            ]);
+          } else {
+            dadosTabela[index][1]++;
+          }
+        });
+    });
+  });
+
+  tableBodyQualificadores.value = dadosTabela;
+};
+
+const calcularTempoMedioConclusaoExpertise = (expertiseName: string): number => {
+  let totalTempo = 0;
+  let count = 0;
+
+  track.value.forEach((track) => {
+    track.partners.forEach((partner) => {
+      partner.expertises.forEach((expertise) => {
+        if (expertise.name === expertiseName && expertise.endDate !== null) {
+          const diff = new Date(expertise.endDate).getTime() - new Date(expertise.startDate).getTime();
+          totalTempo += diff;
+          count++;
+        }
+      });
+    });
+  });
+
+  const mediaEmMilissegundos = count > 0 ? totalTempo / count : 0;
+  const mediaEmHoras = mediaEmMilissegundos / (1000 * 60 * 60);
+  return mediaEmHoras;
+};
+
+const calcularTempoMedioConclusaoQualifier = (qualifierNamne: string): number => {
+  let totalTempo = 0;
+  let count = 0;
+
+  track.value.forEach((track) => {
+    track.partners.forEach((partner) => {
+      partner.qualifiers.forEach((qualifiers) => {
+        if (qualifiers.name === qualifierNamne && qualifiers.endDate !== null) {
+          const diff = new Date(qualifiers.endDate).getTime() - new Date(qualifiers.startDate).getTime();
+          totalTempo += diff;
+          count++;
+        }
+      });
+    });
+  });
+
+  const mediaEmMilissegundos = count > 0 ? totalTempo / count : 0;
+  const mediaEmHoras = mediaEmMilissegundos / (1000 * 60 * 60);
+
+  return mediaEmHoras;
+};
+
+interface ExpertiseProgress {
+  [key: string]: number;
+}
+
+const calcularProgressBarData = () => {
+  track.value.forEach((trackItem) => {
+    const expertiseProgress: ExpertiseProgress = {};
+    trackItem.expertises.forEach((expertise) => {
+      let totalParceirosExpertise = 0;
+      let totalParceirosFinalizados = 0;
+      trackItem.partners.forEach((partner) => {
+        if (partner.expertises.some((e) => e.name === expertise.name)) {
+          totalParceirosExpertise++;
+          if (partner.expertises.find((e) => e.name === expertise.name)?.endDate !== null) {
+            totalParceirosFinalizados++;
+          }
+        }
+      });
+      const progressoMedio = totalParceirosExpertise > 0 ? (totalParceirosFinalizados / totalParceirosExpertise) * 100 : 0;
+      expertiseProgress[expertise.name] = progressoMedio;
+    });
+    progressBarData.value[trackItem.name] = expertiseProgress;
+  });
+};
+
+const calcularTotais = () => {
+  totalParceiros.value = track.value.reduce((total, trackItem) => {
+    return total + trackItem.partners.length;
+  }, 0);
+
+  totalExpertises.value = track.value.reduce((total, trackItem) => {
+      return total + trackItem.expertises.length;
+    }, 0);
+
+    const uniqueQualifiers = new Set<string>();
+
+    track.value.forEach((trackItem) => {
+      trackItem.expertises.forEach((expertise) => {
+        expertise.qualifier.forEach((qualifier) => {
+          uniqueQualifiers.add(qualifier.name); 
+        });
+      });
+    });
+
+    totalQualificadores.value = uniqueQualifiers.size;
+};
+
+</script>
+
+<style scoped>
   .dashboard-container {
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     padding: 20px;
   }
 
@@ -283,8 +245,4 @@ const tableBody = [
     display: flex;
     gap: 20px;
   }
-
-  .chart-wrapper > div {
-    flex: 1; /* Each chart takes equal width */
-  }
-</style>
+</style>  

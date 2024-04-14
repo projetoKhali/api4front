@@ -1,4 +1,5 @@
 interface PartnerQualifierSchema{
     name: String,
-    completed: boolean
+    startDate: Date,
+    endDate: Date,
 }

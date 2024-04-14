@@ -15,6 +15,7 @@
     "lint:fix": "eslint src --fix && yarn prettier -w \"src\" --config .prettierrc.yml"
   },
   "dependencies": {
+    "axios": "^1.6.8",
     "chart.js": "^4.4.2",
     "vue": "^3.4.21",
     "vue-chartjs": "^5.3.1",

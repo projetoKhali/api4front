@@ -1,6 +1,3 @@
-<script lang="ts">
-import router from '../router';
-</script>
 <template>
   <nav>
     <div :class="'oracle-logo'" />
@@ -13,6 +10,13 @@ import router from '../router';
     </ul>
   </nav>
 </template>
+
+<script lang="ts">
+import router from '../router';
+export default {
+  router,
+};
+</script>
 
 <style scoped>
 * {

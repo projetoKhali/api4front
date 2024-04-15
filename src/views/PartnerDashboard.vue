@@ -157,7 +157,6 @@ const formatarTracksData = (parceiroData: PartnerSchema[]) => {
 .chart-container {
   display: flex;
   align-items: center;
-  height: 140px;
   gap: 20px;
 }
 
@@ -172,7 +171,6 @@ const formatarTracksData = (parceiroData: PartnerSchema[]) => {
 
 .piechart-container {
   flex: 1.4;
-  height: 140px;
   padding-top: 20px;
 }
 </style>

@@ -7,7 +7,7 @@
 <script setup lang="ts">
 import { Chart as ChartJS, Title, Tooltip, Legend, ArcElement } from 'chart.js';
 import { Pie } from 'vue-chartjs';
-import { reactive, defineProps, watch } from 'vue';
+import { reactive, watch } from 'vue';
 
 ChartJS.register(ArcElement, Title, Tooltip, Legend);
 

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import Example from './views/Example.vue';
 import NavBar from './components/NavBar.vue';
-import './styles.css'
+import './styles.css';
 </script>
 
 <template>

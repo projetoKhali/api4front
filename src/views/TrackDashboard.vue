@@ -33,7 +33,7 @@ import PieChart from '../components/charts/PieChart.vue';
 import CountCard from '../components/CountCard.vue';
 import ProgressBar from '../components/ProgressBar.vue';
 import Table from '../components/Table.vue';
-import { getDataMocked } from '../service/TrackService';
+import { getDataProduct } from '../service/TrackService';
 import { TrackSchema } from '../schemas/track/Track';
 import { TrackPartnerSchema } from '../schemas/track/TrackPartner';
 
@@ -58,7 +58,7 @@ const totalQualificadores = ref(0);
 
 onMounted(async () => {
   try {
-    track.value = await getDataMocked();
+    track.value = await getDataProduct('Track 1');
     console.log('Dados da track:', track.value);
 
     calcularPieChartData();

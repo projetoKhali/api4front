@@ -91,7 +91,8 @@ export async function getDataMocked(): Promise<TrackSchema[]> {
     throw error;
   }
 }
-export async function getDataFromEndpoint1(
+
+export async function getDataProduct(
   trackName: string,
 ): Promise<TrackSchema[]> {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

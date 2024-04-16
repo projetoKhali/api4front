@@ -1,96 +1,7 @@
-import { TrackSchema } from "../schema/Track";
-import axios from "axios";
+import { TrackSchema } from '../schema/Track';
+import axios from 'axios';
 
-const API_URL: string = "http://localhost:8080";
-
-export async function getDataMocked(): Promise<TrackSchema[]> {
-  try {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const mockedData: any = {
-      name: "Track 1",
-      expertises: [
-        {
-          name: "Expertise 1",
-          qualifier: [{ name: "Qualifier 1" }, { name: "Qualifier 2" }],
-        },
-        {
-          name: "Expertise 2",
-          qualifier: [{ name: "Qualifier 3" }, { name: "Qualifier 4" }],
-        },
-        {
-          name: "Expertise 4",
-          qualifier: [{ name: "Qualifier 3" }, { name: "Qualifier 4" }],
-        },
-      ],
-      partners: [
-        {
-          name: "Partner 1",
-          location: "Location 1",
-          startDate: "2024-01-01T00:00:00.000Z",
-          expertises: [
-            {
-              name: "Expertise 1",
-              startDate: "2024-01-01T00:00:00.000Z",
-              endDate: null,
-            },
-            {
-              name: "Expertise 2",
-              startDate: "2024-01-01T00:00:00.000Z",
-              endDate: "2024-02-01T00:00:00.000Z",
-            },
-          ],
-          qualifiers: [
-            {
-              name: "Qualifier 1",
-              startDate: "2024-01-01T00:00:00.000Z",
-              endDate: "2024-01-15T00:00:00.000Z",
-            },
-            {
-              name: "Qualifier 2",
-              startDate: "2024-01-16T00:00:00.000Z",
-              endDate: null,
-            },
-          ],
-        },
-        {
-          name: "Partner 2",
-          location: "Location 2",
-          startDate: "2024-01-01T00:00:00.000Z",
-          expertises: [
-            {
-              name: "Expertise 1",
-              startDate: "2024-01-01T00:00:00.000Z",
-              endDate: "2024-02-01T00:00:00.000Z",
-            },
-            {
-              name: "Expertise 2",
-              startDate: "2024-01-01T00:00:00.000Z",
-              endDate: null,
-            },
-          ],
-          qualifiers: [
-            {
-              name: "Qualifier 3",
-              startDate: "2024-01-01T00:00:00.000Z",
-              endDate: "2024-02-01T00:00:00.000Z",
-            },
-            {
-              name: "Qualifier 4",
-              startDate: "2024-01-01T00:00:00.000Z",
-              endDate: "2024-01-15T00:00:00.000Z",
-            },
-          ],
-        },
-      ],
-    };
-
-    const Track: TrackSchema[] = [mockedData];
-    return Track;
-  } catch (error) {
-    console.error("Erro ao obter dados mockados do Parceiro:", error);
-    throw error;
-  }
-}
+const API_URL: string = 'http://localhost:8080';
 
 export async function getDataProduct(
   trackName: string,
@@ -133,4 +44,93 @@ export async function getDataProduct(
       })),
     })),
   }));
+}
+
+export async function getDataMocked(): Promise<TrackSchema[]> {
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const mockedData: any = {
+      name: 'Track 1',
+      expertises: [
+        {
+          name: 'Expertise 1',
+          qualifier: [{ name: 'Qualifier 1' }, { name: 'Qualifier 2' }],
+        },
+        {
+          name: 'Expertise 2',
+          qualifier: [{ name: 'Qualifier 3' }, { name: 'Qualifier 4' }],
+        },
+        {
+          name: 'Expertise 4',
+          qualifier: [{ name: 'Qualifier 3' }, { name: 'Qualifier 4' }],
+        },
+      ],
+      partners: [
+        {
+          name: 'Partner 1',
+          location: 'Location 1',
+          startDate: '2024-01-01T00:00:00.000Z',
+          expertises: [
+            {
+              name: 'Expertise 1',
+              startDate: '2024-01-01T00:00:00.000Z',
+              endDate: null,
+            },
+            {
+              name: 'Expertise 2',
+              startDate: '2024-01-01T00:00:00.000Z',
+              endDate: '2024-02-01T00:00:00.000Z',
+            },
+          ],
+          qualifiers: [
+            {
+              name: 'Qualifier 1',
+              startDate: '2024-01-01T00:00:00.000Z',
+              endDate: '2024-01-15T00:00:00.000Z',
+            },
+            {
+              name: 'Qualifier 2',
+              startDate: '2024-01-16T00:00:00.000Z',
+              endDate: null,
+            },
+          ],
+        },
+        {
+          name: 'Partner 2',
+          location: 'Location 2',
+          startDate: '2024-01-01T00:00:00.000Z',
+          expertises: [
+            {
+              name: 'Expertise 1',
+              startDate: '2024-01-01T00:00:00.000Z',
+              endDate: '2024-02-01T00:00:00.000Z',
+            },
+            {
+              name: 'Expertise 2',
+              startDate: '2024-01-01T00:00:00.000Z',
+              endDate: null,
+            },
+          ],
+          qualifiers: [
+            {
+              name: 'Qualifier 3',
+              startDate: '2024-01-01T00:00:00.000Z',
+              endDate: '2024-02-01T00:00:00.000Z',
+            },
+            {
+              name: 'Qualifier 4',
+              startDate: '2024-01-01T00:00:00.000Z',
+              endDate: '2024-01-15T00:00:00.000Z',
+            },
+          ],
+        },
+      ],
+    };
+
+    const Track: TrackSchema[] = [mockedData];
+    return Track;
+  } catch (error) {
+    console.error('Erro ao obter dados mockados do Parceiro:', error);
+    throw error;
+  }
 }

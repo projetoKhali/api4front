@@ -310,6 +310,7 @@ const calcularTotais = () => {
 .right {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   gap: 20px;
   width: 400px;
   height: 400%;

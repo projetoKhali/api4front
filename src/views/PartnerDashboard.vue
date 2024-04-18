@@ -174,6 +174,7 @@ const formatarTracksData = (parceiroData: PartnerSchema[]) => {
 .chart-container {
   display: flex;
   align-items: center;
+  height: 160px !important;
   gap: 20px;
 }
 

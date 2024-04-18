@@ -187,7 +187,6 @@ const formatarTracksData = (parceiroData: PartnerSchema[]) => {
 
 .left {
   width: 100%;
-  height: 240px;
   display: flex;
   align-items: center;
   gap: 20px;

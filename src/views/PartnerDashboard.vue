@@ -1,15 +1,9 @@
 <template>
-  <div class="main"> 
+  <div class="main">
     <div class="left">
-      <div class="top">
-        <StatCircle
-          :percentage="calcularPorcentagemTotalFinalizadas(partner)"
-        />
-        <BarChart :chartData="formattedBarChartData" />
-      </div>
-      <div class="bottom">
-        <PieChart :chartData="formattedPieChartData" />
-      </div>
+      <StatCircle :percentage="calcularPorcentagemTotalFinalizadas(partner)" />
+      <BarChart :chartData="formattedBarChartData" />
+      <PieChart :chartData="formattedPieChartData" />
     </div>
     <div class="right">
       <ProgressBar :tracks="tracksData" />
@@ -182,6 +176,7 @@ const formatarTracksData = (parceiroData: PartnerSchema[]) => {
   flex: 0.7;
   height: 80px;
 }
+
 .main {
   display: flex;
   align-items: center;
@@ -189,33 +184,25 @@ const formatarTracksData = (parceiroData: PartnerSchema[]) => {
   height: 100%;
   gap: 20px;
 }
-.top {
+
+.left {
   width: 100%;
   height: 240px;
   display: flex;
   align-items: center;
   gap: 20px;
 }
-.right{
-  width: 100%;
-  height: 100%;
-  align-items: center;
-}
-.left{
-  width: 100%;
-  height: 50%;
-  gap: 20px;
-}
-.bottom{
-  width: 50%;
-  height: 100%;
-  display: flex;
-  align-items: center;
 
+.right {
+  width: 100%;
+  height: 100%;
+  align-items: center;
 }
 
 .piechart-container {
   flex: 1.4;
   padding-top: 20px;
+}
+
 }
 </style>

@@ -1,4 +1,4 @@
-export type UserType = 'adm' | 'consultant';
+export type UserType = 'Oracle' | 'PartnerAdmin';
 
 export interface UserSchema {
     id: number,

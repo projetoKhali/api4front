@@ -1,4 +1,4 @@
-import { UserSchema, UserPostSchema, UserUpdateSchema } from '../schemas/User';
+import { UserSchema, UserPostSchema, UserPatchSchema } from '../schemas/User';
 import axios from 'axios';
 
 const API_URL: string = 'http://localhost:8080';
@@ -36,7 +36,7 @@ export async function createUser(user: UserPostSchema): Promise<UserSchema> {
 
 export async function updateUser(
   id: number,
-  user: UserUpdateSchema,
+  user: UserPatchSchema,
 ): Promise<UserSchema> {
   const response = await axios.patch(`${API_URL}/users/${id}`, user);
   return parseUser(response.data);

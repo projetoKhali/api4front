@@ -1,4 +1,4 @@
-import { UserSchema, UserPostSchema, UserUpdateSchema } from '../schemas/user';
+import { UserSchema, UserPostSchema, UserUpdateSchema } from '../schemas/User';
 import axios from 'axios';
 
 const API_URL: string = 'http://localhost:8080';

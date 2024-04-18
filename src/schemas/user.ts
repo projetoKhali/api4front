@@ -4,7 +4,7 @@ export interface UserSchema {
     id: number,
     name: string,
     email: string,
-    type: UserType
+    profile: UserType
 }
 
 export type UserPostSchema = Omit<UserSchema, 'id'> & {

@@ -11,4 +11,4 @@ export type UserPostSchema = Omit<UserSchema, 'id'> & {
     password: string
 };
 
-export type UserUpdateSchema = Partial<UserSchema>;
+export type UserPatchSchema = Partial<Omit<UserSchema, 'id'>>;

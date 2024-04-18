@@ -1,4 +1,4 @@
-import { PartnerSchema } from '../schema/Partner';
+import { PartnerSchema } from '../schemas/partner/Partner';
 
 export async function getDataMocked(): Promise<PartnerSchema[]> {
   try {

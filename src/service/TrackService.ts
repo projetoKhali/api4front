@@ -11,7 +11,7 @@ export async function getDataProduct(
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return [response.data].map((item: any) => ({
-    name: item.name,
+    name: item.nameTrack,
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     expertises: item.expertises.map((expertiseItem: any) => ({

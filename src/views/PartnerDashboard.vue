@@ -1,5 +1,21 @@
 <template>
-  <div class="dashboard-container">
+  <div class="main"> 
+    <div class="left">
+      <div class="top">
+        <StatCircle
+          :percentage="calcularPorcentagemTotalFinalizadas(partner)"
+        />
+        <BarChart :chartData="formattedBarChartData" />
+      </div>
+      <div class="bottom">
+        <PieChart :chartData="formattedPieChartData" />
+      </div>
+    </div>
+    <div class="right">
+      <ProgressBar :tracks="tracksData" />
+    </div>
+  </div>
+  <!-- <div class="dashboard-container">
     <div class="chart-container">
       <div class="statcircle-container">
         <StatCircle
@@ -16,7 +32,7 @@
     <div class="piechart-container">
       <PieChart :chartData="formattedPieChartData" />
     </div>
-  </div>
+  </div> -->
 </template>
 
 <script setup lang="ts">
@@ -90,8 +106,9 @@ const calcularPorcentagemTotalFinalizadas = (parceiroData: PartnerSchema[]) => {
   const porcentagem =
     totalExpertises > 0 ? (expertisesFinalizadas / totalExpertises) * 100 : 0;
   console.log('Porcentagem de expertises concluídas:', porcentagem);
+  const porcentagemFormatada = parseFloat(porcentagem.toFixed(1));
 
-  return porcentagem;
+  return porcentagemFormatada;
 };
 
 const calcularEstadoExpertises = (parceiroData: PartnerSchema[]) => {
@@ -108,7 +125,7 @@ const calcularEstadoExpertises = (parceiroData: PartnerSchema[]) => {
           data['Finalizados']++;
         } else if (
           expertise.qualifier &&
-          expertise.qualifier.some(qualifier => qualifier.endDate)
+          expertise.qualifier.length
         ) {
           data['Em progresso']++;
         } else {
@@ -167,6 +184,37 @@ const formatarTracksData = (parceiroData: PartnerSchema[]) => {
 .progressbar-container {
   flex: 0.7;
   height: 80px;
+}
+.main {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  gap: 20px;
+}
+.top {
+  width: 100%;
+  height: 240px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.right{
+  width: 100%;
+  height: 100%;
+  align-items: center;
+}
+.left{
+  width: 100%;
+  height: 50%;
+  gap: 20px;
+}
+.bottom{
+  width: 50%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+
 }
 
 .piechart-container {

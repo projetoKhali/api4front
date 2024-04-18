@@ -1,5 +1,29 @@
 <template>
-  <div class="dashboard-container">
+  <div class="main">
+    <div class="left">
+      <div class="cards">
+        <CountCard title="Total de parceiros" :number="totalParceiros" />
+        <CountCard title="Total de expertises" :number="totalExpertises" />
+        <CountCard
+          title="Total de qualificadores"
+          :number="totalQualificadores"
+        />
+      </div>
+      <div>
+        <h2>Tabela de Expertises</h2>
+        <Table :head="tableHeadExpertises" :body="tableBodyExpertises" />
+      </div>
+      <div>
+        <h2>Tabela de Qualificadores</h2>
+        <Table :head="tableHeadQualificadores" :body="tableBodyQualificadores" />
+      </div>
+    </div>
+    <div class="right">
+      <PieChart :chartData="formattedPieChartData" />
+      <ProgressBar :tracks="progressBarData" />
+    </div>
+  </div>
+  <!-- <div class="dashboard-container">
     <div class="cards">
       <CountCard title="Total de parceiros" :number="totalParceiros" />
       <CountCard title="Total de expertises" :number="totalExpertises" />
@@ -24,7 +48,7 @@
       <h2>Tabela de Qualificadores</h2>
       <Table :head="tableHeadQualificadores" :body="tableBodyQualificadores" />
     </div>
-  </div>
+  </div> -->
 </template>
 
 <script setup lang="ts">
@@ -269,5 +293,25 @@ const calcularTotais = () => {
 .chart-wrapper {
   display: flex;
   gap: 20px;
+}
+.left {
+  width: 100%;
+  height: 100%;
+}
+
+.main {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  gap: 20px;
+}
+
+.right {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  width: 400px;
+  height: 400%;
 }
 </style>

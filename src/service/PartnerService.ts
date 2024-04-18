@@ -8,17 +8,17 @@ export async function getDataMocked(): Promise<PartnerSchema[]> {
       location: 'União da Vitória',
       tracks: [
         {
-          name: 'SUSA',
+          name: 'Cloud Build',
           expertises: [
             {
-              name: 'Curso SouBom',
+              name: 'Expertise 4',
               startDate: '2023-01-01',
               endDate: null,
               qualifier: [
                 {
                   name: 'Oracle Cloud Infrastructure 2023 Sales Specialist',
                   startDate: '2023-01-01',
-                  endDate: '2023-03-15',
+                  endDate: null,
                 },
                 {
                   name: 'Oracle Analytics 2023 Sales Specialist',
@@ -42,15 +42,47 @@ export async function getDataMocked(): Promise<PartnerSchema[]> {
                 },
               ],
             },
+            {
+              name: 'Expertise 6',
+              startDate: '2023-01-01',
+              endDate: '2023-10-31',
+              qualifier: [
+                {
+                  name: 'Oracle Cloud Infrastructure 2023 Sales Specialist',
+                  startDate: '2023-01-01',
+                  endDate: '2023-04-30',
+                },
+                {
+                  name: 'Oracle Analytics 2023 Sales Specialist',
+                  startDate: '2023-05-01',
+                  endDate: '2023-08-31',
+                },
+                {
+                  name: 'Oracle Integration Cloud 2024 Sales Specialist',
+                  startDate: '2023-09-01',
+                  endDate: '2023-10-31',
+                },
+                {
+                  name: 'Data Management 2023 Sales Specialist',
+                  startDate: '2023-11-01',
+                  endDate: '2023-10-31',
+                },
+                {
+                  name: 'Oracle Identity and Access Management 2024 Sales Specialist',
+                  startDate: '2023-10-31',
+                  endDate: '2023-10-31',
+                },
+              ],
+            },
           ],
         },
         {
-          name: 'SELL',
+          name: 'Cloud Sell',
           expertises: [
             {
-              name: 'Oracle Cloud Platform',
+              name: 'Expertise 1',
               startDate: '2023-01-01',
-              endDate: '2023-12-31',
+              endDate: null,
               qualifier: [
                 {
                   name: 'Oracle Cloud Infrastructure 2023 Sales Specialist',
@@ -80,39 +112,7 @@ export async function getDataMocked(): Promise<PartnerSchema[]> {
               ],
             },
             {
-              name: 'Configure, Price Quote (CPQ)',
-              startDate: '2023-01-01',
-              endDate: null,
-              qualifier: [
-                {
-                  name: 'Oracle Cloud Infrastructure 2023 Sales Specialist',
-                  startDate: '2023-01-01',
-                  endDate: '2023-04-30',
-                },
-                {
-                  name: 'Oracle Analytics 2023 Sales Specialist',
-                  startDate: '2023-05-01',
-                  endDate: '2023-08-31',
-                },
-                {
-                  name: 'Oracle Integration Cloud 2024 Sales Specialist',
-                  startDate: '2023-09-01',
-                  endDate: '2023-10-31',
-                },
-                {
-                  name: 'Data Management 2023 Sales Specialist',
-                  startDate: '2023-11-01',
-                  endDate: null,
-                },
-                {
-                  name: 'Oracle Identity and Access Management 2024 Sales Specialist',
-                  startDate: null,
-                  endDate: null,
-                },
-              ],
-            },
-            {
-              name: 'Sales Automation',
+              name: 'Expertise 2',
               startDate: '2023-01-01',
               endDate: '2023-10-31',
               qualifier: [
@@ -138,7 +138,71 @@ export async function getDataMocked(): Promise<PartnerSchema[]> {
                 },
                 {
                   name: 'Oracle Identity and Access Management 2024 Sales Specialist',
-                  startDate: null,
+                  startDate: '2023-10-31',
+                  endDate: '2023-10-31',
+                },
+              ],
+            },
+            {
+              name: 'Expertise 3',
+              startDate: '2023-01-01',
+              endDate: '2023-10-31',
+              qualifier: [
+                {
+                  name: 'Oracle Cloud Infrastructure 2023 Sales Specialist',
+                  startDate: '2023-01-01',
+                  endDate: '2023-04-30',
+                },
+                {
+                  name: 'Oracle Analytics 2023 Sales Specialist',
+                  startDate: '2023-05-01',
+                  endDate: '2023-08-31',
+                },
+                {
+                  name: 'Oracle Integration Cloud 2024 Sales Specialist',
+                  startDate: '2023-09-01',
+                  endDate: '2023-10-31',
+                },
+                {
+                  name: 'Data Management 2023 Sales Specialist',
+                  startDate: '2023-11-01',
+                  endDate: '2023-10-31',
+                },
+                {
+                  name: 'Oracle Identity and Access Management 2024 Sales Specialist',
+                  startDate: '2023-10-31',
+                  endDate: '2023-10-31',
+                },
+              ],
+            },
+            {
+              name: 'Expertise 5',
+              startDate: '2023-01-01',
+              endDate: '2023-10-31',
+              qualifier: [
+                {
+                  name: 'Oracle Cloud Infrastructure 2023 Sales Specialist',
+                  startDate: '2023-01-01',
+                  endDate: '2023-04-30',
+                },
+                {
+                  name: 'Oracle Analytics 2023 Sales Specialist',
+                  startDate: '2023-05-01',
+                  endDate: '2023-08-31',
+                },
+                {
+                  name: 'Oracle Integration Cloud 2024 Sales Specialist',
+                  startDate: '2023-09-01',
+                  endDate: '2023-10-31',
+                },
+                {
+                  name: 'Data Management 2023 Sales Specialist',
+                  startDate: '2023-11-01',
+                  endDate: '2023-10-31',
+                },
+                {
+                  name: 'Oracle Identity and Access Management 2024 Sales Specialist',
+                  startDate: '2023-10-31',
                   endDate: '2023-10-31',
                 },
               ],

@@ -85,12 +85,8 @@ watch(
 .chart-container {
   border-radius: 5px;
   box-shadow: 0px 5px 0 0 rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  width: 300px;
-  height: 300px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  width: 100%;
+  height: 100%;
 }
 
 .chart-title {

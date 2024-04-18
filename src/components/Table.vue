@@ -35,8 +35,8 @@ const props = defineProps({
 
 <style scoped>
 .scrollable-table {
-  width: 300px;
-  height: 233px;
+  width: 100%;
+  height: 100%;
 
   padding-right: 10px;
   overflow-y: auto;
@@ -51,6 +51,7 @@ const props = defineProps({
 .table {
   table-layout: fixed;
   width: 100%;
+  height: 100%;
   margin: 0;
 
   font-family: 'Inter', sans-serif;
@@ -59,6 +60,8 @@ const props = defineProps({
 }
 
 .table th {
+  width: 100%;
+  height: 100%;
   padding-top: 7px;
   background-color: #fff;
   position: sticky;
@@ -85,7 +88,7 @@ td {
 .scrollable-table::-webkit-scrollbar-thumb {
   /*scroller*/
   background-color: #a4a3a3;
-  height: 46px;
+  height: 100px;
   border-radius: 4px;
 }
 </style>

@@ -19,8 +19,8 @@ const props = defineProps({
   flex-direction: column;
   gap: 7;
 
-  width: 253px;
-  height: 137px;
+  width: 100%;
+  height: 100%;
   border-radius: 9px;
 
   background-color: #ffffff;

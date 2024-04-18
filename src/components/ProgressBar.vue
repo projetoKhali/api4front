@@ -39,12 +39,12 @@ export default {
 #progressbar {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: top;
   align-items: center;
   font-family: sans-serif;
   background-color: #fff;
-  width: 600px; /* Adjust the width as desired */
-  height: 400px; /* Adjust the height as desired */
+  width: 100%; /* Adjust the width as desired */
+  height: 100%; /* Adjust the height as desired */
   box-shadow: 0 5px 0 0 rgba(0, 0, 0, 0.1);
   border-radius: 5px;
   transition:
@@ -106,7 +106,7 @@ export default {
 
 .container {
   display: flex;
-  justify-content: space-between; /* Adjust as needed */
-  align-items: center;
+  justify-content: space-between;
+  align-items: top;
 }
 </style>

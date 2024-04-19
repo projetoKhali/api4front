@@ -1,14 +1,14 @@
-export type UserType = 'adm' | 'consultant';
+export type UserType = 'Oracle' | 'PartnerAdmin';
 
 export interface UserSchema {
-    id: number,
-    name: string,
-    email: string,
-    type: UserType
+  id: number;
+  name: string;
+  email: string;
+  profile: UserType;
 }
 
 export type UserPostSchema = Omit<UserSchema, 'id'> & {
-    password: string
+  password: string;
 };
 
-export type UserUpdateSchema = Partial<UserSchema>;
+export type UserPatchSchema = Partial<Omit<UserSchema, 'id'>>;

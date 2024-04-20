@@ -32,62 +32,62 @@ const props = defineProps({
             </tbody>
         </table>
     </div>
-
 </template>
 
 <style scoped>
 .scrollable-table {
     width: 100%;
-    height: 233px;
-
-    padding-right: 10px;
+    height: 260px;
     overflow-y: auto;
-    border-radius: 9px;
     background-color: #fff;
-
-    scrollbar-width: 7px; /* Ajusta a largura da barra de rolagem */
-    scrollbar-color: transparent; /* Ajusta a cor do polegar e da trilha da barra de rolagem */
+    border-radius: 9px;
     box-shadow: 0 5px 0 0 rgba(0, 0, 0, 0.1);
+    scrollbar-width: 7px;
+    scrollbar-color: transparent;
+}
+
+.scrollable-table::-webkit-scrollbar {
+    width: 7px;
+}
+
+.scrollable-table::-webkit-scrollbar-thumb {
+    background-color: #A4A3A3;
 }
 
 .table {
     table-layout: fixed;
     width: 100%;
-    margin: 0;
-
+    height: 100%;
     font-family: "Inter", sans-serif;
     color: #000;
-    padding-bottom: 20px;
+    padding: 0;
+    border-spacing: 0;
+}
+
+tr {
+    transition: background-color 0.1s ease; /* Adicione esta linha */
+}
+
+tr:hover {
+    background-color: #e2e2e2;
 }
 
 .table th {
-    padding-top: 7px;
     background-color: #fff;
     position: sticky;
-    padding-bottom: 25px;
     top: 0;
-}
-
-th {
     font-size: 20px;
-    vertical-align: top;
     font-weight: 600;
-    height: 100%;
+    vertical-align: top;
+    height: 40px;
 }
 
-td {
+.table td {
     line-height: 2.5;
 }
 
-/* Estiliza a barra de rolagem para Chrome, Safari e Opera */
-.scrollable-table::-webkit-scrollbar {
-    width: 7px;
+.table th, .table td {
+    text-align: center;
+    vertical-align: middle;
 }
-
-.scrollable-table::-webkit-scrollbar-thumb { /*scroller*/
-    background-color: #A4A3A3;
-    height: 46px;
-    border-radius: 4px;
-}
-
 </style>

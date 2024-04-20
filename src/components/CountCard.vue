@@ -20,10 +20,14 @@ const props = defineProps({
 .count-card {
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 7;
 
-    width: 253px;
-    height: 137px;
+    margin: 0;
+    padding: 0;
+
+    width: 247px;
+    height: 133px;
     border-radius: 9px;
 
     background-color: #ffffff;
@@ -37,11 +41,12 @@ const props = defineProps({
 }
 
 .title-card {
-    margin: 22px 0 0 0;
+    margin: 20px 0 0 0;
 
+    font-size: 20px;
     font-family: "Inter", sans-serif;
     font-optical-sizing: auto;
-    font-weight: 400;
+    font-weight: 300;
     font-variation-settings: "slnt" 0;
     color: #000;
 }
@@ -49,9 +54,10 @@ const props = defineProps({
 .number-card {
     margin: 0px 0px 26px 0px;
     
+    font-size: 48px;
     font-family: "Inter", sans-serif;
     font-optical-sizing: auto;
-    font-weight: 400;
+    font-weight: 300;
     font-variation-settings: "slnt" 0;
     color: #000;
 }

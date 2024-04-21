@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { defineProps } from "vue";
+import { computed, defineProps, ref } from "vue";
 
 const props = defineProps({
     head: {
@@ -11,6 +11,28 @@ const props = defineProps({
         required: true
     }
 });
+
+const itemsPerPage = 12;
+const currentPage = ref(1)
+
+const paginatedBody = computed(() => {
+    const start = (currentPage.value - 1) * itemsPerPage;
+    const end = start + itemsPerPage;
+
+    return props.body.slice(start, end)
+});
+
+const previousPage = () => {
+    if (currentPage.value > 1) {
+        currentPage.value--;
+    }
+}
+    
+const nextPage = () => {
+    if (currentPage.value < Math.ceil(props.body.length / itemsPerPage)) {
+        currentPage.value++
+    }
+}
 </script>
 
 <template>
@@ -24,7 +46,7 @@ const props = defineProps({
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="(line, index) in $props.body" :key="index">
+                <tr v-for="(line, index) in paginatedBody" :key="index">
                     <td v-for="(cell, index) in line" :key="index">
                         {{ cell }}
                     </td>
@@ -32,7 +54,12 @@ const props = defineProps({
             </tbody>
         </table>
     </div>
+    <div class="pagination-button">
+        <button @click="previousPage">Anterior</button>
+        <button @click="nextPage" class="pg_btn">Próximo</button>
+    </div>
 </template>
+
 
 <style scoped>
 .scrollable-table {
@@ -89,5 +116,10 @@ tr:hover {
 .table th, .table td {
     text-align: center;
     vertical-align: middle;
+}
+
+.pagination-button{
+    display: flex;
+    justify-content: space-between;
 }
 </style>

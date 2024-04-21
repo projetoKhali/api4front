@@ -76,8 +76,19 @@ const nextPage = () => {
 .scrollable-table::-webkit-scrollbar {
     width: 7px;
 }
-
 .scrollable-table::-webkit-scrollbar-thumb {
+    background-color: #A4A3A3;
+    border-radius: 100px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+}
+
+.scrollable-table::-webkit-scrollbar-track {
+    background-color: #D9D9D9;
+    border-radius: 3px;
+}
+
+.scrollable-table::-webkit-scrollbar-thumb:hover {
     background-color: #A4A3A3;
 }
 

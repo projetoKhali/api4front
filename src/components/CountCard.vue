@@ -5,11 +5,9 @@ const props = defineProps({
     title: String,
     number: Number
 })
-
 </script>
 
 <template>
-
     <div class="count-card">
         <h3 class="title-card">{{ title }}</h3>
         <h1 class="number-card">{{ number }}</h1>
@@ -36,7 +34,7 @@ const props = defineProps({
     transition: border-color 0.3s, transform 0.3s;
 }
 
-.count-card:hover{
+.count-card:hover {
     transform: scale(1.05);
 }
 
@@ -53,7 +51,7 @@ const props = defineProps({
 
 .number-card {
     margin: 0px 0px 26px 0px;
-    
+
     font-size: 48px;
     font-family: "Inter", sans-serif;
     font-optical-sizing: auto;

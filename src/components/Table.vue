@@ -12,7 +12,7 @@ const props = defineProps({
     }
 });
 
-const itemsPerPage = 12;
+const itemsPerPage = 10;
 const currentPage = ref(1)
 
 const paginatedBody = computed(() => {

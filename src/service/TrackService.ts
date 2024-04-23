@@ -1,12 +1,12 @@
-import { TrackSchema } from '../schemas/track/Track';
+import { TrackSchema as TrackDashboardSchema } from '../schemas/track/Track';
 import axios from 'axios';
 
 const API_URL: string = 'http://localhost:8080';
 
 export async function getDataProduct(
   trackName: string,
-): Promise<TrackSchema[]> {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
+): Promise<TrackDashboardSchema[]> {
   const response = await axios.get(`${API_URL}/track/product/${trackName}`);
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -46,7 +46,7 @@ export async function getDataProduct(
   }));
 }
 
-export async function getDataMocked(): Promise<TrackSchema[]> {
+export async function getDataMocked(): Promise<TrackDashboardSchema[]> {
   try {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const mockedData: any = {
@@ -127,7 +127,7 @@ export async function getDataMocked(): Promise<TrackSchema[]> {
       ],
     };
 
-    const Track: TrackSchema[] = [mockedData];
+    const Track: TrackDashboardSchema[] = [mockedData];
     return Track;
   } catch (error) {
     console.error('Erro ao obter dados mockados do Parceiro:', error);

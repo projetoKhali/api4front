@@ -15,6 +15,7 @@ export async function parsePartner(partner: any): Promise<PartnerSchema> {
     companyId: partner.companyId,
     name: partner.name,
     adminName: partner.adminName,
+    adminEmail: partner.adminEmail,
     slogan: partner.slogan,
     country: partner.country,
     city: partner.city,

@@ -1,4 +1,4 @@
-import { PartnerSchema, PartnerPostSchema } from '../schemas/partner/Partner';
+import { PartnerSchema } from '../schemas/partner/Partner';
 import axios from 'axios';
 
 const API_URL: string = 'http://localhost:8080';
@@ -18,7 +18,8 @@ export async function parsePartner(partner: any): Promise<PartnerSchema> {
     status: partner.status,
     memberType: partner.memberType,
     insertDate: new Date(partner.insertDate),
-  }
+  };
+}
 
 export async function mapPartners(partners: any): Promise<PartnerSchema[]> {
   return partners ? await partners.map(async (item: any) => parsePartner(item)) : [];
@@ -31,6 +32,11 @@ export async function getPartners(): Promise<PartnerSchema[]> {
 
 export async function getPartner(id: number): Promise<PartnerSchema> {
     const response = await axios.get(`${API_URL}/partners/${id}`);
+    return parsePartner(response.data);
+}
+
+export async function getPartnerPagination(page: number, size: number): Promise<PartnerSchema> {
+    const response = await axios.get(`${API_URL}/partners/?${page}&${size}`);
     return parsePartner(response.data);
 }
 

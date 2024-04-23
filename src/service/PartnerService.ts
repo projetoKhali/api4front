@@ -20,6 +20,7 @@ export async function parsePartner(partner: any): Promise<PartnerSchema> {
     memberType: partner.memberType,
     insertDate: new Date(partner.insertDate),
   }
+}
 
 export async function mapPartners(partners: any): Promise<PartnerSchema[]> {
   return partners ? await partners.map(async (item: any) => parsePartner(item)) : [];

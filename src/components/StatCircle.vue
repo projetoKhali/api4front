@@ -38,8 +38,8 @@ const dashOffset = computed(
 <style scoped>
 .stat-circle {
   background-color: #fff;
-  width: 200px;
-  height: 200px;
+  width: 100%;
+  height: 100%;
   box-shadow: 0 5px 0 0 rgba(0, 0, 0, 0.1);
   border-radius: 5px;
   transition: border-color 0.3s, transform 0.3s;

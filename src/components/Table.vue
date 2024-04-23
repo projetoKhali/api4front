@@ -35,16 +35,16 @@ const props = defineProps({
 
 <style scoped>
 .scrollable-table {
-  width: 300px;
-  height: 233px;
+  width: 100%;
+  height: 180px;
 
   padding-right: 10px;
   overflow-y: auto;
   border-radius: 9px;
   background-color: #fff;
 
-  scrollbar-width: 7px; /* Ajusta a largura da barra de rolagem */
-  scrollbar-color: transparent; /* Ajusta a cor do polegar e da trilha da barra de rolagem */
+  scrollbar-width: 7px;
+  scrollbar-color: transparent;
   box-shadow: 0 5px 0 0 rgba(0, 0, 0, 0.1);
 }
 
@@ -67,8 +67,9 @@ const props = defineProps({
 }
 
 th {
-  font-size: 20px;
+  font-size: 16px;
   vertical-align: top;
+  text-align: center;
   font-weight: 600;
   height: 100%;
 }
@@ -77,13 +78,11 @@ td {
   line-height: 2.5;
 }
 
-/* Estiliza a barra de rolagem para Chrome, Safari e Opera */
 .scrollable-table::-webkit-scrollbar {
   width: 7px;
 }
 
 .scrollable-table::-webkit-scrollbar-thumb {
-  /*scroller*/
   background-color: #a4a3a3;
   height: 46px;
   border-radius: 4px;

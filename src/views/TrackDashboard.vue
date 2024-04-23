@@ -1,14 +1,24 @@
 <template>
   <div class="dashboard-container">
-    <div class="cards">
-      <CountCard title="Total de parceiros" :number="totalParceiros" />
-      <CountCard title="Total de expertises" :number="totalExpertises" />
-      <CountCard
-        title="Total de qualificadores"
-        :number="totalQualificadores"
-      />
+    <div class="left-side">
+      <div class="cards">
+        <CountCard title="Total de parceiros" :number="totalParceiros" />
+        <CountCard title="Total de expertises" :number="totalExpertises" />
+        <CountCard title="Total de qualificadores" :number="totalQualificadores"
+        />
+      </div>
+        <div class="bottom"> 
+          <div class="table-expertise">
+            <h2>Tabela de Expertises</h2>
+            <Table :head="tableHeadExpertises" :body="tableBodyExpertises" />
+          </div>
+          <div class="table-qualify">
+            <h2>Tabela de Qualificadores</h2>
+            <Table :head="tableHeadQualificadores" :body="tableBodyQualificadores" />
+          </div>
+        </div>
     </div>
-    <div class="chart-wrapper">
+    <div class="right-side">
       <div class="piechart-container">
         <PieChart :chartData="formattedPieChartData" />
       </div>
@@ -16,16 +26,33 @@
         <ProgressBar :tracks="progressBarData" />
       </div>
     </div>
-    <div>
-      <h2>Tabela de Expertises</h2>
-      <Table :head="tableHeadExpertises" :body="tableBodyExpertises" />
-    </div>
-    <div>
-      <h2>Tabela de Qualificadores</h2>
-      <Table :head="tableHeadQualificadores" :body="tableBodyQualificadores" />
-    </div>
   </div>
 </template>
+
+<!-- <div class="cards">
+  <CountCard title="Total de parceiros" :number="totalParceiros" />
+  <CountCard title="Total de expertises" :number="totalExpertises" />
+  <CountCard
+    title="Total de qualificadores"
+    :number="totalQualificadores"
+  />
+</div>
+<div class="chart-wrapper">
+  <div class="piechart-container">
+    <PieChart :chartData="formattedPieChartData" />
+  </div>
+  <div class="progressbar-container">
+    <ProgressBar :tracks="progressBarData" />
+  </div>
+</div>
+<div>
+  <h2>Tabela de Expertises</h2>
+  <Table :head="tableHeadExpertises" :body="tableBodyExpertises" />
+</div>
+<div>
+  <h2>Tabela de Qualificadores</h2>
+  <Table :head="tableHeadQualificadores" :body="tableBodyQualificadores" />
+</div> -->
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
@@ -248,25 +275,56 @@ const calcularTotais = () => {
 <style scoped>
 .dashboard-container {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: space-between;
+  height: 100vh;
   padding: 20px;
+  gap: 10px;
+  background-color: rgb(236, 224, 240);
+
 }
 
 .table-container {
   height: 5px;
 }
 .piechart-container {
-  height: 20px;
+  height: 50%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .cards {
   display: flex;
   gap: 10px;
+  height: 12%;
 }
 
 .chart-wrapper {
   display: flex;
   gap: 20px;
+}
+
+.left-side{
+  height: 100%;
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.right-side{
+  height: 100%;
+  width: 40%;
+  gap: 10px;
+
+}
+.progressbar-container {
+  height: 50%;
+  width: 100%;
+}
+.h2{
+  text-align: center;
 }
 </style>

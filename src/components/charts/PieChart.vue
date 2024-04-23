@@ -83,14 +83,14 @@ watch(
 
 <style scoped>
 .chart-container {
-  border-radius: 5px;
-  box-shadow: 0px 5px 0 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 4px 0 0 rgba(0, 0, 0, 0.1);
   padding: 20px;
-  width: 300px;
-  height: 300px;
+  width: 90%;
+  height: 85%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: white;
 }
 
 .chart-title {

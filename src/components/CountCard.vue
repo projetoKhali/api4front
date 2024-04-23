@@ -19,8 +19,8 @@ const props = defineProps({
   flex-direction: column;
   gap: 7;
 
-  width: 253px;
-  height: 137px;
+  width: 100%;
+  height: 100%;
   border-radius: 9px;
 
   background-color: #ffffff;
@@ -37,17 +37,21 @@ const props = defineProps({
 
 .title-card {
   margin: 22px 0 0 0;
-
+  font-size: 14px;
   font-family: 'Inter', sans-serif;
+  vertical-align: top;
   font-optical-sizing: auto;
   font-weight: 400;
+  text-align: center;
   font-variation-settings: 'slnt' 0;
   color: #000;
 }
 
 .number-card {
   margin: 0px 0px 26px 0px;
-
+  vertical-align: top;
+  font-size: 25px;
+  text-align: center;
   font-family: 'Inter', sans-serif;
   font-optical-sizing: auto;
   font-weight: 400;

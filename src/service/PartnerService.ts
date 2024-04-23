@@ -1,4 +1,5 @@
 import { PartnerSchema, PartnerPostSchema } from '../schemas/partner/Partner';
+import { PartnerSchema as PartnerDashboardSchema } from '../schemas/partner/Partner';
 import axios from 'axios';
 
 const API_URL: string = 'http://localhost:8080';
@@ -51,13 +52,15 @@ export async function deletePartner(id: number): Promise<void> {
     await axios.delete(`${API_URL}/partners/${id}`);
 }
 
-export async function getDashboardData(url: string): Promise<PartnerSchema[]> {
+export async function getDashboardData(
+  url: string,
+): Promise<PartnerDashboardSchema[]> {
   try {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const response = await axios.get<any[]>(url);
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const partners: PartnerSchema[] = response.data.map((item: any) => ({
+    const partners: PartnerDashboardSchema[] = response.data.map((item: any) => ({
       name: item.name,
       location: item.location,
 

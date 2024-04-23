@@ -1,4 +1,8 @@
-import { PartnerSchema, PartnerPostSchema } from '../schemas/partner/Partner';
+import {
+  PartnerSchema,
+  PartnerPostSchema,
+  PartnerPatchSchema,
+} from '../schemas/Partner';
 import { PartnerSchema as PartnerDashboardSchema } from '../schemas/partner/Partner';
 import axios from 'axios';
 
@@ -38,14 +42,16 @@ export async function getPartner(id: number): Promise<PartnerSchema> {
     return parsePartner(response.data);
 }
 
-export async function createPartner(partner: PartnerSchema): Promise<PartnerSchema> {
     const response = await axios.post(`${API_URL}/partners`, partner);
     return parsePartner(response.data);
+export async function createPartner(
+  partner: PartnerPostSchema,
+): Promise<PartnerSchema> {
 }
 
 export async function updatePartner(
   id: number, 
-  partner: PartnerSchema
+  partner: PartnerPatchSchema,
 ): Promise<PartnerSchema> {
     const response = await axios.patch(`${API_URL}/partners/${id}`, partner);
     return parsePartner(response.data);

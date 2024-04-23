@@ -15,13 +15,13 @@
     "lint:fix": "eslint src --fix && yarn prettier -w \"src\" --config .prettierrc.yml"
   },
   "dependencies": {
+    "axios": "^1.6.8",
     "chart.js": "^4.4.2",
     "vue": "^3.4.21",
     "vue-chartjs": "^5.3.1",
     "vue-router": "^4.3.0"
   },
   "devDependencies": {
-    "prettier": "^3.2.5",
     "@types/jest": "^29.5.11",
     "@typescript-eslint/eslint-plugin": "^6.19.0",
     "@typescript-eslint/parser": "^6.19.0",
@@ -32,6 +32,7 @@
     "git-commit-msg-linter": "^5.0.6",
     "jest": "^29.7.0",
     "lint-staged": "^15.2.0",
+    "prettier": "^3.2.5",
     "ts-jest": "^29.1.1",
     "typescript": "^5.2.2",
     "vite": "^5.2.0",

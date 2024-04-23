@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { defineProps } from 'vue'
 
 const props = defineProps({
     title: String,
@@ -28,10 +27,12 @@ const props = defineProps({
     height: 133px;
     border-radius: 9px;
 
-    background-color: #ffffff;
-    box-shadow: 0 5px 0 0 rgba(0, 0, 0, 0.1);
-    border: 3px solid transparent;
-    transition: border-color 0.3s, transform 0.3s;
+  background-color: #ffffff;
+  box-shadow: 0 5px 0 0 rgba(0, 0, 0, 0.1);
+  border: 3px solid transparent;
+  transition:
+    border-color 0.3s,
+    transform 0.3s;
 }
 
 .count-card:hover {
@@ -39,7 +40,7 @@ const props = defineProps({
 }
 
 .title-card {
-    margin: 20px 0 0 0;
+  margin: 22px 0 0 0;
 
     font-size: 20px;
     font-family: "Inter", sans-serif;

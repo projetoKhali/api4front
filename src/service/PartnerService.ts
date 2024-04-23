@@ -4,6 +4,7 @@ import axios from 'axios';
 
 const API_URL: string = 'http://localhost:8080';
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export async function parsePartner(partner: any): Promise<PartnerSchema> {
   return {
     id: partner.id,
@@ -25,6 +26,7 @@ export async function parsePartner(partner: any): Promise<PartnerSchema> {
 export async function mapPartners(partners: any): Promise<PartnerSchema[]> {
   return partners ? await partners.map(async (item: any) => parsePartner(item)) : [];
 }
+/* eslint-enable @typescript-eslint/no-explicit-any */
 
 export async function getPartners(): Promise<PartnerSchema[]> {
     const response = await axios.get(`${API_URL}/partners`);
@@ -53,29 +55,25 @@ export async function deletePartner(id: number): Promise<void> {
     await axios.delete(`${API_URL}/partners/${id}`);
 }
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export async function getDashboardData(
   url: string,
 ): Promise<PartnerDashboardSchema[]> {
   try {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const response = await axios.get<any[]>(url);
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const partners: PartnerDashboardSchema[] = response.data.map((item: any) => ({
       name: item.name,
       location: item.location,
 
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       tracks: item.tracks.map((trackItem: any) => ({
         name: trackItem.name,
 
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         expertises: trackItem.expertises.map((expertiseItem: any) => ({
           name: expertiseItem.name,
           startDate: new Date(expertiseItem.startDate),
           endDate: new Date(expertiseItem.endDate),
 
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           qualifier: expertiseItem.qualifier.map((qualifierItem: any) => ({
             name: qualifierItem.name,
             startDate: new Date(qualifierItem.startDate),

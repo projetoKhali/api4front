@@ -3,40 +3,34 @@ import axios from 'axios';
 
 const API_URL: string = 'http://localhost:8080';
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export async function getDataProduct(
   trackName: string,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
 ): Promise<TrackDashboardSchema[]> {
   const response = await axios.get(`${API_URL}/track/product/${trackName}`);
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return [response.data].map((item: any) => ({
     name: item.name,
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     expertises: item.expertises.map((expertiseItem: any) => ({
       name: expertiseItem.name,
 
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       qualifiers: expertiseItem.qualifiers.map((qualifierItem: any) => ({
         name: qualifierItem.name,
       })),
     })),
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     partners: item.partners.map((partnerItem: any) => ({
       name: partnerItem.name,
       location: partnerItem.location,
       startDate: partnerItem.startDate ? new Date(partnerItem.startDate) : null,
 
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       expertises: partnerItem.expertises.map((expertise: any) => ({
         name: expertise.name,
         startDate: expertise.startDate ? new Date(expertise.startDate) : null,
         endDate: expertise.endDate ? new Date(expertise.endDate) : null,
       })),
 
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       qualifiers: partnerItem.qualifiers.map((qualifier: any) => ({
         name: qualifier.name,
         startDate: qualifier.startDate ? new Date(qualifier.startDate) : null,
@@ -45,6 +39,7 @@ export async function getDataProduct(
     })),
   }));
 }
+/* eslint-enable @typescript-eslint/no-explicit-any */
 
 export async function getDataMocked(): Promise<TrackDashboardSchema[]> {
   try {

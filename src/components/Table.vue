@@ -1,38 +1,44 @@
 <script setup lang="ts">
-import { computed, defineProps, ref } from "vue";
+import { ref, watch, defineProps } from "vue";
+import axios from "axios";
 
 const props = defineProps({
     head: {
         type: Array as () => Array<String>,
         required: true
     },
-    body: {
-        type: Array as () => Array<any>,
+    route: {
+        type: String,
         required: true
     }
 });
 
 const itemsPerPage = 10;
-const currentPage = ref(1)
+const currentPage = ref(1);
+const body = ref([]);
 
-const paginatedBody = computed(() => {
-    const start = (currentPage.value - 1) * itemsPerPage;
-    const end = start + itemsPerPage;
 
-    return props.body.slice(start, end)
-});
+const fetchData = async () => {
+    const response = await axios.get(props.route, {
+        params: {
+            page: currentPage.value,
+            itemsPerPage: itemsPerPage
+        }
+    });
+    body.value = response.data;
+};
+
+watch(currentPage, fetchData, { immediate: true });
 
 const previousPage = () => {
     if (currentPage.value > 1) {
         currentPage.value--;
     }
-}
-    
+};
+
 const nextPage = () => {
-    if (currentPage.value < Math.ceil(props.body.length / itemsPerPage)) {
-        currentPage.value++
-    }
-}
+    currentPage.value++;
+};
 </script>
 
 <template>
@@ -40,13 +46,13 @@ const nextPage = () => {
         <table class="table">
             <thead>
                 <tr>
-                    <th v-for="(item, index) in $props.head" :key="index">
+                    <th v-for="(item, index) in head" :key="index">
                         {{ item }}
                     </th>
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="(line, index) in paginatedBody" :key="index">
+                <tr v-for="(line, index) in body" :key="index">
                     <td v-for="(cell, index) in line" :key="index">
                         {{ cell }}
                     </td>
@@ -56,10 +62,9 @@ const nextPage = () => {
     </div>
     <div class="pagination-button">
         <button @click="previousPage">Anterior</button>
-        <button @click="nextPage" class="pg_btn">Próximo</button>
+        <button @click="nextPage">Próximo</button>
     </div>
 </template>
-
 
 <style scoped>
 .scrollable-table {
@@ -76,6 +81,7 @@ const nextPage = () => {
 .scrollable-table::-webkit-scrollbar {
     width: 7px;
 }
+
 .scrollable-table::-webkit-scrollbar-thumb {
     background-color: #A4A3A3;
     border-radius: 100px;
@@ -103,7 +109,8 @@ const nextPage = () => {
 }
 
 tr {
-    transition: background-color 0.1s ease; /* Adicione esta linha */
+    transition: background-color 0.1s ease;
+    /* Adicione esta linha */
 }
 
 tr:hover {
@@ -124,12 +131,13 @@ tr:hover {
     line-height: 2.5;
 }
 
-.table th, .table td {
+.table th,
+.table td {
     text-align: center;
     vertical-align: middle;
 }
 
-.pagination-button{
+.pagination-button {
     display: flex;
     justify-content: space-between;
 }

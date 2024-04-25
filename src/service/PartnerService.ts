@@ -1,5 +1,5 @@
 import { PartnerTrackSchema } from '@/schemas/partner/PartnerTrack';
-import { PartnerSchema, PartnerPostSchema } from '../schemas/Partner';
+import { PartnerSchema, PartnerPostSchema, PartnerPatchSchema } from '../schemas/Partner';
 import { PartnerSchemaDashboard } from '../schemas/partner/Partner';
 import axios from 'axios';
 import { PartnerExpertiseSchema } from '@/schemas/partner/PartnerExpertise';
@@ -46,7 +46,7 @@ export async function createPartner(partner: PartnerPostSchema): Promise<Partner
 
 export async function updatePartner(
   id: number, 
-  partner: PartnerSchema
+  partner: PartnerPatchSchema
 ): Promise<PartnerSchema> {
     const response = await axios.patch(`${API_URL}/partners/${id}`, partner);
     return parsePartner(response.data);

@@ -24,24 +24,25 @@ export async function getDataProduct(
       })),
     })),
 
-    partners: response.data.partners.map((partnerresponse: TrackPartnerSchema) => ({
-      name: partnerresponse.name,
-      location: partnerresponse.location,
-      startDate: partnerresponse.startDate ? new Date(partnerresponse.startDate) : null,
+    partners: response.data.partners.map((partner: TrackPartnerSchema) => ({
+      name: partner.name,
+      location: partner.location,
+      startDate: partner.startDate ? new Date(partner.startDate) : null,
 
-      expertises: partnerresponse.expertises.map((expertise: TrackPartnerExpertiseSchema) => ({
+      expertises: partner.expertises.map((expertise: TrackPartnerExpertiseSchema) => ({
         name: expertise.name,
         startDate: expertise.startDate ? new Date(expertise.startDate) : null,
         endDate: expertise.endDate ? new Date(expertise.endDate) : null,
       })),
 
-      qualifiers: partnerresponse.qualifiers.map((qualifier: TrackPartnerQualifierSchema) => ({
+      qualifiers: partner.qualifiers.map((qualifier: TrackPartnerQualifierSchema) => ({
         name: qualifier.name,
         startDate: qualifier.startDate ? new Date(qualifier.startDate) : null,
         endDate: qualifier.endDate ? new Date(qualifier.endDate) : null,
       })),
     })),
   }];
+
   return tracks;
 } catch (error) {
   console.error('Erro ao obter dados do Parceiro:', error);

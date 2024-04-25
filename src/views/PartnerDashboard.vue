@@ -37,7 +37,7 @@ const tracksData = ref<{ [key: string]: { [key: string]: number } }>({});
 
 onMounted(async () => {
   try {
-    // const url = 'URL_DO_SEU_ENDPOINT_2';
+
     partner.value = await getDashboardData(1);
     console.log('Dados dos partner:', partner.value);
 
@@ -107,8 +107,8 @@ const calcularEstadoExpertises = (parceiroData: PartnerSchemaDashboard[]) => {
         if (expertise.endDate) {
           data['Finalizados']++;
         } else if (
-          expertise.qualifierss &&
-          expertise.qualifierss.some(qualifierss => qualifiers.endDate)
+          expertise.qualifiers &&
+          expertise.qualifiers.some(qualifiers => qualifiers.endDate)
         ) {
           data['Em progresso']++;
         } else {
@@ -129,13 +129,13 @@ const formatarTracksData = (parceiroData: PartnerSchemaDashboard[]) => {
       const trackProgress: { [key: string]: number } = {};
 
       track.expertises.forEach(expertise => {
-        const totalqualifierss = expertise.qualifiers.length;
-        const qualifierssConcluidos = expertise.qualifiers.filter(
+        const totalqualifiers = expertise.qualifiers.length;
+        const qualifiersConcluidos = expertise.qualifiers.filter(
           qualifiers => qualifiers.endDate !== null,
         ).length;
         const progress =
-          totalqualifierss > 0
-            ? (qualifierssConcluidos / totalqualifierss) * 100
+          totalqualifiers > 0
+            ? (qualifiersConcluidos / totalqualifiers) * 100
             : 0;
         trackProgress[expertise.name] = progress;
       });

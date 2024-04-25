@@ -17,7 +17,7 @@ export async function parsePartner(partner: any): Promise<PartnerSchema> {
     slogan: partner.slogan,
     country: partner.country,
     city: partner.city,
-    address: partner.address,
+    address: partner.address, 
     compliance: partner.compliance,
     credit: partner.credit,
     status: partner.status,
@@ -39,7 +39,7 @@ export async function getPartner(id: number): Promise<PartnerSchema> {
     return parsePartner(response.data);
 }
 
-export async function createPartner(partner: PartnerSchema): Promise<PartnerSchema> {
+export async function createPartner(partner: PartnerPostSchema): Promise<PartnerPostSchema> {
     const response = await axios.post(`${API_URL}/partners`, partner);
     return parsePartner(response.data);
 }

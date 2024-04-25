@@ -60,8 +60,8 @@ import PieChart from '../components/charts/PieChart.vue';
 import CountCard from '../components/CountCard.vue';
 import ProgressBar from '../components/ProgressBar.vue';
 import Table from '../components/Table.vue';
-import { getDataMocked } from '../service/TrackService';
-import { TrackSchema } from '../schema/Track';
+import { getDataProduct } from '../service/TrackService';
+import { TrackSchema } from '../schemas/track/Track';
 
 const track = ref<TrackSchema[]>([]);
 const progressBarData = ref<{ [key: string]: { [key: string]: number } }>({});
@@ -84,10 +84,10 @@ const totalQualificadores = ref(0);
 
 onMounted(async () => {
   try {
-    track.value = await getDataMocked();
+    track.value = await getDataProduct('Track 1');
     console.log('Dados da track:', track.value);
 
-    calcularPieChartData();
+    calcularPieChartData(track.value);
     preencherTabelaExpertises();
     preencherTabelaQualificadores();
     calcularProgressBarData();
@@ -97,14 +97,14 @@ onMounted(async () => {
   }
 });
 
-const calcularPieChartData = () => {
+const calcularPieChartData = (track: TrackSchema[]) => {
   const data: { [key: string]: number } = {
     'Finalizadas': 0,
     'Em progresso': 0,
     'Não iniciadas': 0,
   };
 
-  track.value.forEach(track => {
+  track.forEach(track => {
     track.partners.forEach(partner => {
       partner.expertises.forEach(expertise => {
         if (expertise.endDate !== null) {
@@ -124,7 +124,7 @@ const calcularPieChartData = () => {
 const preencherTabelaExpertises = () => {
   const dadosTabela: Array<[string, number, number]> = [];
 
-  track.value.forEach(track => {
+  track.value.forEach((track: TrackSchema) => {
     track.partners.forEach(partner => {
       partner.expertises.forEach(expertise => {
         const index = dadosTabela.findIndex(item => item[0] === expertise.name);
@@ -262,8 +262,8 @@ const calcularTotais = () => {
 
   track.value.forEach(trackItem => {
     trackItem.expertises.forEach(expertise => {
-      expertise.qualifier.forEach(qualifier => {
-        uniqueQualifiers.add(qualifier.name);
+      expertise.qualifiers.forEach(qualifiers => {
+        uniqueQualifiers.add(qualifiers.name);
       });
     });
   });

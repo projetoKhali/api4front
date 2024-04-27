@@ -16,6 +16,10 @@ const props = defineProps({
 const itemsPerPage = 10;
 const currentPage = ref(0);
 const body = ref([]);
+const totalPages = ref(0);
+
+const showPrevButton = ref(true);
+const showNextButton = ref(true);
 
 
 const fetchData = async () => {
@@ -26,15 +30,14 @@ const fetchData = async () => {
                 itemsPerPage: itemsPerPage
             }
         });
-        body.value = response.data.content;
-        console.log('body', body.value);
-        console.log('Data fetched', response.data.content);
-        console.log(props.head);
+        body.value = response.data.content;   
+        totalPages.value = response.data.totalPages;
         
-        
+        // atualiza a visibilidade dos botões de paginação
+        showPrevButton.value = currentPage.value > 0;
+        showNextButton.value = currentPage.value < totalPages.value - 1;
     } catch (error) {
         console.error('Error fetching data', error);
-        console.log('Error fetching data', error);
     }    
 };
 
@@ -47,7 +50,9 @@ const previousPage = () => {
 };
 
 const nextPage = () => {
-    currentPage.value++;
+    if (currentPage.value < totalPages.value - 1) {
+        currentPage.value++;
+    }
 };
 </script>
 
@@ -71,8 +76,8 @@ const nextPage = () => {
         </table>
     </div>
     <div class="pagination-button">
-        <button @click="previousPage">Anterior</button>
-        <button @click="nextPage">Próximo</button>
+        <button @click="previousPage" v-if="showPrevButton">Anterior</button>
+        <button @click="nextPage" v-if="showNextButton">Próximo</button>
     </div>
 </template>
 

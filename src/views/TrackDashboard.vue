@@ -29,30 +29,6 @@
   </div>
 </template>
 
-<!-- <div class="cards">
-  <CountCard title="Total de parceiros" :number="totalParceiros" />
-  <CountCard title="Total de expertises" :number="totalExpertises" />
-  <CountCard
-    title="Total de qualificadores"
-    :number="totalQualificadores"
-  />
-</div>
-<div class="chart-wrapper">
-  <div class="piechart-container">
-    <PieChart :chartData="formattedPieChartData" />
-  </div>
-  <div class="progressbar-container">
-    <ProgressBar :tracks="progressBarData" />
-  </div>
-</div>
-<div>
-  <h2>Tabela de Expertises</h2>
-  <Table :head="tableHeadExpertises" :body="tableBodyExpertises" />
-</div>
-<div>
-  <h2>Tabela de Qualificadores</h2>
-  <Table :head="tableHeadQualificadores" :body="tableBodyQualificadores" />
-</div> -->
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
@@ -288,11 +264,13 @@ const calcularTotais = () => {
   height: 5px;
 }
 .piechart-container {
-  height: 50%;
-  width: 100%;
+  height: 48%;
+  width: 95%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: rgb(236, 224, 240);
+  padding: 5px;
 }
 
 .cards {
@@ -317,12 +295,14 @@ const calcularTotais = () => {
 .right-side{
   height: 100%;
   width: 40%;
-  gap: 10px;
+  background-color: rgb(236, 224, 240);
 
 }
 .progressbar-container {
-  height: 50%;
-  width: 100%;
+  height: 48%;
+  width: 95%;
+  padding: 5px;
+  
 }
 .h2{
   text-align: center;

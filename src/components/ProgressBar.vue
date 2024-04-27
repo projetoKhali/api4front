@@ -43,13 +43,17 @@ export default {
   align-items: center;
   font-family: sans-serif;
   background-color: #fff;
-  width: 100%; /* Adjust the width as desired */
-  height: 100%; /* Adjust the height as desired */
-  box-shadow: 0 5px 0 0 rgba(0, 0, 0, 0.1);
+  width: 100%;
+  height: 100%; 
   border-radius: 5px;
   transition:
     border-color 0.3s,
     transform 0.3s;
+  border-radius: 15px 25px;
+  border-radius: 15px 25px;
+  border-width: medium;
+  border-style: solid;
+  border-color: #D8D5D4;
 }
 
 .track-wrapper {
@@ -74,6 +78,8 @@ export default {
   font-size: 1.2em;
   color: #333;
   font-weight: semi-bold;
+  vertical-align:middle;
+  text-align: center;
   padding-right: 10px;
 }
 
@@ -106,7 +112,10 @@ export default {
 
 .container {
   display: flex;
-  justify-content: space-between; /* Adjust as needed */
+  justify-content: space-between;
   align-items: center;
+  height: 100%;
+  width: 100%;
+  background-color: aqua;
 }
 </style>

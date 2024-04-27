@@ -21,11 +21,11 @@ const chartOptions = reactive({
   plugins: {
     legend: {
       display: true,
-      position: 'bottom',
+      position: 'left',
     },
     title: {
       display: true,
-      text: props.title || 'Avanço das Expertises por Status',
+      text: 'Avanço das Expertises por Status',
       color: 'black',
       font: {
         size: 18,
@@ -83,14 +83,16 @@ watch(
 
 <style scoped>
 .chart-container {
-  box-shadow: 0px 4px 0 0 rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  width: 90%;
-  height: 85%;
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   background-color: white;
+	border-radius: 15px 25px;
+  border-width: medium;
+  border-style: solid;
+  border-color: #D8D5D4;
 }
 
 .chart-title {

@@ -13,7 +13,7 @@ const props = defineProps({
     }
 });
 
-const itemsPerPage = 10;
+const itemsPerPage = 1;
 const currentPage = ref(0);
 const body = ref([]);
 const totalPages = ref(0);
@@ -27,7 +27,7 @@ const fetchData = async () => {
         const response = await axios.get(props.route, {
             params: {
                 page: currentPage.value,
-                itemsPerPage: itemsPerPage
+                size: itemsPerPage
             }
         });
         body.value = response.data.content;   
@@ -76,8 +76,12 @@ const nextPage = () => {
         </table>
     </div>
     <div class="pagination-button">
-        <button @click="previousPage" v-if="showPrevButton">Anterior</button>
-        <button @click="nextPage" v-if="showNextButton">Próximo</button>
+        <div class="prev-button">
+            <button @click="previousPage" v-if="showPrevButton">Previous</button>
+        </div>
+        <div class="next-button">
+            <button @click="nextPage" v-if="showNextButton">Next</button>
+        </div>
     </div>
 </template>
 
@@ -155,5 +159,18 @@ tr:hover {
 .pagination-button {
     display: flex;
     justify-content: space-between;
+}
+
+.prev-button,
+.next-button {
+    margin: 10px;
+}
+
+.prev-button{
+    float: left;
+}
+
+.next-button{
+    float: right;
 }
 </style>

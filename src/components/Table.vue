@@ -14,24 +14,34 @@ const props = defineProps({
 });
 
 const itemsPerPage = 10;
-const currentPage = ref(1);
+const currentPage = ref(0);
 const body = ref([]);
 
 
 const fetchData = async () => {
-    const response = await axios.get(props.route, {
-        params: {
-            page: currentPage.value,
-            itemsPerPage: itemsPerPage
-        }
-    });
-    body.value = response.data;
+    try {
+        const response = await axios.get(props.route, {
+            params: {
+                page: currentPage.value,
+                itemsPerPage: itemsPerPage
+            }
+        });
+        body.value = response.data.content;
+        console.log('body', body.value);
+        console.log('Data fetched', response.data.content);
+        console.log(props.head);
+        
+        
+    } catch (error) {
+        console.error('Error fetching data', error);
+        console.log('Error fetching data', error);
+    }    
 };
 
 watch(currentPage, fetchData, { immediate: true });
 
 const previousPage = () => {
-    if (currentPage.value > 1) {
+    if (currentPage.value > 0) {
         currentPage.value--;
     }
 };
@@ -53,7 +63,7 @@ const nextPage = () => {
             </thead>
             <tbody>
                 <tr v-for="(line, index) in body" :key="index">
-                    <td v-for="(cell, index) in line" :key="index">
+                    <td v-for="(cell, key) in line" :key="key">
                         {{ cell }}
                     </td>
                 </tr>

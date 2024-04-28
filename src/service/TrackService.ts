@@ -1,7 +1,47 @@
-import { TrackSchema } from '../schema/Track';
+import { TrackSchema as TrackDashboardSchema } from '../schemas/track/Track';
 import axios from 'axios';
 
-export async function getDataMocked(): Promise<TrackSchema[]> {
+const API_URL: string = 'http://localhost:8080';
+
+/* eslint-disable @typescript-eslint/no-explicit-any */
+export async function getDataProduct(
+  trackName: string,
+): Promise<TrackDashboardSchema[]> {
+  const response = await axios.get(`${API_URL}/track/product/${trackName}`);
+
+  return [response.data].map((item: any) => ({
+    name: item.name,
+
+    expertises: item.expertises.map((expertiseItem: any) => ({
+      name: expertiseItem.name,
+
+      qualifiers: expertiseItem.qualifiers.map((qualifierItem: any) => ({
+        name: qualifierItem.name,
+      })),
+    })),
+
+    partners: item.partners.map((partnerItem: any) => ({
+      name: partnerItem.name,
+      location: partnerItem.location,
+      startDate: partnerItem.startDate ? new Date(partnerItem.startDate) : null,
+
+      expertises: partnerItem.expertises.map((expertise: any) => ({
+        name: expertise.name,
+        startDate: expertise.startDate ? new Date(expertise.startDate) : null,
+        endDate: expertise.endDate ? new Date(expertise.endDate) : null,
+      })),
+
+      qualifiers: partnerItem.qualifiers.map((qualifier: any) => ({
+        name: qualifier.name,
+        startDate: qualifier.startDate ? new Date(qualifier.startDate) : null,
+        endDate: qualifier.endDate ? new Date(qualifier.endDate) : null,
+      })),
+    })),
+  }));
+}
+/* eslint-enable @typescript-eslint/no-explicit-any */
+
+export async function getDataMocked(): Promise<TrackDashboardSchema[]> {
   try {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const mockedData: any = {
@@ -82,61 +122,10 @@ export async function getDataMocked(): Promise<TrackSchema[]> {
       ],
     };
 
-    const Track: TrackSchema[] = [mockedData];
+    const Track: TrackDashboardSchema[] = [mockedData];
     return Track;
   } catch (error) {
     console.error('Erro ao obter dados mockados do Parceiro:', error);
-    throw error;
-  }
-}
-
-export async function getDataFromEndpoint1(
-  url: string,
-): Promise<TrackSchema[]> {
-  try {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const response = await axios.get<any[]>(url);
-
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const tracks: TrackSchema[] = response.data.map((item: any) => ({
-      name: item.name,
-
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      expertises: item.expertises.map((expertiseItem: any) => ({
-        name: expertiseItem.name,
-
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        qualifier: expertiseItem.qualifier.map((qualifierItem: any) => ({
-          name: qualifierItem.name,
-        })),
-      })),
-
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      partners: item.partners.map((partnerItem: any) => ({
-        name: partnerItem.name,
-        location: partnerItem.location,
-        startDate: partnerItem.startDate
-          ? new Date(partnerItem.startDate)
-          : null,
-
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        expertises: partnerItem.expertises.map((expertise: any) => ({
-          name: expertise.name,
-          startDate: expertise.startDate ? new Date(expertise.startDate) : null,
-          endDate: expertise.endDate ? new Date(expertise.endDate) : null,
-        })),
-
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        qualifiers: partnerItem.qualifiers.map((qualifier: any) => ({
-          name: qualifier.name,
-          startDate: qualifier.startDate ? new Date(qualifier.startDate) : null,
-          endDate: qualifier.endDate ? new Date(qualifier.endDate) : null,
-        })),
-      })),
-    }));
-    return tracks;
-  } catch (error) {
-    console.error('Erro ao obter dados das Tracks:', error);
     throw error;
   }
 }

@@ -41,8 +41,7 @@ import CountCard from '../components/CountCard.vue';
 import ProgressBar from '../components/ProgressBar.vue';
 import Table from '../components/Table.vue';
 import { getDataMocked } from '../service/TrackService';
-import { TrackSchema } from '../schemas/track/Track';
-import Popup from '../components/Popup.vue';
+import { TrackSchema } from '../schema/Track';
 
 const popupTriggers = ref({ buttomTrigger: false });
 const track = ref<TrackSchema[]>([]);
@@ -66,7 +65,7 @@ const totalQualificadores = ref(0);
 
 onMounted(async () => {
   try {
-    track.value = await getDataMocked();
+    track.value = await getDataProduct('Track 1');
     console.log('Dados da track:', track.value);
 
     calcularPieChartData();
@@ -86,7 +85,7 @@ const calcularPieChartData = () => {
     'Não iniciadas': 0,
   };
 
-  track.value.forEach(track => {
+  track.value.forEach((track: TrackSchema) => {
     track.partners.forEach(partner => {
       partner.expertises.forEach(expertise => {
         if (expertise.endDate !== null) {
@@ -106,7 +105,7 @@ const calcularPieChartData = () => {
 const preencherTabelaExpertises = () => {
   const dadosTabela: Array<[string, number, number]> = [];
 
-  track.value.forEach(track => {
+  track.value.forEach((track: TrackSchema) => {
     track.partners.forEach(partner => {
       partner.expertises.forEach(expertise => {
         const index = dadosTabela.findIndex(item => item[0] === expertise.name);

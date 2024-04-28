@@ -22,7 +22,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import { getDataMocked } from '../service/PartnerService';
-import { PartnerSchema } from '../schema/Partner';
+import { PartnerSchema } from '../schemas/partner/Partner';
 import StatCircle from '../components/StatCircle.vue';
 import BarChart from '../components/charts/BarChart.vue';
 import PieChart from '../components/charts/PieChart.vue';

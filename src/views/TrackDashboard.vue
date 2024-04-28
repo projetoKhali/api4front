@@ -26,9 +26,12 @@
     </div>
     <div>
       <h1>Vue Pop Up</h1>
-      <button>Open Popup</button>
-      <Popup v-if="popupTriggers.buttomTrigger">
-        <h2>My Popup</h2>
+      <button @click="() => TogglePopup('buttonTrigger')">Open Popup</button>
+      <Popup
+        v-if="popupTriggers.buttonTrigger"
+        :TogglePopup="() => TogglePopup('buttonTrigger')"
+      >
+        <h2>My Button Popup</h2>
       </Popup>
     </div>
   </div>
@@ -41,9 +44,13 @@ import CountCard from '../components/CountCard.vue';
 import ProgressBar from '../components/ProgressBar.vue';
 import Table from '../components/Table.vue';
 import { getDataMocked } from '../service/TrackService';
-import { TrackSchema } from '../schema/Track';
+import { TrackSchema } from '../schemas/track/Track';
+import Popup from '../components/Popup.vue';
 
 const popupTriggers = ref({ buttomTrigger: false });
+const TogglePopup = trigger => {
+  popupTriggers.value[trigger] = !popupTriggers.value[trigger];
+};
 const track = ref<TrackSchema[]>([]);
 const progressBarData = ref<{ [key: string]: { [key: string]: number } }>({});
 const formattedPieChartData = ref<{ [key: string]: number }>({});

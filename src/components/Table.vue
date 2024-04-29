@@ -10,10 +10,13 @@ const props = defineProps({
     route: {
         type: String,
         required: true
+    },
+    size: {
+        type: Number,
+        default: 10
     }
 });
 
-const itemsPerPage = 1;
 const currentPage = ref(0);
 const body = ref([]);
 const totalPages = ref(0);
@@ -27,7 +30,7 @@ const fetchData = async () => {
         const response = await axios.get(props.route, {
             params: {
                 page: currentPage.value,
-                size: itemsPerPage
+                size: props.size
             }
         });
         body.value = response.data.content;   
@@ -77,10 +80,10 @@ const nextPage = () => {
     </div>
     <div class="pagination-button">
         <div class="prev-button">
-            <button @click="previousPage" v-if="showPrevButton">Previous</button>
+            <button @click="previousPage" v-if="showPrevButton"><div class="left-arrow"></div></button>
         </div>
         <div class="next-button">
-            <button @click="nextPage" v-if="showNextButton">Next</button>
+            <button @click="nextPage" v-if="showNextButton"><div class="right-arrow"></div></button>
         </div>
     </div>
 </template>
@@ -88,7 +91,7 @@ const nextPage = () => {
 <style scoped>
 .scrollable-table {
     width: 100%;
-    height: 260px;
+    height: 100%;
     overflow-y: auto;
     background-color: #fff;
     border-radius: 9px;
@@ -129,7 +132,6 @@ const nextPage = () => {
 
 tr {
     transition: background-color 0.1s ease;
-    /* Adicione esta linha */
 }
 
 tr:hover {
@@ -147,7 +149,7 @@ tr:hover {
 }
 
 .table td {
-    line-height: 2.5;
+    line-height: 3;
 }
 
 .table th,
@@ -172,5 +174,34 @@ tr:hover {
 
 .next-button{
     float: right;
+}
+
+button{
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+    color: #D9D9D9;
+    height: 32px;
+    width: 32px;
+
+    border-radius: 100%;
+    border: none;
+
+    font-weight: 400;
+    font-size: 24px;
+    transition: color 0.3s, background-color 0.3s;
+}
+
+button:hover{
+    background-color: #D9D9D9;
+    color: #A4A3A3;
+}
+
+.left-arrow::before {
+    content: "‹";
+}
+.right-arrow::before {
+    content: "›";
 }
 </style>

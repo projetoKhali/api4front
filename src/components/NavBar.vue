@@ -1,6 +1,3 @@
-<script lang="ts">
-import router from '../router'
-</script>
 <template>
   <nav>
     <div :class="'oracle-logo'" />
@@ -14,6 +11,13 @@ import router from '../router'
   </nav>
 </template>
 
+<script lang="ts">
+import router from '../router';
+export default {
+  router,
+};
+</script>
+
 <style scoped>
 * {
   display: flex;
@@ -23,8 +27,8 @@ import router from '../router'
 }
 
 nav {
-  background-color: #361A4D;
-  border-bottom: 4px solid #B782E3;
+  background-color: #361a4d;
+  border-bottom: 4px solid #b782e3;
 }
 
 ul {
@@ -37,13 +41,13 @@ ul {
   height: 20px;
   width: 32px;
   min-width: 32px;
-  border: 6px solid #9F382A;
+  border: 6px solid #9f382a;
   border-radius: 16px;
   padding: 0;
 }
 
 .router-link {
-  color: #FFCCFF;
+  color: #ffccff;
   text-decoration: none;
 }
 

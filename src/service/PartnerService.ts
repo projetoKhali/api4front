@@ -1,5 +1,9 @@
 import { PartnerTrackSchema } from '@/schemas/partner/PartnerTrack';
-import { PartnerSchema, PartnerPostSchema, PartnerPatchSchema } from '../schemas/Partner';
+import {
+  PartnerSchema,
+  PartnerPostSchema,
+  PartnerPatchSchema,
+} from '../schemas/Partner';
 import { PartnerSchemaDashboard } from '../schemas/partner/Partner';
 import axios from 'axios';
 import { PartnerExpertiseSchema } from '@/schemas/partner/PartnerExpertise';
@@ -7,6 +11,7 @@ import { PartnerQualifierSchema } from '@/schemas/partner/PartnerQualifier';
 
 const API_URL: string = 'http://localhost:8080';
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export async function parsePartner(partner: any): Promise<PartnerSchema> {
   return {
     id: partner.id,
@@ -17,68 +22,82 @@ export async function parsePartner(partner: any): Promise<PartnerSchema> {
     slogan: partner.slogan,
     country: partner.country,
     city: partner.city,
-    address: partner.address, 
+    address: partner.address,
     compliance: partner.compliance,
     credit: partner.credit,
     status: partner.status,
     memberType: partner.memberType,
     insertDate: new Date(partner.insertDate),
-  }
+  };
 }
+
 export async function mapPartners(partners: any): Promise<PartnerSchema[]> {
-  return partners ? await partners.map(async (item: any) => parsePartner(item)) : [];
+  return partners
+    ? await partners.map(async (item: any) => parsePartner(item))
+    : [];
 }
 
 export async function getPartners(): Promise<PartnerSchema[]> {
-    const response = await axios.get(`${API_URL}/partners`);
-    return mapPartners(response.data);
+  const response = await axios.get(`${API_URL}/partners`);
+  return mapPartners(response.data);
 }
 
+/* eslint-enable @typescript-eslint/no-explicit-any */
 export async function getPartner(id: number): Promise<PartnerSchema> {
-    const response = await axios.get(`${API_URL}/partners/${id}`);
-    return parsePartner(response.data);
+  const response = await axios.get(`${API_URL}/partners/${id}`);
+  return parsePartner(response.data);
 }
 
-export async function createPartner(partner: PartnerPostSchema): Promise<PartnerPostSchema> {
-    const response = await axios.post(`${API_URL}/partners`, partner);
-    return parsePartner(response.data);
+export async function createPartner(
+  partner: PartnerPostSchema,
+): Promise<PartnerPostSchema> {
+  const response = await axios.post(`${API_URL}/partners`, partner);
+  return parsePartner(response.data);
 }
 
 export async function updatePartner(
-  id: number, 
-  partner: PartnerPatchSchema
+  id: number,
+  partner: PartnerPatchSchema,
 ): Promise<PartnerSchema> {
-    const response = await axios.patch(`${API_URL}/partners/${id}`, partner);
-    return parsePartner(response.data);
+  const response = await axios.patch(`${API_URL}/partners/${id}`, partner);
+  return parsePartner(response.data);
 }
 
 export async function deletePartner(id: number): Promise<void> {
-    await axios.delete(`${API_URL}/partners/${id}`);
+  await axios.delete(`${API_URL}/partners/${id}`);
 }
 
-export async function getDashboardData(id: number): Promise<PartnerSchemaDashboard[]> {
+export async function getDashboardData(
+  id: number,
+): Promise<PartnerSchemaDashboard[]> {
   try {
     const response = await axios.get(`${API_URL}/partner/${id}`);
 
-    const partners: PartnerSchemaDashboard[] = [{
-      name: response.data.name,
-      location: response.data.location,
-      tracks: response.data.tracks.map((trackItem: PartnerTrackSchema) => ({
-        name: trackItem.name,
+    const partners: PartnerSchemaDashboard[] = [
+      {
+        name: response.data.name,
+        location: response.data.location,
+        tracks: response.data.tracks.map((trackItem: PartnerTrackSchema) => ({
+          name: trackItem.name,
 
-        expertises: trackItem.expertises.map((expertiseItem: PartnerExpertiseSchema) => ({
-          name: expertiseItem.name,
-          startDate: new Date(expertiseItem.startDate),
-          endDate: new Date(expertiseItem.endDate),
+          expertises: trackItem.expertises.map(
+            (expertiseItem: PartnerExpertiseSchema) => ({
+              name: expertiseItem.name,
+              startDate: new Date(expertiseItem.startDate),
+              endDate: new Date(expertiseItem.endDate),
 
-          qualifiers: expertiseItem.qualifiers.map((qualifierItem: PartnerQualifierSchema) => ({
-            name: qualifierItem.name,
-            startDate: new Date(qualifierItem.startDate),
-            endDate: new Date(qualifierItem.endDate),
-          })),
+              qualifiers: expertiseItem.qualifiers.map(
+                (qualifierItem: PartnerQualifierSchema) => ({
+                  name: qualifierItem.name,
+                  startDate: new Date(qualifierItem.startDate),
+                  endDate: new Date(qualifierItem.endDate),
+                }),
+              ),
+            }),
+          ),
         })),
-      })),
-    }];
+      },
+    ];
     return partners;
   } catch (error) {
     console.error('Erro ao obter dados do Parceiro:', error);

@@ -92,6 +92,7 @@ const nextPage = () => {
 </template>
 
 <style scoped>
+
 .scrollable-table {
     width: 100%;
     height: 100%;
@@ -178,6 +179,7 @@ tr:hover {
 .next-button{
     float: right;
 }
+
 .view-pages{
     float: center;
 }
@@ -207,8 +209,10 @@ button:hover{
 .left-arrow::before {
     content: "‹";
 }
+
 .right-arrow::before {
     content: "›";
 }
+
 </style>
 

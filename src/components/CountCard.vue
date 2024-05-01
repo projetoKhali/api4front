@@ -22,9 +22,7 @@ const props = defineProps({
   height: 100%;
   border-radius: 9px;
 
-  background-color: #ffffff;
-  box-shadow: 0 5px 0 0 rgba(0, 0, 0, 0.1);
-  border: 3px solid transparent;
+  background-color: #52476C;
   transition:
     border-color 0.3s,
     transform 0.3s;
@@ -37,13 +35,13 @@ const props = defineProps({
 .title-card {
   margin: 22px 0 0 0;
   font-size: 14px;
-  font-family: 'Inter', sans-serif;
+  font-family: Verdana;
   vertical-align: top;
   font-optical-sizing: auto;
   font-weight: 400;
   text-align: center;
   font-variation-settings: 'slnt' 0;
-  color: #000;
+  color: #FFF;
 }
 
 .number-card {
@@ -55,6 +53,6 @@ const props = defineProps({
   font-optical-sizing: auto;
   font-weight: 400;
   font-variation-settings: 'slnt' 0;
-  color: #000;
+  color: #FFF;
 }
 </style>

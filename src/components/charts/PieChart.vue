@@ -45,24 +45,16 @@ const chartOptions = reactive({
     },
   },
 });
-
 let chartData = reactive({
   labels: Object.keys(props.chartData),
   datasets: [
     {
       label: 'Expertises',
       data: Object.values(props.chartData),
-      backgroundColor: Object.keys(props.chartData).map(() => getRandomColor()),
+      backgroundColor: ['#928b7A','#855c38', '#9d96a8'],
     },
   ],
 });
-
-function getRandomColor() {
-  const greenTones = ['#4CAF50', '#66BB6A', '#81C784', '#A5D6A7', '#C8E6C9'];
-  const purpleTones = ['#9C27B0', '#AB47BC', '#BA68C8', '#CE93D8', '#E1BEE7'];
-  const colors = Math.random() < 0.5 ? greenTones : purpleTones;
-  return colors[Math.floor(Math.random() * colors.length)];
-}
 
 watch(
   () => props.chartData,
@@ -73,12 +65,13 @@ watch(
         {
           label: 'Expertises',
           data: Object.values(newValue),
-          backgroundColor: Object.keys(newValue).map(() => getRandomColor()),
+          backgroundColor: ['#9d96a8','#855c38', '#928b7A'],
         },
       ],
     };
   },
 );
+
 </script>
 
 <style scoped>
@@ -89,10 +82,7 @@ watch(
   flex-direction: column;
   align-items: center;
   background-color: white;
-	border-radius: 15px 25px;
-  border-width: medium;
-  border-style: solid;
-  border-color: #D8D5D4;
+	border-radius: 10px;
 }
 
 .chart-title {

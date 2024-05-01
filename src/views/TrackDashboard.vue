@@ -27,6 +27,7 @@
       </div>
     </div>
   </div>
+  <div class="down-buttom"> </div>
 </template>
 
 
@@ -255,8 +256,7 @@ const calcularTotais = () => {
   justify-content: space-between;
   height: 100vh;
   padding: 20px;
-  gap: 10px;
-  background-color: rgb(236, 224, 240);
+  background-color: #EBF2E8;
 
 }
 
@@ -269,7 +269,6 @@ const calcularTotais = () => {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: rgb(236, 224, 240);
   padding: 5px;
 }
 
@@ -289,14 +288,16 @@ const calcularTotais = () => {
   width: 60%;
   display: flex;
   flex-direction: column;
-  padding: 20px;
+  padding-right: 20px;
+  padding-top: 8px;
 }
 
 .right-side{
   height: 100%;
   width: 40%;
-  background-color: rgb(236, 224, 240);
-
+  padding-left: 20px;
+  border-radius: 15px;
+  padding-top: 8px;
 }
 .progressbar-container {
   height: 48%;
@@ -304,7 +305,21 @@ const calcularTotais = () => {
   padding: 5px;
   
 }
-.h2{
-  text-align: center;
+h2{
+  color: #222a49;
+  text-align: left;
+  font-size: 1.5vw;
+  padding-top: 5px;
+  
 }
+.down-buttom{
+  height: 80px;
+  background-color: #944237;
+
+}
+
+*{
+ font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
 </style>

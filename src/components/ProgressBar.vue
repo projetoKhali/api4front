@@ -45,15 +45,10 @@ export default {
   background-color: #fff;
   width: 100%;
   height: 100%; 
-  border-radius: 5px;
+  border-radius: 10px;
   transition:
     border-color 0.3s,
     transform 0.3s;
-  border-radius: 15px 25px;
-  border-radius: 15px 25px;
-  border-width: medium;
-  border-style: solid;
-  border-color: #D8D5D4;
 }
 
 .track-wrapper {
@@ -97,7 +92,7 @@ export default {
 }
 
 .bar {
-  background: #94df49;
+  background: #dca650;
   height: 100%;
   border-radius: 10px;
   transition: width 0.5s ease;
@@ -116,6 +111,5 @@ export default {
   align-items: center;
   height: 100%;
   width: 100%;
-  background-color: aqua;
 }
 </style>

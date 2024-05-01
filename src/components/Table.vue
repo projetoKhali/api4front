@@ -35,7 +35,9 @@ const props = defineProps({
 <style scoped>
 .scrollable-table {
   width: 100%;
-  height: 180px;
+  height: 100%;
+  min-height: 205px;
+  padding-top: 30px;
 
   padding-right: 10px;
   overflow-y: auto;
@@ -44,7 +46,6 @@ const props = defineProps({
 
   scrollbar-width: 7px;
   scrollbar-color: transparent;
-  box-shadow: 0 5px 0 0 rgba(0, 0, 0, 0.1);
 }
 
 .table {
@@ -52,7 +53,7 @@ const props = defineProps({
   width: 100%;
   margin: 0;
 
-  font-family: 'Inter', sans-serif;
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   color: #000;
   padding-bottom: 20px;
 }
@@ -71,10 +72,12 @@ th {
   text-align: center;
   font-weight: 600;
   height: 100%;
+
 }
 
 td {
   line-height: 2.5;
+  text-align: center;
 }
 
 .scrollable-table::-webkit-scrollbar {
@@ -85,5 +88,9 @@ td {
   background-color: #a4a3a3;
   height: 46px;
   border-radius: 4px;
+}
+
+*{
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 </style>

@@ -166,6 +166,7 @@ tr:hover {
 }
 
 .prev-button,
+.view-pages,
 .next-button {
     margin: 10px;
 }

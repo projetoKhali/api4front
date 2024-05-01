@@ -82,6 +82,9 @@ const nextPage = () => {
         <div class="prev-button">
             <button @click="previousPage" v-if="showPrevButton"><div class="left-arrow"></div></button>
         </div>
+        <div class="view-pages">
+            <span> {{ currentPage + 1 }} / {{ totalPages }}</span>
+        </div>
         <div class="next-button">
             <button @click="nextPage" v-if="showNextButton"><div class="right-arrow"></div></button>
         </div>
@@ -173,6 +176,9 @@ tr:hover {
 
 .next-button{
     float: right;
+}
+.view-pages{
+    float: center;
 }
 
 button{

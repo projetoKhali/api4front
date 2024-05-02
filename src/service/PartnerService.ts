@@ -9,6 +9,10 @@ import axios from 'axios';
 const API_URL: string = 'http://localhost:8080';
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
+export async function getDataMocked () {
+  return [];
+}
+
 export async function parsePartner(partner: any): Promise<PartnerSchema> {
   return {
     id: partner.id,

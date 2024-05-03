@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div v-for="(key, index) in Object.keys(data)" :key="index">
+  <div class="form-container">
+    <div v-for="(key, index) in Object.keys(data)" :key="index" class="form-row">
       <label>{{ key }}</label>
       <input
         :type="getFormFieldInputType(data, key)"
@@ -41,7 +41,35 @@ export default {
       getFormFieldInputType,
     };
   },
-}
+};
 </script>
 
-<style scoped></style>
+<style scoped>
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125em;
+}
+
+.form-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  gap: 1rem;
+  width: 100%;
+}
+
+.form-row * {
+  width: 100%;
+}
+
+.form-row label {
+  text-align: right;
+}
+
+.form-row input {
+  text-align: left;
+}
+
+</style>

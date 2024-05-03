@@ -1,12 +1,18 @@
 <template>
   <div class="form-container">
-    <div v-for="(key, index) in Object.keys(data)" :key="index" class="form-row">
+    <div
+      v-for="(key, index) in Object.keys(data).filter(
+        key => key in onChangeFunctions,
+      )"
+      :key="index"
+      class="form-row"
+    >
       <label>{{ key }}</label>
       <input
         :type="getFormFieldInputType(data, key)"
         :value="data[key]"
         @input="onChangeFunctions[key](data, $event.target.value)"
-      >
+      />
     </div>
   </div>
 </template>

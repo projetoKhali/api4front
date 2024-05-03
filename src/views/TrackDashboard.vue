@@ -2,15 +2,14 @@
   <div class="dashboard-container">
     <div class="left-side">
       <div class="cards">
-        <CountCard title="Total de parceiros" :number="totalParceiros" />
-        <CountCard title="Total de expertises" :number="totalExpertises" />
-        <CountCard title="Total de qualificadores" :number="totalQualificadores"
-        />
+        <CountCard title="Total de parceiros" :number="totalParceiros" iconName="user" />
+        <CountCard title="Total de expertises" :number="totalExpertises" iconName="trophy"/>
+        <CountCard title="Total de qualificadores" :number="totalQualificadores" iconName="book-bookmark"/>
       </div>
         <div class="bottom"> 
           <div class="table-expertise">
             <h2>Tabela de Expertises</h2>
-            <Table :head="tableHeadExpertises" :body="tableBodyExpertises" />
+            <Table :head="tableHeadExpertises" :route="tableBodyExpertises" />
           </div>
           <div class="table-qualify">
             <h2>Tabela de Qualificadores</h2>
@@ -48,7 +47,7 @@ const tableHeadExpertises = [
   'Número de Parceiros',
   'Tempo Médio de Conclusão',
 ];
-const tableBodyExpertises = ref<Array<[string, number, number]>>([]);
+const tableBodyExpertises = ref<Array<[string, string, string]>>([]);
 const tableHeadQualificadores = [
   'Qualificador',
   'Número de Parceiros',

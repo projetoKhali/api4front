@@ -160,10 +160,6 @@ const formatarTracksData = (parceiroData: PartnerSchemaDashboard[]) => {
   gap: 20px;
 }
 
-.statcircle-container,
-.barchart-container {
-}
-
 .progressbar-container {
   flex: 0.7;
   height: 80px;

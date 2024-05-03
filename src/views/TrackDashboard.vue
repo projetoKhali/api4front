@@ -35,7 +35,6 @@ import ProgressBar from '../components/ProgressBar.vue';
 import Table from '../components/Table.vue';
 import { getDataProduct } from '../service/TrackService';
 import { TrackSchema } from '../schemas/track/Track';
-import { TrackPartnerSchema } from '../schemas/track/TrackPartner';
 
 const track = ref<TrackSchema[]>([]);
 const progressBarData = ref<{ [key: string]: { [key: string]: number } }>({});
@@ -61,7 +60,7 @@ onMounted(async () => {
     track.value = await getDataProduct('Track 1');
     console.log('Dados da track:', track.value);
 
-    calcularPieChartData();
+    calcularPieChartData(track.value);
     preencherTabelaExpertises();
     preencherTabelaQualificadores();
     calcularProgressBarData();
@@ -71,14 +70,14 @@ onMounted(async () => {
   }
 });
 
-const calcularPieChartData = () => {
+const calcularPieChartData = (track: TrackSchema[]) => {
   const data: { [key: string]: number } = {
     'Finalizadas': 0,
     'Em progresso': 0,
     'Não iniciadas': 0,
   };
 
-  track.value.forEach((track: TrackSchema) => {
+  track.forEach(track => {
     track.partners.forEach(partner => {
       partner.expertises.forEach(expertise => {
         if (expertise.endDate !== null) {
@@ -236,8 +235,8 @@ const calcularTotais = () => {
 
   track.value.forEach(trackItem => {
     trackItem.expertises.forEach(expertise => {
-      expertise.qualifier.forEach(qualifier => {
-        uniqueQualifiers.add(qualifier.name);
+      expertise.qualifiers.forEach(qualifiers => {
+        uniqueQualifiers.add(qualifiers.name);
       });
     });
   });

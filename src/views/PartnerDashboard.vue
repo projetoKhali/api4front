@@ -21,14 +21,14 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
-import { getDataMocked } from '../service/PartnerService';
-import { PartnerSchema } from '../schema/Partner';
+import { getDashboardData } from '../service/PartnerService';
+import { PartnerSchemaDashboard } from '../schemas/partner/Partner';
 import StatCircle from '../components/StatCircle.vue';
 import BarChart from '../components/charts/BarChart.vue';
 import PieChart from '../components/charts/PieChart.vue';
 import ProgressBar from '../components/ProgressBar.vue';
 
-const partner = ref<PartnerSchema[]>([]);
+const partner = ref<PartnerSchemaDashboard[]>([]);
 const pieChartData = ref<{ [key: string]: number }>({});
 const barChartData = ref<{ [key: string]: number }>({});
 const formattedBarChartData = ref<{ [key: string]: number }>({});
@@ -37,8 +37,7 @@ const tracksData = ref<{ [key: string]: { [key: string]: number } }>({});
 
 onMounted(async () => {
   try {
-    // const url = 'URL_DO_SEU_ENDPOINT_2';
-    partner.value = await getDataMocked();
+    partner.value = await getDashboardData(1);
     console.log('Dados dos partner:', partner.value);
 
     barChartData.value = calcularPorcentagemFinalizadas(partner.value);
@@ -55,7 +54,9 @@ onMounted(async () => {
   }
 });
 
-const calcularPorcentagemFinalizadas = (parceiroData: PartnerSchema[]) => {
+const calcularPorcentagemFinalizadas = (
+  parceiroData: PartnerSchemaDashboard[],
+) => {
   const data: { [key: string]: number } = {};
 
   parceiroData.forEach(parceiro => {
@@ -72,7 +73,9 @@ const calcularPorcentagemFinalizadas = (parceiroData: PartnerSchema[]) => {
   return data;
 };
 
-const calcularPorcentagemTotalFinalizadas = (parceiroData: PartnerSchema[]) => {
+const calcularPorcentagemTotalFinalizadas = (
+  parceiroData: PartnerSchemaDashboard[],
+) => {
   let totalExpertises = 0;
   let expertisesFinalizadas = 0;
 
@@ -94,7 +97,7 @@ const calcularPorcentagemTotalFinalizadas = (parceiroData: PartnerSchema[]) => {
   return porcentagem;
 };
 
-const calcularEstadoExpertises = (parceiroData: PartnerSchema[]) => {
+const calcularEstadoExpertises = (parceiroData: PartnerSchemaDashboard[]) => {
   const data: { [key: string]: number } = {
     'Finalizados': 0,
     'Em progresso': 0,
@@ -107,8 +110,8 @@ const calcularEstadoExpertises = (parceiroData: PartnerSchema[]) => {
         if (expertise.endDate) {
           data['Finalizados']++;
         } else if (
-          expertise.qualifier &&
-          expertise.qualifier.some(qualifier => qualifier.endDate)
+          expertise.qualifiers &&
+          expertise.qualifiers.some(qualifiers => qualifiers.endDate)
         ) {
           data['Em progresso']++;
         } else {
@@ -121,7 +124,7 @@ const calcularEstadoExpertises = (parceiroData: PartnerSchema[]) => {
   return data;
 };
 
-const formatarTracksData = (parceiroData: PartnerSchema[]) => {
+const formatarTracksData = (parceiroData: PartnerSchemaDashboard[]) => {
   const formattedData: { [key: string]: { [key: string]: number } } = {};
 
   parceiroData.forEach(parceiro => {
@@ -129,13 +132,13 @@ const formatarTracksData = (parceiroData: PartnerSchema[]) => {
       const trackProgress: { [key: string]: number } = {};
 
       track.expertises.forEach(expertise => {
-        const totalQualifiers = expertise.qualifier.length;
-        const qualifiersConcluidos = expertise.qualifier.filter(
-          qualifier => qualifier.endDate !== null,
+        const totalqualifiers = expertise.qualifiers.length;
+        const qualifiersConcluidos = expertise.qualifiers.filter(
+          qualifiers => qualifiers.endDate !== null,
         ).length;
         const progress =
-          totalQualifiers > 0
-            ? (qualifiersConcluidos / totalQualifiers) * 100
+          totalqualifiers > 0
+            ? (qualifiersConcluidos / totalqualifiers) * 100
             : 0;
         trackProgress[expertise.name] = progress;
       });

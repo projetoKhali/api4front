@@ -82,6 +82,9 @@ const nextPage = () => {
         <div class="prev-button">
             <button @click="previousPage" v-if="showPrevButton"><div class="left-arrow"></div></button>
         </div>
+        <div class="view-pages">
+            <span> {{ currentPage + 1 }} / {{ totalPages }}</span>
+        </div>
         <div class="next-button">
             <button @click="nextPage" v-if="showNextButton"><div class="right-arrow"></div></button>
         </div>
@@ -89,6 +92,7 @@ const nextPage = () => {
 </template>
 
 <style scoped>
+
 .scrollable-table {
     width: 100%;
     height: 100%;
@@ -163,6 +167,7 @@ tr:hover {
 }
 
 .prev-button,
+.view-pages,
 .next-button {
     margin: 10px;
 }
@@ -173,6 +178,10 @@ tr:hover {
 
 .next-button{
     float: right;
+}
+
+.view-pages{
+    float: center;
 }
 
 button{
@@ -200,8 +209,10 @@ button:hover{
 .left-arrow::before {
     content: "‹";
 }
+
 .right-arrow::before {
     content: "›";
 }
+
 </style>
 

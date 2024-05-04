@@ -9,7 +9,7 @@
         <div class="bottom"> 
           <div class="table-expertise">
             <h2>Tabela de Expertises</h2>
-            <Table :head="tableHeadExpertises" :route="tableBodyExpertises" />
+            <Table :head="tableHeadExpertises" :body="tableBodyExpertises" />
           </div>
           <div class="table-qualify">
             <h2>Tabela de Qualificadores</h2>
@@ -98,20 +98,20 @@ const calcularPieChartData = (track: TrackSchema[]) => {
 };
 
 const preencherTabelaExpertises = () => {
-  const dadosTabela: Array<[string, number, number]> = [];
+  const dadosTabela: Array<[string, string, string]> = [];
 
-  track.value.forEach((track: TrackSchema) => {
-    track.partners.forEach(partner => {
+  track.value.forEach((trackItem: TrackSchema) => {
+    trackItem.partners.forEach(partner => {
       partner.expertises.forEach(expertise => {
         const index = dadosTabela.findIndex(item => item[0] === expertise.name);
         if (index === -1) {
           dadosTabela.push([
             expertise.name,
-            1,
-            calcularTempoMedioConclusaoExpertise(expertise.name),
+            '1', // Número de Parceiros inicialmente '1'
+            calcularTempoMedioConclusaoExpertise(expertise.name).toFixed(2) + 'h',
           ]);
         } else {
-          dadosTabela[index][1]++;
+          dadosTabela[index][1] = (parseInt(dadosTabela[index][1]) + 1).toString(); // Incrementa o número de parceiros
         }
       });
     });
@@ -121,20 +121,20 @@ const preencherTabelaExpertises = () => {
 };
 
 const preencherTabelaQualificadores = () => {
-  const dadosTabela: Array<[string, number, number]> = [];
+  const dadosTabela: Array<[string, string, string]> = [];
 
-  track.value.forEach(track => {
-    track.partners.forEach(partner => {
+  track.value.forEach(trackItem => {
+    trackItem.partners.forEach(partner => {
       partner.qualifiers.forEach(qualifier => {
         const index = dadosTabela.findIndex(item => item[0] === qualifier.name);
         if (index === -1) {
           dadosTabela.push([
             qualifier.name,
-            1,
-            calcularTempoMedioConclusaoQualifier(qualifier.name),
+            '1', // Número de Parceiros inicialmente '1'
+            calcularTempoMedioConclusaoQualifier(qualifier.name).toFixed(2) + 'h',
           ]);
         } else {
-          dadosTabela[index][1]++;
+          dadosTabela[index][1] = (parseInt(dadosTabela[index][1]) + 1).toString(); // Incrementa o número de parceiros
         }
       });
     });
@@ -299,8 +299,8 @@ const calcularTotais = () => {
   padding-top: 8px;
 }
 .progressbar-container {
-  height: 48%;
-  width: 95%;
+  height: 100%;
+  width: 100%;
   padding: 5px;
   
 }
@@ -315,6 +315,10 @@ h2{
   height: 80px;
   background-color: #944237;
 
+}
+
+.table-expertise{
+  height: 100%;
 }
 
 *{

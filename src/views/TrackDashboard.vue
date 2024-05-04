@@ -7,7 +7,7 @@
         <CountCard title="Total de qualificadores" :number="totalQualificadores"
         />
       </div>
-        <div class="bottom"> 
+        <div class="bottom">
           <div class="table-expertise">
             <h2>Tabela de Expertises</h2>
             <Table :head="tableHeadExpertises" :body="tableBodyExpertises" />
@@ -254,10 +254,9 @@ const calcularTotais = () => {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  height: 100vh;
+  height: 100%;
   padding: 20px;
   background-color: #EBF2E8;
-
 }
 
 .table-container {
@@ -298,19 +297,22 @@ const calcularTotais = () => {
   padding-left: 20px;
   border-radius: 15px;
   padding-top: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 .progressbar-container {
-  height: 48%;
+  height: 100%;
   width: 95%;
   padding: 5px;
-  
+
 }
 h2{
   color: #222a49;
   text-align: left;
   font-size: 1.5vw;
   padding-top: 5px;
-  
+
 }
 .down-buttom{
   height: 80px;

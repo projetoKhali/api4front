@@ -15,6 +15,17 @@
         @input="onChangeFunctions[key](data, $event.target.value)"
       />
     </div>
+    <ul class="form-button-list" v-if="actions">
+      <div
+        v-for="(action, index) in Object.keys(actions)"
+        :key="index"
+        class="form-button-wrapper"
+      >
+        <button class="form-button" @click="actions[action](data)">
+          {{ action }}
+        </button>
+      </div>
+    </ul>
   </div>
 </template>
 
@@ -43,6 +54,10 @@ export default {
       required: true,
     },
     onChangeFunctions: {
+      type: Object,
+      required: true,
+    },
+    actions: {
       type: Object,
       required: true,
     },
@@ -81,5 +96,12 @@ export default {
 
 .form-row label {
   text-align: right;
+}
+
+.form-button-list {
+  list-style-type: none;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
 }
 </style>

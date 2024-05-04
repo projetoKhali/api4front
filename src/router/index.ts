@@ -1,6 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import PartnerDashboard from '../views/PartnerDashboard.vue';
 import TrackDashboard from '../views/TrackDashboard.vue';
+import ListPartner from '../views/ListPartner.vue';
+import ListUser from '../views/ListUser.vue';
 
 const routes = [
   {
@@ -12,6 +14,16 @@ const routes = [
     path: '/track',
     name: 'Track',
     component: TrackDashboard,
+  },
+  {
+    path: '/partners',
+    name: 'partners',
+    component: ListPartner,
+  },
+  {
+    path: '/users',
+    name: 'users',
+    component: ListUser,
   },
 ];
 

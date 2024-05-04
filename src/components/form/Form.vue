@@ -73,9 +73,4 @@ export default {
 .form-row label {
   text-align: right;
 }
-
-.form-row input {
-  text-align: left;
-}
-
 </style>

@@ -47,9 +47,11 @@ const props = defineProps({
 
 .count-card:hover {
     transform: scale(1.05);
+    transform: scale(1.05);
 }
 
 .title-card {
+    margin: 20px 0 0 0;
     margin: 20px 0 0 0;
 
     font-size: 1vw;

@@ -82,6 +82,9 @@ const nextPage = () => {
         <div class="prev-button">
             <button @click="previousPage" v-if="showPrevButton"><div class="left-arrow"></div></button>
         </div>
+        <div class="view-pages">
+            <span> {{ currentPage + 1 }} / {{ totalPages }}</span>
+        </div>
         <div class="next-button">
             <button @click="nextPage" v-if="showNextButton"><div class="right-arrow"></div></button>
         </div>
@@ -89,16 +92,17 @@ const nextPage = () => {
 </template>
 
 <style scoped>
+
 .scrollable-table {
     width: 100%;
     height: 100%;
-    min-height: 160px;
-    padding-top: 30px;
     overflow-y: auto;
     background-color: #fff;
-    border-radius: 9px;
+    border-radius: 4px;
     scrollbar-width: 7px;
     scrollbar-color: transparent;
+    min-height: 64vh;
+    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.1); 
 }
 
 .scrollable-table::-webkit-scrollbar {
@@ -139,24 +143,29 @@ tr:hover {
 }
 
 .table th {
-    background-color: #fff;
+    background-color: #443054;
     position: sticky;
     top: 0;
-    font-size: 1.2vw;
-    font-weight: 600;
+    font-size: .8rem;
+    vertical-align: top;
     height: 40px;
-    padding-top: 7px;
+    padding: 4px;
+    color: white;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    padding-left: 10px;
 }
 
 .table td {
     line-height: 3;
-    text-align: center;
+    font-size: .7rem;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
 .table th,
 .table td {
     text-align: center;
-    vertical-align: top;
+    vertical-align: middle;
 }
 
 .pagination-button {
@@ -165,6 +174,7 @@ tr:hover {
 }
 
 .prev-button,
+.view-pages,
 .next-button {
     margin: 10px;
 }
@@ -177,36 +187,46 @@ tr:hover {
     float: right;
 }
 
+.view-pages{
+    float: center;
+}
+
 button{
     display: flex;
+
     align-items: center;
     justify-content: center;
-    color: #D9D9D9;
-    background-color: #52476C;
+    color: #9d96ab;
     height: 32px;
     width: 32px;
-    border-radius: 10%;
+
+    border-radius: 100%;
     border: none;
+
     font-weight: 400;
-    font-size: 2vw;
+    font-size: 1rem;
     transition: color 0.3s, background-color 0.3s;
 }
 
 button:hover{
     background-color: #D9D9D9;
     color: #A4A3A3;
-    cursor:pointer
 }
 
 .left-arrow::before {
     content: "‹";
 }
+
 .right-arrow::before {
     content: "›";
 }
 
-*{
-  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+span{
+    position: absolute;
+    width: 40%;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: #928b7a
 }
+
 </style>
 

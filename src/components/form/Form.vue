@@ -73,11 +73,16 @@ export default {
 </script>
 
 <style scoped>
+* {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
 
 .form-container {
   display: flex;
   flex-direction: column;
-  gap: 0.125em;
+  align-items: center;
 }
 
 .form-title {

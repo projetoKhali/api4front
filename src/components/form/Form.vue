@@ -1,5 +1,6 @@
 <template>
   <div class="form-container">
+    <h1 v-if="title" class="form-title">{{ title }}</h1>
     <div
       v-for="(key, index) in Object.keys(data).filter(
         key => key in onChangeFunctions,
@@ -33,6 +34,10 @@ function getFormFieldInputType(data: Object, key: string): string {
 
 export default {
   props: {
+    title: {
+      type: String,
+      required: false,
+    },
     data: {
       type: Object,
       required: true,
@@ -56,6 +61,10 @@ export default {
   display: flex;
   flex-direction: column;
   gap: 0.125em;
+}
+
+.form-title {
+  text-align: center;
 }
 
 .form-row {

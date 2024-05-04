@@ -5,7 +5,7 @@ import FormExample from '../views/FormExample.vue';
 
 const routes = [
   {
-    path: '/',
+    path: '/addUser',
     name: 'Form Example',
     component: FormExample,
   },

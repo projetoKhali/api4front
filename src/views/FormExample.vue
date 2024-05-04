@@ -1,55 +1,38 @@
 <template>
-  <Form
-    :data="formData"
-    :onChangeFunctions="formDataOnChange"
-  />
+  <UserForm :formActionTitle="'Criar'" :user="user" :actions="actions" />
 </template>
 
 <script lang="ts">
-import Form from '../components/form/Form.vue';
+import UserForm from '../components/form/UserForm.vue';
+import User from '../schemas/User';
 
-type TestDataType = {
-  name: string;
-  age: number;
-  favDate: Date;
-  isAlive: boolean;
-};
-
-const formData: TestDataType = {
+const user: User = {
+  id: 1,
   name: 'John Doe',
-  age: 57,
-  favDate: new Date(),
-  isAlive: true,
+  email: 'john@doe.com',
+  profile: 'Oracle',
 };
 
-const formDataOnChange = {
-  name: (object: TestDataType, value: string) => {
-    console.log('Name changed to:', value);
-    return object.name = value
+const actions = {
+  cancel: (data: User) => {
+    console.log('Data canceled:', data);
   },
-  age: (object: TestDataType, value: number) => {
-    console.log('Age changed to:', value);
-    return object.age = value
+  submit: (data: User) => {
+    console.log('Data submitted:', data);
   },
-  favDate: (object: TestDataType, value: Date) => {
-    console.log('Fav date changed to:', value);
-    return object.favDate = value
-  },
-  isAlive: (object: TestDataType, value: boolean) => {
-    console.log('Is alive changed to:', value);
-    return object.isAlive = value
-  },
-}
+};
 
 export default {
   components: {
-    Form,
+    UserForm,
   },
   setup() {
     return {
-      formData,
-      formDataOnChange,
+      user,
+      actions,
     };
   },
 };
 </script>
+
+<style></style>

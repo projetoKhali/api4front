@@ -1,60 +1,43 @@
 <script setup lang="ts">
-import { ref, watch, defineProps } from 'vue';
+import { ref, watch, onMounted, defineProps } from 'vue';
 import axios from 'axios';
 
 const props = defineProps({
-  head: {
+  headers: {
     type: Array as () => Array<String>,
     required: true,
   },
-  route: {
-    type: String,
-    required: true,
+  initialData: {
+    type: Array as () => Array<Array<String>>,
+    required: false,
   },
-  size: {
-    type: Number,
-    default: 10,
+  pagination: {
+    type: Object as () => Pagination,
+    required: false,
   },
 });
 
 const currentPage = ref(0);
-const body = ref([]);
-const totalPages = ref(0);
+const data = ref([]);
 
-const showPrevButton = ref(true);
-const showNextButton = ref(true);
+onMounted(() => {
+  watch(
+    () => props.initialData,
+    () => {
+      data.value = props.initialData || props.pagination?.getPageData(0) || [];
+    },
+    { immediate: true },
+  );
 
-const fetchData = async () => {
-  try {
-    const response = await axios.get(props.route, {
-      params: {
-        page: currentPage.value,
-        size: props.size,
-      },
-    });
-    body.value = response.data.content;
-    totalPages.value = response.data.totalPages;
+  return {
+    currentPage,
+    data,
+  };
+});
 
-    // atualiza a visibilidade dos botões de paginação
-    showPrevButton.value = currentPage.value > 0;
-    showNextButton.value = currentPage.value < totalPages.value - 1;
-  } catch (error) {
-    console.error('Error fetching data', error);
-  }
-};
-
-watch(currentPage, fetchData, { immediate: true });
-
-const previousPage = () => {
-  if (currentPage.value > 0) {
-    currentPage.value--;
-  }
-};
-
-const nextPage = () => {
-  if (currentPage.value < totalPages.value - 1) {
-    currentPage.value++;
-  }
+type Pagination = {
+  getPageData: (pageIndex: number) => void;
+  getTotalPages: () => number;
 };
 </script>
 
@@ -63,31 +46,47 @@ const nextPage = () => {
     <table class="table">
       <thead>
         <tr>
-          <th v-for="(item, index) in head" :key="index">
-            {{ item }}
+          <th v-for="(header, headerIndex) in headers" :key="headerIndex">
+            {{ header }}
           </th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(line, index) in body" :key="index">
-          <td v-for="(cell, key) in line" :key="key">
+        <tr v-for="(row, rowIndex) in data" :key="rowIndex">
+          <td v-for="(cell, cellIndex) in row" :key="cellIndex">
             {{ cell }}
           </td>
         </tr>
       </tbody>
     </table>
   </div>
-  <div class="pagination-button">
+  <div v-if="pagination" class="pagination-button">
     <div class="prev-button">
-      <button @click="previousPage" v-if="showPrevButton">
+      <button
+        v-if="currentPage > 0"
+        @click="
+          () => {
+            currentPage--;
+            data = pagination.getPageData(currentPage);
+          }
+        "
+      >
         <div class="left-arrow"></div>
       </button>
     </div>
     <div class="view-pages">
-      <span> {{ currentPage + 1 }} / {{ totalPages }}</span>
+      <span> {{ currentPage + 1 }} / {{ pagination.getTotalPages() }}</span>
     </div>
     <div class="next-button">
-      <button @click="nextPage" v-if="showNextButton">
+      <button
+        v-if="currentPage < pagination.getTotalPages() - 1"
+        @click="
+          () => {
+            currentPage++;
+            data = pagination.getPageData(currentPage);
+          }
+        "
+      >
         <div class="right-arrow"></div>
       </button>
     </div>

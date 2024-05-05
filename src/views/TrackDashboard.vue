@@ -24,6 +24,16 @@
       <h2>Tabela de Qualificadores</h2>
       <Table :head="tableHeadQualificadores" :body="tableBodyQualificadores" />
     </div>
+    <div>
+      <h1>Vue Pop Up</h1>
+      <button @click="() => TogglePopup('buttonTrigger')">Open Popup</button>
+      <Popup
+        v-if="popupTriggers.buttonTrigger"
+        :TogglePopup="() => TogglePopup('buttonTrigger')"
+      >
+        <h2>My Button Popup</h2>
+      </Popup>
+    </div>
   </div>
 </template>
 
@@ -33,9 +43,14 @@ import PieChart from '../components/charts/PieChart.vue';
 import CountCard from '../components/CountCard.vue';
 import ProgressBar from '../components/ProgressBar.vue';
 import Table from '../components/Table.vue';
-import { getDataProduct } from '../service/TrackService';
+import { getDataMocked } from '../service/TrackService';
 import { TrackSchema } from '../schemas/track/Track';
+import Popup from '../components/Popup.vue';
 
+const popupTriggers = ref({ buttomTrigger: false });
+const TogglePopup = trigger => {
+  popupTriggers.value[trigger] = !popupTriggers.value[trigger];
+};
 const track = ref<TrackSchema[]>([]);
 const progressBarData = ref<{ [key: string]: { [key: string]: number } }>({});
 const formattedPieChartData = ref<{ [key: string]: number }>({});

@@ -18,11 +18,17 @@
     </div>
     <div>
       <h2>Tabela de Expertises</h2>
-      <Table :head="tableHeadExpertises" :body="tableBodyExpertises" />
+      <Table
+        :headers="tableHeadExpertises"
+        :initialData="tableBodyExpertises"
+      />
     </div>
     <div>
       <h2>Tabela de Qualificadores</h2>
-      <Table :head="tableHeadQualificadores" :body="tableBodyQualificadores" />
+      <Table
+        :headers="tableHeadQualificadores"
+        :initialData="tableBodyQualificadores"
+      />
     </div>
   </div>
 </template>

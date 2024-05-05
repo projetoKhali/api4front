@@ -1,13 +1,13 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import PartnerDashboard from '../views/PartnerDashboard.vue';
 import TrackDashboard from '../views/TrackDashboard.vue';
-import FormExample from '../views/FormExample.vue';
+import TableExample from '../views/TableExample.vue';
 
 const routes = [
   {
-    path: '/addUser',
-    name: 'Form Example',
-    component: FormExample,
+    path: '/',
+    name: 'Table Test',
+    component: TableExample,
   },
   {
     path: '/partner',

@@ -1,10 +1,16 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import PartnerDashboard from '../views/PartnerDashboard.vue';
 import TrackDashboard from '../views/TrackDashboard.vue';
+import TableExample from '../views/TableExample.vue';
 import ListPartner from '../views/ListPartner.vue';
 import ListUser from '../views/ListUser.vue';
 
 const routes = [
+  {
+    path: '/tableExamplo',
+    name: 'Table Test',
+    component: TableExample,
+  },
   {
     path: '/partner',
     name: 'Partner',

@@ -37,7 +37,6 @@ const tracksData = ref<{ [key: string]: { [key: string]: number } }>({});
 
 onMounted(async () => {
   try {
-
     partner.value = await getDashboardData(1);
     console.log('Dados dos partner:', partner.value);
 
@@ -55,7 +54,9 @@ onMounted(async () => {
   }
 });
 
-const calcularPorcentagemFinalizadas = (parceiroData: PartnerSchemaDashboard[]) => {
+const calcularPorcentagemFinalizadas = (
+  parceiroData: PartnerSchemaDashboard[],
+) => {
   const data: { [key: string]: number } = {};
 
   parceiroData.forEach(parceiro => {
@@ -72,7 +73,9 @@ const calcularPorcentagemFinalizadas = (parceiroData: PartnerSchemaDashboard[]) 
   return data;
 };
 
-const calcularPorcentagemTotalFinalizadas = (parceiroData: PartnerSchemaDashboard[]) => {
+const calcularPorcentagemTotalFinalizadas = (
+  parceiroData: PartnerSchemaDashboard[],
+) => {
   let totalExpertises = 0;
   let expertisesFinalizadas = 0;
 

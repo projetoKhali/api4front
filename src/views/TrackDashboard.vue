@@ -25,6 +25,20 @@
         <ProgressBar :tracks="progressBarData" />
       </div>
     </div>
+    <div>
+      <h2>Tabela de Expertises</h2>
+      <Table
+        :headers="tableHeadExpertises"
+        :initialData="tableBodyExpertises"
+      />
+    </div>
+    <div>
+      <h2>Tabela de Qualificadores</h2>
+      <Table
+        :headers="tableHeadQualificadores"
+        :initialData="tableBodyQualificadores"
+      />
+    </div>
   </div>
   <div class="down-buttom"> </div>
 </template>

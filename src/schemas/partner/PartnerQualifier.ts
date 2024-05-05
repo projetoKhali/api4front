@@ -1,5 +1,5 @@
 export interface PartnerQualifierSchema {
   name: string;
-  startDate: Date,
-  endDate: Date,
+  startDate: Date;
+  endDate: Date;
 }

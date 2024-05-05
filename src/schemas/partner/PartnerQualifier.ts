@@ -1,4 +1,5 @@
 export interface PartnerQualifierSchema {
   name: string;
-  completed: boolean;
+  startDate: Date;
+  endDate: Date;
 }

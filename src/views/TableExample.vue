@@ -30,8 +30,5 @@ const pagination = {
 </script>
 
 <template>
-  <Table
-    :headers="tableHeaders"
-    :pagination="pagination"
-  />
+  <Table :headers="tableHeaders" :pagination="pagination" />
 </template>

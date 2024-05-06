@@ -1,10 +1,10 @@
 <template>
   <div>
     <h1>Vue Pop Up</h1>
-    <button @click="() => TogglePopup('buttonTrigger')">Open Popup</button>
+    <button @click="() => togglePopup('buttonTrigger')">Open Popup</button>
     <Popup
       v-if="popupTriggers.buttonTrigger"
-      :TogglePopup="() => TogglePopup('buttonTrigger')"
+      :togglePopup="() => togglePopup('buttonTrigger')"
     >
       <FormPopup
         :formActionTitle="'Título do Formulário'"
@@ -22,7 +22,7 @@ import { ref } from 'vue';
 
 const popupTriggers = ref({ buttomTrigger: false });
 
-const TogglePopup = trigger => {
+const togglePopup = trigger => {
   popupTriggers.value[trigger] = !popupTriggers.value[trigger];
 };
 
@@ -36,7 +36,7 @@ const user: User = {
 const actions = {
   salvar: (data: User) => {
     console.log('Data submitted:', data);
-    TogglePopup();
+    togglePopup();
   },
 };
 
@@ -49,7 +49,7 @@ export default {
     return {
       user,
       actions,
-      TogglePopup,
+      togglePopup,
       popupTriggers,
     };
   },

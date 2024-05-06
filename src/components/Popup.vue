@@ -2,7 +2,10 @@
   <div class="popup">
     <div class="popup-inner">
       <slot />
-      <button class="popup-close" @click="() => TogglePopup('buttonTrigger')">
+      <button
+        class="popup-close"
+        @click="() => togglePopup()"
+      >
         Close popup
       </button>
     </div>
@@ -11,7 +14,12 @@
 
 <script>
 export default {
-  props: ['TogglePopup'],
+  props: {
+    togglePopup: {
+      type: Function,
+      required: false,
+    },
+  },
 };
 </script>
 

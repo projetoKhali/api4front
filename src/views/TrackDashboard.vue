@@ -32,10 +32,10 @@
     </div>
     <div>
       <h1>Vue Pop Up</h1>
-      <button @click="() => TogglePopup('buttonTrigger')">Open Popup</button>
+      <button @click="() => togglePopup('buttonTrigger')">Open Popup</button>
       <Popup
         v-if="popupTriggers.buttonTrigger"
-        :TogglePopup="() => TogglePopup('buttonTrigger')"
+        :togglePopup="() => togglePopup('buttonTrigger')"
       >
         <h2>My Button Popup</h2>
       </Popup>
@@ -54,7 +54,7 @@ import { TrackSchema } from '../schemas/track/Track';
 import Popup from '../components/Popup.vue';
 
 const popupTriggers = ref({ buttomTrigger: false });
-const TogglePopup = trigger => {
+const togglePopup = trigger => {
   popupTriggers.value[trigger] = !popupTriggers.value[trigger];
 };
 const track = ref<TrackSchema[]>([]);

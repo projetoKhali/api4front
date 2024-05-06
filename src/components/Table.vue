@@ -1,15 +1,44 @@
 <script setup lang="ts">
+import { ref, watch, onMounted, defineProps } from 'vue';
+import axios from 'axios';
 
 const props = defineProps({
-  head: {
+  headers: {
     type: Array as () => Array<String>,
     required: true,
   },
-  body: {
-    type: Array as () => Array<any>,
-    required: true,
+  initialData: {
+    type: Array as () => Array<Array<String>>,
+    required: false,
+  },
+  pagination: {
+    type: Object as () => Pagination,
+    required: false,
   },
 });
+
+const currentPage = ref(0);
+const data = ref([]);
+
+onMounted(() => {
+  watch(
+    () => props.initialData,
+    () => {
+      data.value = props.initialData || props.pagination?.getPageData(0) || [];
+    },
+    { immediate: true },
+  );
+
+  return {
+    currentPage,
+    data,
+  };
+});
+
+type Pagination = {
+  getPageData: (pageIndex: number) => void;
+  getTotalPages: () => number;
+};
 </script>
 
 <template>
@@ -17,75 +46,174 @@ const props = defineProps({
     <table class="table">
       <thead>
         <tr>
-          <th v-for="(item, index) in $props.head" :key="index">
-            {{ item }}
+          <th v-for="(header, headerIndex) in headers" :key="headerIndex">
+            {{ header }}
           </th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(line, index) in $props.body" :key="index">
-          <td v-for="(cell, index) in line" :key="index">
+        <tr v-for="(row, rowIndex) in data" :key="rowIndex">
+          <td v-for="(cell, cellIndex) in row" :key="cellIndex">
             {{ cell }}
           </td>
         </tr>
       </tbody>
     </table>
   </div>
+  <div v-if="pagination" class="pagination-button">
+    <div class="prev-button">
+      <button
+        v-if="currentPage > 0"
+        @click="
+          () => {
+            currentPage--;
+            data = pagination.getPageData(currentPage);
+          }
+        "
+      >
+        <div class="left-arrow"></div>
+      </button>
+    </div>
+    <div class="view-pages">
+      <span> {{ currentPage + 1 }} / {{ pagination.getTotalPages() }}</span>
+    </div>
+    <div class="next-button">
+      <button
+        v-if="currentPage < pagination.getTotalPages() - 1"
+        @click="
+          () => {
+            currentPage++;
+            data = pagination.getPageData(currentPage);
+          }
+        "
+      >
+        <div class="right-arrow"></div>
+      </button>
+    </div>
+  </div>
 </template>
 
 <style scoped>
 .scrollable-table {
-  width: 300px;
-  height: 233px;
-
-  padding-right: 10px;
-  overflow-y: auto;
-  border-radius: 9px;
-  background-color: #fff;
-
-  scrollbar-width: 7px; /* Ajusta a largura da barra de rolagem */
-  scrollbar-color: transparent; /* Ajusta a cor do polegar e da trilha da barra de rolagem */
-  box-shadow: 0 5px 0 0 rgba(0, 0, 0, 0.1);
-}
-
-.table {
-  table-layout: fixed;
   width: 100%;
-  margin: 0;
-
-  font-family: 'Inter', sans-serif;
-  color: #000;
-  padding-bottom: 20px;
-}
-
-.table th {
-  padding-top: 7px;
-  background-color: #fff;
-  position: sticky;
-  padding-bottom: 25px;
-  top: 0;
-}
-
-th {
-  font-size: 20px;
-  vertical-align: top;
-  font-weight: 600;
   height: 100%;
+  overflow-y: auto;
+  background-color: #fff;
+  border-radius: 9px;
+  box-shadow: 0px 5px 5px 0 rgba(0, 0, 0, 0.1);
+  scrollbar-width: 7px;
+  scrollbar-color: transparent;
 }
 
-td {
-  line-height: 2.5;
-}
-
-/* Estiliza a barra de rolagem para Chrome, Safari e Opera */
 .scrollable-table::-webkit-scrollbar {
   width: 7px;
 }
 
 .scrollable-table::-webkit-scrollbar-thumb {
-  /*scroller*/
   background-color: #a4a3a3;
-  height: 46px;
-  border-radius: 4px;
+  border-radius: 100px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+
+.scrollable-table::-webkit-scrollbar-track {
+  background-color: #d9d9d9;
+  border-radius: 3px;
+}
+
+.scrollable-table::-webkit-scrollbar-thumb:hover {
+  background-color: #a4a3a3;
+}
+
+.table {
+  width: 100%;
+  height: 100%;
+  font-family: 'Inter', sans-serif;
+  color: #000;
+  padding: 0;
+  border-spacing: 0;
+}
+
+tr {
+  transition: background-color 0.1s ease;
+}
+
+tr:hover {
+  background-color: #e2e2e2;
+}
+
+.table th {
+  background-color: #fff;
+  position: sticky;
+  top: 0;
+  font-size: 20px;
+  font-weight: 600;
+  vertical-align: top;
+  height: 40px;
+}
+
+.table td {
+  line-height: 3;
+}
+
+.table th,
+.table td {
+  text-align: center;
+  vertical-align: middle;
+}
+
+.pagination-button {
+  display: flex;
+  justify-content: space-between;
+}
+
+.prev-button,
+.view-pages,
+.next-button {
+  margin: 10px;
+}
+
+.prev-button {
+  float: left;
+}
+
+.next-button {
+  float: right;
+}
+
+.view-pages {
+  float: center;
+}
+
+button {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+  color: #d9d9d9;
+  height: 32px;
+  width: 32px;
+
+  border-radius: 100%;
+  border: none;
+
+  font-weight: 400;
+  font-size: 24px;
+  transition:
+    color 0.3s,
+    background-color 0.3s;
+}
+
+button:hover {
+  background-color: #d9d9d9;
+  color: #a4a3a3;
+}
+
+.left-arrow::before {
+  content: '‹';
+}
+
+.right-arrow::before {
+  content: '›';
 }
 </style>

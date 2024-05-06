@@ -54,7 +54,12 @@ type Pagination = {
       <tbody>
         <tr v-for="(row, rowIndex) in data" :key="rowIndex">
           <td v-for="(cell, cellIndex) in row" :key="cellIndex">
-            {{ cell }}
+            <button v-if="typeof cell === 'function'" @click="() => cell(row)">
+              {{ headers[cellIndex] }}
+            </button>
+            <div v-else>
+              {{ cell }}
+            </div>
           </td>
         </tr>
       </tbody>
@@ -160,6 +165,14 @@ tr:hover {
 .table td {
   text-align: center;
   vertical-align: middle;
+}
+
+.table td button {
+  background-color: transparent;
+  width: 100%;
+  border: none;
+  color: #007bff;
+  cursor: pointer;
 }
 
 .pagination-button {

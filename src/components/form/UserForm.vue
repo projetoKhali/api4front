@@ -32,9 +32,8 @@ export default {
   },
 
   setup(props) {
-    const formDataOnChange = Object.keys(props.user).reduce((acc, key) => {
+    const formDataOnChange = Object.keys(props.user).filter(key => key != "id").reduce((acc, key) => {
       acc[key] = (object: User, value: string) => {
-        console.log(`${key} changed to:`, value);
         return (object[key] = value);
       };
       return acc;

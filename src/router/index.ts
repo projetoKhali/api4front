@@ -4,15 +4,16 @@ import TrackDashboard from '../views/TrackDashboard.vue';
 import TableExample from '../views/TableExample.vue';
 import ListPartner from '../views/ListPartner.vue';
 import ListUser from '../views/ListUser.vue';
+import PopupExample from '../views/PopupExample.vue';
 
 const routes = [
   {
     path: '/tableExamplo',
     name: 'Table Test',
-    component: TableExample,
+    component: PopupExample,
   },
   {
-    path: '/partner',
+    path: '/partner/:partnerId',
     name: 'Partner',
     component: PartnerDashboard,
   },

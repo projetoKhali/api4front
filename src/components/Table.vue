@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref, watch, onMounted, defineProps } from 'vue';
-import axios from 'axios';
 
 const props = defineProps({
   headers: {
@@ -54,7 +53,12 @@ type Pagination = {
       <tbody>
         <tr v-for="(row, rowIndex) in data" :key="rowIndex">
           <td v-for="(cell, cellIndex) in row" :key="cellIndex">
-            {{ cell }}
+            <button v-if="typeof cell === 'function' " @click="()=>{cell(row)}">
+              "Marcos lindo"
+            </button>
+            <div v-else>
+              {{ cell }}
+            </div>
           </td>
         </tr>
       </tbody>
@@ -95,6 +99,8 @@ type Pagination = {
 
 <style scoped>
 .scrollable-table {
+  display: flex;
+  flex-direction: column;
   width: 100%;
   height: 100%;
   overflow-y: auto;
@@ -146,14 +152,15 @@ tr:hover {
   background-color: #fff;
   position: sticky;
   top: 0;
-  font-size: 20px;
-  font-weight: 600;
+  font-size: .9rem;
   vertical-align: top;
   height: 40px;
+  background-color: #a4a3a3;
 }
 
 .table td {
-  line-height: 3;
+  font-size: 0.8rem;
+
 }
 
 .table th,
@@ -187,7 +194,6 @@ tr:hover {
 
 button {
   display: flex;
-
   align-items: center;
   justify-content: center;
   color: #d9d9d9;
@@ -216,4 +222,9 @@ button:hover {
 .right-arrow::before {
   content: '›';
 }
+
+*{
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+ }
+ 
 </style>

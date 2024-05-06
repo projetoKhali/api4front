@@ -9,11 +9,17 @@
         <div class="bottom">
           <div class="table-expertise">
             <h2>Tabela de Expertises</h2>
-            <Table :head="tableHeadExpertises" :body="tableBodyExpertises" />
+            <Table
+              :headers="tableHeadExpertises"
+              :initialData="tableBodyExpertises"
+            />
           </div>
           <div class="table-qualify">
             <h2>Tabela de Qualificadores</h2>
-            <Table :head="tableHeadQualificadores" :body="tableBodyQualificadores" />
+            <Table
+              :headers="tableHeadQualificadores"
+              :initialData="tableBodyQualificadores"
+            />
           </div>
         </div>
     </div>
@@ -24,20 +30,6 @@
       <div class="progressbar-container">
         <ProgressBar :tracks="progressBarData" />
       </div>
-    </div>
-    <div>
-      <h2>Tabela de Expertises</h2>
-      <Table
-        :headers="tableHeadExpertises"
-        :initialData="tableBodyExpertises"
-      />
-    </div>
-    <div>
-      <h2>Tabela de Qualificadores</h2>
-      <Table
-        :headers="tableHeadQualificadores"
-        :initialData="tableBodyQualificadores"
-      />
     </div>
   </div>
   <div class="down-buttom"> </div>
@@ -67,7 +59,7 @@ const tableHeadQualificadores = [
   'Número de Parceiros',
   'Tempo Médio de Conclusão',
 ];
-const tableBodyQualificadores = ref<Array<[string, number, number]>>([]);
+const tableBodyQualificadores = ref<Array<[string, string, string]>>([]);
 const totalParceiros = ref(0);
 const totalExpertises = ref(0);
 const totalQualificadores = ref(0);
@@ -267,7 +259,7 @@ const calcularTotais = () => {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  height: 100%;
+  height: 100vh;
   padding: 20px;
   background-color: #EBF2E8;
 }
@@ -276,8 +268,8 @@ const calcularTotais = () => {
   height: 5px;
 }
 .piechart-container {
-  height: 48%;
-  width: 95%;
+  height: 50%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -302,6 +294,7 @@ const calcularTotais = () => {
   flex-direction: column;
   padding-right: 20px;
   padding-top: 8px;
+  gap: 10px
 }
 
 .right-side{
@@ -333,8 +326,18 @@ h2{
 
 }
 
+.table-qualify,
 .table-expertise{
   height: 100%;
+}
+
+.bottom{
+  height: 100%;
+  gap: 15%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  margin-bottom: 10%;
 }
 
 *{

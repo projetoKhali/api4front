@@ -27,6 +27,7 @@ import StatCircle from '../components/StatCircle.vue';
 import BarChart from '../components/charts/BarChart.vue';
 import PieChart from '../components/charts/PieChart.vue';
 import ProgressBar from '../components/ProgressBar.vue';
+import { useRoute } from 'vue-router';
 
 const partner = ref<PartnerSchemaDashboard[]>([]);
 const pieChartData = ref<{ [key: string]: number }>({});
@@ -34,10 +35,12 @@ const barChartData = ref<{ [key: string]: number }>({});
 const formattedBarChartData = ref<{ [key: string]: number }>({});
 const formattedPieChartData = ref<{ [key: string]: number }>({});
 const tracksData = ref<{ [key: string]: { [key: string]: number } }>({});
+const route = useRoute();
 
 onMounted(async () => {
   try {
-    partner.value = await getDashboardData(1);
+    const partnerId = Number(route.params.partnerId);
+    partner.value = await getDashboardData(partnerId);
     console.log('Dados dos partner:', partner.value);
 
     barChartData.value = calcularPorcentagemFinalizadas(partner.value);

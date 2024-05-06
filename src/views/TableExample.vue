@@ -4,7 +4,7 @@ import Table from '../components/Table.vue';
 
 const tableHeaders = ['id', 'name', 'age'];
 const fullData = [
-  [1, 'John Doe', 25],
+  [1, 'John Doe', (row: [number, string, object]) => {console.log('oi', row)}],
   [2, 'Jane Doe', 24],
   [3, 'John Smith', 30],
   [4, 'Jane Smith', 29],

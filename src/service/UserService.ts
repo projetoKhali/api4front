@@ -14,23 +14,23 @@ export async function parseUser(user: any): Promise<UserSchema> {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export async function mapUsers(users: any): Promise<UserSchema[]> {
+export async function mapUsers(user: any): Promise<UserSchema[]> {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  return users ? await users.map(async (item: any) => parseUser(item)) : [];
+  return user ? await user.map(async (item: any) => parseUser(item)) : [];
 }
 
 export async function getUsers(): Promise<UserSchema[]> {
-  const response = await axios.get(`${API_URL}/users`);
+  const response = await axios.get(`${API_URL}/user`);
   return mapUsers(response.data);
 }
 
 export async function getUser(id: number): Promise<UserSchema> {
-  const response = await axios.get(`${API_URL}/users/${id}`);
+  const response = await axios.get(`${API_URL}/user/${id}`);
   return parseUser(response.data);
 }
 
 export async function createUser(user: UserPostSchema): Promise<UserSchema> {
-  const response = await axios.post(`${API_URL}/users`, user);
+  const response = await axios.post(`${API_URL}/user`, user);
   return parseUser(response.data);
 }
 
@@ -38,10 +38,10 @@ export async function updateUser(
   id: number,
   user: UserPatchSchema,
 ): Promise<UserSchema> {
-  const response = await axios.patch(`${API_URL}/users/${id}`, user);
+  const response = await axios.patch(`${API_URL}/user/${id}`, user);
   return parseUser(response.data);
 }
 
 export async function deleteUser(id: number): Promise<void> {
-  await axios.delete(`${API_URL}/users/${id}`);
+  await axios.delete(`${API_URL}/user/${id}`);
 }

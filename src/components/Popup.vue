@@ -24,7 +24,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 .popup {
   position: fixed;
   top: 0;
@@ -37,10 +37,10 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+}
 
-  .popup-inner {
-    background: #fff;
-    padding: 32px;
-  }
+.popup-inner {
+  background: #fff;
+  padding: 32px;
 }
 </style>

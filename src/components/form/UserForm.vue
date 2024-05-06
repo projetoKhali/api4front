@@ -33,6 +33,7 @@ export default {
 
   setup(props) {
     const formDataOnChange = Object.keys(props.user)
+    .filter((key: string) => key !== 'id')
     .reduce((acc: Record<string, (object: User) => void>, key: string) => {
       acc[key] = (object: User, value: string) => {
         console.log(`${key} changed to:`, value);

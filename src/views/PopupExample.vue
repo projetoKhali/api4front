@@ -6,18 +6,18 @@
       v-if="popupTriggers.buttonTrigger"
       :TogglePopup="() => TogglePopup('buttonTrigger')"
     >
-      <UserForm
+      <FormPopup
         :formActionTitle="'Título do Formulário'"
         :user="user"
         :actions="actions"
-      ></UserForm>
+      ></FormPopup>
     </Popup>
   </div>
 </template>
 
 <script lang="ts">
 import Popup from '../components/Popup.vue';
-import UserForm from '../components/form/UserForm.vue';
+import FormPopup from '../components/form/FormPopup.vue';
 import { ref } from 'vue';
 
 const popupTriggers = ref({ buttomTrigger: false });
@@ -42,7 +42,7 @@ const actions = {
 
 export default {
   components: {
-    UserForm,
+    FormPopup,
     Popup,
   },
   setup() {

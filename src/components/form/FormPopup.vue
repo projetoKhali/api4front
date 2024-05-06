@@ -1,7 +1,7 @@
 <template>
   <Form
-    :title="formActionTitle + ' Usuário'"
-    :data="user"
+    :title="formActionTitle"
+    :data="data"
     :onChangeFunctions="formDataOnChange"
     :actions="actions"
   />
@@ -9,7 +9,6 @@
 
 <script lang="ts">
 import Form from './Form.vue';
-import User from '../../schemas/User';
 
 export default {
   props: {
@@ -21,7 +20,7 @@ export default {
       type: Object,
       required: true,
     },
-    user: {
+    data: {
       type: Object,
       required: true,
     },
@@ -32,10 +31,10 @@ export default {
   },
 
   setup(props) {
-    const formDataOnChange = Object.keys(props.user)
+    const formDataOnChange = Object.keys(props.data)
     .filter((key: string) => key !== 'id')
-    .reduce((acc: Record<string, (object: User) => void>, key: string) => {
-      acc[key] = (object: User, value: string) => {
+    .reduce((acc: Record<string, (object: Object) => void>, key: string) => {
+      acc[key] = (object: Object, value: string) => {
         return (object[key] = value);
       };
       return acc;

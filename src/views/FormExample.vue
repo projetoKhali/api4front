@@ -1,9 +1,9 @@
 <template>
-  <UserForm :formActionTitle="'Criar'" :user="user" :actions="actions" />
+  <FormPopup :formActionTitle="'Criar'" :user="user" :actions="actions" />
 </template>
 
 <script lang="ts">
-import UserForm from '../components/form/UserForm.vue';
+import FormPopup from '../components/form/FormPopup.vue';
 import User from '../schemas/User';
 
 const user: User = {
@@ -24,7 +24,7 @@ const actions = {
 
 export default {
   components: {
-    UserForm,
+    FormPopup,
   },
   setup() {
     return {

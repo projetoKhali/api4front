@@ -3,6 +3,7 @@
     <div class="popup-inner">
       <slot />
       <button
+        v-if="togglePopup"
         class="popup-close"
         @click="() => togglePopup()"
       >

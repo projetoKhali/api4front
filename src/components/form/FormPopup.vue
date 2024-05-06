@@ -62,7 +62,7 @@ export default {
       (acc: Object, key: string) => {
         acc[key] = (data: Object) => {
           internalActions[key](data);
-          props.togglePopup()
+          props.togglePopup();
         };
 
         return acc;

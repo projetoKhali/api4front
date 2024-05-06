@@ -76,6 +76,8 @@ export default {
 .open-form-button:hover {
   background-color: #43abff;
   box-shadow: 0 0 10px 0 #77ddff;
-  transition: background-color 0.3s ease 0s, box-shadow 0.3s ease 0s;
+  transition:
+    background-color 0.3s ease 0s,
+    box-shadow 0.3s ease 0s;
 }
 </style>

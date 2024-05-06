@@ -18,7 +18,7 @@ const fullData = [
 
 const processUser = (user: Object): void => {
   console.log('User:', user);
-  console.log('typeof user:', typeof user)
+  console.log('typeof user:', typeof user);
 };
 
 const itemsPerPage: number = 3;

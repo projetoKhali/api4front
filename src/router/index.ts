@@ -1,7 +1,4 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import PartnerDashboard from '../views/PartnerDashboard.vue';
-import TrackDashboard from '../views/TrackDashboard.vue';
-import TableExample from '../views/TableExample.vue';
 
 const routes = [
   {
@@ -12,17 +9,17 @@ const routes = [
   {
     path: '/tableTest',
     name: 'Table Test',
-    component: TableExample,
+    component: () => import('../views/TableExample.vue')
   },
   {
     path: '/partner',
     name: 'Partner',
-    component: PartnerDashboard,
+    component: () => import('../views/PartnerDashboard.vue'),
   },
   {
     path: '/track',
     name: 'Track',
-    component: TrackDashboard,
+    component: () => import('../views/TrackDashboard.vue'),
   },
 ];
 

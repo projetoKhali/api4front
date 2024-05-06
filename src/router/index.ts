@@ -4,6 +4,11 @@ import TrackDashboard from '../views/TrackDashboard.vue';
 
 const routes = [
   {
+    path: '/',
+    name: 'FilterTest',
+    component: () => import('../views/FilterTest.vue'),
+  },
+  {
     path: '/partner',
     name: 'Partner',
     component: PartnerDashboard,

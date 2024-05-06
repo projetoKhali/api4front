@@ -57,6 +57,9 @@ type Pagination = {
             <button v-if="typeof cell === 'function'" @click="() => cell(row)">
               {{ headers[cellIndex] }}
             </button>
+            <div v-else-if="typeof cell === 'string' && cell.startsWith('/')">
+              <router-link :to="cell">{{ headers[cellIndex] }}</router-link>
+            </div>
             <div v-else>
               {{ cell }}
             </div>

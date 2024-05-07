@@ -34,6 +34,16 @@ const fields: FilterField[] = [
     },
     type: 'checkbox',
   },
+  {
+    title: 'Profile Type',
+    onChange: value => {
+      console.log(value);
+    },
+    dropdown: [
+      'PartnerAdmin',
+      'Oracle',
+    ]
+  }
 ];
 
 export default {

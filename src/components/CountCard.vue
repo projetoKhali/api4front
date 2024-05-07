@@ -1,27 +1,30 @@
 <script setup lang="ts">
-
 const props = defineProps({
-  title: String,
-  number: Number,
-});
+    title: String,
+    number: Number
+})
 </script>
 
 <template>
-  <div class="count-card">
-    <h3 class="title-card">{{ title }}</h3>
-    <h1 class="number-card">{{ number }}</h1>
-  </div>
+    <div class="count-card">
+        <h3 class="title-card">{{ title }}</h3>
+        <h1 class="number-card">{{ number }}</h1>
+    </div>
 </template>
 
 <style scoped>
 .count-card {
-  display: flex;
-  flex-direction: column;
-  gap: 7;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 7;
 
-  width: 253px;
-  height: 137px;
-  border-radius: 9px;
+    margin: 0;
+    padding: 0;
+
+    width: 247px;
+    height: 133px;
+    border-radius: 9px;
 
   background-color: #ffffff;
   box-shadow: 0 5px 0 0 rgba(0, 0, 0, 0.1);
@@ -32,26 +35,28 @@ const props = defineProps({
 }
 
 .count-card:hover {
-  transform: scale(1.05);
+    transform: scale(1.05);
 }
 
 .title-card {
-  margin: 22px 0 0 0;
+    margin: 20px 0 0 0;
 
-  font-family: 'Inter', sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 400;
-  font-variation-settings: 'slnt' 0;
-  color: #000;
+    font-size: 20px;
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 300;
+    font-variation-settings: "slnt" 0;
+    color: #000;
 }
 
 .number-card {
-  margin: 0px 0px 26px 0px;
+    margin: 0px 0px 26px 0px;
 
-  font-family: 'Inter', sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 400;
-  font-variation-settings: 'slnt' 0;
-  color: #000;
+    font-size: 48px;
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 300;
+    font-variation-settings: "slnt" 0;
+    color: #000;
 }
 </style>

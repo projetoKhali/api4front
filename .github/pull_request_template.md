@@ -1,3 +1,9 @@
+### Você rodou o comando `yarn lint:fix` *ou* `npm run lint:fix` antes de abrir o PR?
+`Se não, rode o comando e faça um novo commit incluindo as correções resultantes.`
+
+- [ ] Sim
+- [ ] Não
+
 # Objetivo:
 `Qual o propósito / escopo dessas alterações?`
 

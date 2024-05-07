@@ -1,5 +1,5 @@
 <template>
-  <svg class="stat-circle" width="150" viewBox="0 0 20 20">
+  <svg class="stat-circle" width="100%" height="100%" viewBox="0 0 20 20">
     <circle
       class="bg"
       cx="10"
@@ -16,7 +16,7 @@
       r="8"
       :data-percentage="percentage"
       fill="none"
-      stroke="#94DF49"
+      stroke="#7EA774"
       stroke-width="2"
       :stroke-dasharray="`${dashArray} ${dashArray}`"
       :stroke-dashoffset="dashOffset"
@@ -57,9 +57,8 @@ const dashOffset = computed(
 .stat-circle {
   background-color: #fff;
   width: 100%;
+  border-radius: 10px;
   height: 100%;
-  box-shadow: 0 5px 0 0 rgba(0, 0, 0, 0.1);
-  border-radius: 5px;
   transition:
     border-color 0.3s,
     transform 0.3s;
@@ -70,4 +69,5 @@ const dashOffset = computed(
   text-anchor: middle;
   fill: #555;
 }
+
 </style>

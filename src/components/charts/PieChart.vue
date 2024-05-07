@@ -1,6 +1,6 @@
 <template>
   <div class="chart-container">
-    <Pie :data="chartData" />
+    <Pie :data="chartData" :options="chartOptions" />
   </div>
 </template>
 
@@ -21,7 +21,7 @@ const chartOptions = reactive({
   plugins: {
     legend: {
       display: true,
-      position: 'left',
+      position: 'bottom',
     },
     title: {
       display: true,
@@ -41,7 +41,11 @@ const chartOptions = reactive({
     },
     datalabels: {
       display: true,
-      formatter: (value: any) => `${value}%`,
+      formatter: (value: any, ctx: any) => {
+        const total = ctx.chart.data.datasets[0].data.reduce((a: any, b: any) => a + b, 0);
+        const percentage = Math.round((value / total) * 100);
+        return `${percentage}%`;
+      },
     },
   },
 });
@@ -51,7 +55,7 @@ let chartData = reactive({
     {
       label: 'Expertises',
       data: Object.values(props.chartData),
-      backgroundColor: ['#928b7A','#855c38', '#9d96a8'],
+      backgroundColor: ['#C76146','#8d4428', '#efc371'],
     },
   ],
 });
@@ -65,9 +69,10 @@ watch(
         {
           label: 'Expertises',
           data: Object.values(newValue),
-          backgroundColor: ['#9d96a8','#855c38', '#928b7A'],
+          backgroundColor: ['#C76146','#8d4428', '#efc371'],
         },
       ],
+      ...chartOptions,
     };
   },
 );

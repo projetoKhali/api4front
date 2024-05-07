@@ -1,8 +1,10 @@
 <template>
     <div class="conteiner">
       <div class="table-list-partner">
+        <div class="button-div">
+          <button @click="() => addPartner()"> Adicionar um novo Parceiro + </button>
+        </div>
         <h2>Lista de Parceiros</h2>
-        <button @click="() => addPartner()"> Adicionar um novo Parceiro </button>
         <Table :headers="tableHeaders" :initialData="fullData" :pagination="pagination" />
     </div>
     </div>
@@ -23,7 +25,7 @@
   import Table from '../components/Table.vue';
   import { PartnerPostSchema, PartnerSchema } from '../schemas/Partner';
   import { createPartner, updatePartner } from '../service/PartnerService';
-  import UserForm from '../components/form/UserForm.vue';
+  import UserForm from '../components/form/FormPopup.vue';
   import Popup from '../components/Popup.vue';
 
   
@@ -70,6 +72,7 @@
         item.status ? "Ativo" : "Inativo",
         item.memberType ? "Premium" : "Gratuito",
         formatDate(item.firstDateMembership),
+        `/partner/${item.id}`,
         () => {
           partner.value = item;
              isPopupOpen.value = !isPopupOpen.value;
@@ -84,9 +87,6 @@
                     console.log('Valor partner', partner.value)
                 }
              }
-        },
-        () => {
-          console.log('Edição:', item.id);
         }
       ]));
       fullData.value = formatted;
@@ -140,14 +140,51 @@ const addPartner = () => {
   
   <style scoped>
   .conteiner {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
     height: 100%;
-    width: auto;
-    padding: 20px;
+    width: 100%;
     padding-top: 10px;
+    background-color: #EBF2E8;
   }
   
   .table-list-partner {
-    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    padding-left: 20px;
+    padding-right: 20px;
   }
+
+button {
+    width: 20%;
+    height: 60px;
+    background-color: #7ea774; /* cor de fundo */
+    color: white; /* cor do texto */
+    border: none; /* remove a borda */
+    border-radius: 5px; /* arredonda as bordas */
+    font-size: 80%; /* tamanho da fonte */
+    cursor: pointer; /* cursor ao passar por cima */
+    transition: background-color 0.3s; /* transição suave da cor de fundo */
+  }
+  
+  .custom-button:hover {
+    background-color: #45a049; /* cor de fundo quando hover */
+  }
+
+.button-div{
+  display: flex;
+  flex-direction: column;
+  align-items: right;
+  width: 100%;
+  height: 9%;
+  padding-bottom: 10px;
+  padding-top: 10px;
+}
+
+*{
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+
+}
   </style>
   

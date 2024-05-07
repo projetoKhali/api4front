@@ -1,39 +1,36 @@
 <template>
-    <div class="container">
+    <div class="conteiner">
         <div class="table-list-partner">
+            <div class="button-div">
+                <button @click="() => addUser()"> Adicionar um novo usuario + </button>
+              </div>
             <h2>Lista de Usuários</h2>
-            <button @click="() => addUser()"> Adicionar um novo usuario </button>
             <Table :headers="tableHeaders" :initialData="fullData" :pagination="pagination" />
         </div>
     </div>
-    <Popup
+        <FormPopup
         v-if="isPopupOpen"
-        :TogglePopup="() => isPopupOpen  = !isPopupOpen"
-    >
-        <UserForm
         :formActionTitle="'Título do Formulário'"
         :user="user"
         :actions="actions"
-    ></UserForm>
-  </Popup>
+        :togglePopup="() => (isPopupOpen = !isPopupOpen)"
+    ></FormPopup>
 </template>
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import Table from '../components/Table.vue';
-import { UserPatchSchema, UserSchema, UserPostSchema } from '@/schemas/User';
-import { useRoute } from 'vue-router';
+import { UserSchema, UserPostSchema } from '@/schemas/User';
 import { createUser, updateUser } from '../service/UserService';
 import Popup from '../components/Popup.vue';
-import UserForm from '../components/form/UserForm.vue';
+import FormPopup from '../components/form/FormPopup.vue';
 
 const tableHeaders = [
-    "ID", "Email", "Nome", "Type", "Dashboard Individual", "Edição"
+    "ID", "Email", "Nome", "Type", "Edição"
 ];
 
 const fullData = ref<Array<[number, string, string, string, string, Function, Function]>>([]);
 const itemsPerPage: number = 10;
-const router = useRoute();
 const isPopupOpen = ref(false);
 const user = ref<UserSchema | UserPostSchema>();
 const actions = ref<{salvar: (user: UserSchema) => void }>();
@@ -47,10 +44,6 @@ const fetchData = async () => {
             item.login,
             item.name,
             item.profileType,
-            () => {
-                goToDashboard(item.id);
-
-            },
             () => {
              user.value = item;
              isPopupOpen.value = !isPopupOpen.value;
@@ -84,10 +77,6 @@ const pagination = {
     },
 };
 
-const goToDashboard = (userId: number) => {
-    router.push(`/user/${userId}`);
-};
-
 const addUser = () => {
     const UserPost: UserPostSchema = {
         name: "",
@@ -111,14 +100,52 @@ const addUser = () => {
 </script>
 
 <style scoped>
-.container {
+
+.conteiner {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
     height: 100%;
-    width: auto;
-    padding: 20px;
+    width: 100%;
     padding-top: 10px;
+    background-color: #EBF2E8;
+  }
+  
+  .table-list-partner {
+    display: flex;
+    flex-direction: column;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+button {
+    width: 20%;
+    height: 60px;
+    background-color: #7ea774; /* cor de fundo */
+    color: white; /* cor do texto */
+    border: none; /* remove a borda */
+    border-radius: 5px; /* arredonda as bordas */
+    font-size: 80%; /* tamanho da fonte */
+    cursor: pointer; /* cursor ao passar por cima */
+    transition: background-color 0.3s; /* transição suave da cor de fundo */
+  }
+  
+  .custom-button:hover {
+    background-color: #45a049; /* cor de fundo quando hover */
+  }
+
+.button-div{
+  display: flex;
+  flex-direction: column;
+  align-items: right;
+  width: 100%;
+  height: 9%;
+  padding-bottom: 10px;
+  padding-top: 10px;
 }
 
-.table-list-partner {
-    margin-top: 20px;
+*{
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+
 }
 </style>

@@ -2,19 +2,24 @@
 import { ref } from 'vue';
 import Table from '../components/Table.vue';
 
-const tableHeaders = ['id', 'name', 'age'];
+const tableHeaders = ['id', 'name', 'age', 'url', 'editar'];
 const fullData = [
-  [1, 'John Doe', (row: [number, string, object]) => {console.log('oi', row)}],
-  [2, 'Jane Doe', 24],
-  [3, 'John Smith', 30],
-  [4, 'Jane Smith', 29],
-  [5, 'John Brown', 35],
-  [6, 'Jane Brown', 34],
-  [7, 'John White', 40],
-  [8, 'Jane White', 39],
-  [9, 'John Black', 45],
-  [10, 'Jane Black', 44],
+  [1, 'John Doe', 25, '/track', user => processUser(user)],
+  [2, 'Jane Doe', 24, '/partner', user => processUser(user)],
+  [3, 'John Smith', 30, '/track', user => processUser(user)],
+  [4, 'Jane Smith', 29, '/track', user => processUser(user)],
+  [5, 'John Brown', 35, '/track', user => processUser(user)],
+  [6, 'Jane Brown', 34, '/track', user => processUser(user)],
+  [7, 'John White', 40, '/track', user => processUser(user)],
+  [8, 'Jane White', 39, '/track', user => processUser(user)],
+  [9, 'John Black', 45, '/track', user => processUser(user)],
+  [10, 'Jane Black', 44, '/track', user => processUser(user)],
 ];
+
+const processUser = (user: Object): void => {
+  console.log('User:', user);
+  console.log('typeof user:', typeof user);
+};
 
 const itemsPerPage: number = 3;
 

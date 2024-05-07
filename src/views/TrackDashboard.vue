@@ -44,6 +44,8 @@ import ProgressBar from '../components/ProgressBar.vue';
 import Table from '../components/Table.vue';
 import { getDataProduct } from '../service/TrackService';
 import { TrackSchema } from '../schemas/track/Track';
+import { useRoute } from 'vue-router';
+const route = useRoute();
 
 const track = ref<TrackSchema[]>([]);
 const progressBarData = ref<{ [key: string]: { [key: string]: number } }>({});
@@ -66,7 +68,8 @@ const totalQualificadores = ref(0);
 
 onMounted(async () => {
   try {
-    track.value = await getDataProduct('Track 1');
+    const partnerId = String(route.params.trackName);
+    track.value = await getDataProduct(partnerId);
     console.log('Dados da track:', track.value);
 
     calcularPieChartData(track.value);
@@ -318,11 +321,6 @@ h2{
   text-align: left;
   font-size: 1.5vw;
   padding-top: 5px;
-
-}
-.down-buttom{
-  height: 80px;
-  background-color: #944237;
 
 }
 

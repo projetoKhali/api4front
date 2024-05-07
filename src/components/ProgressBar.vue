@@ -49,50 +49,64 @@ export default {
   transition:
     border-color 0.3s,
     transform 0.3s;
+    gap: 10px
 }
 
 .track-wrapper {
-  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background-color: #ffffff;
+  border-radius: 10px;
+
 }
 
 .wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
 }
 
 .labeltrack {
   margin-bottom: 10px;
   font-size: 1.2em;
-  color: #333;
+  color: #333333;
   font-weight: bold;
 }
 
 .toplabel {
-  margin-bottom: 10px;
-  font-size: 1.2em;
-  color: #333;
+  padding-left: 40px;
+  font-size: 80%;
+  color: #504e4e;
   font-weight: semi-bold;
-  vertical-align:middle;
-  text-align: center;
-  padding-right: 10px;
+  vertical-align: middle;
+  text-align: left;
+  width: 30%;
+  max-width: 120px;
+  font-weight: bold;
 }
 
 .bar-wrapper {
   flex-grow: 1;
   padding-right: 10px;
+  width: 100%;
+  padding: 40px;
 }
 
 .shell {
   height: 20px;
-  width: 250px;
+  width: 100%;
   border: 1px solid #aaa;
   border-radius: 13px;
   padding: 3px;
 }
 
 .bar {
-  background: #dca650;
+  background: #a3c7ac;
   height: 100%;
   border-radius: 10px;
   transition: width 0.5s ease;
@@ -111,5 +125,10 @@ export default {
   align-items: center;
   height: 100%;
   width: 100%;
+  gap: 20px;
 }
+
+*{
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+ }
 </style>

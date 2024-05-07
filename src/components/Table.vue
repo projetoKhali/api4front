@@ -41,6 +41,7 @@ type Pagination = {
 </script>
 
 <template>
+  <div class="container">
   <div class="scrollable-table">
     <table class="table">
       <thead>
@@ -53,9 +54,12 @@ type Pagination = {
       <tbody>
         <tr v-for="(row, rowIndex) in data" :key="rowIndex">
           <td v-for="(cell, cellIndex) in row" :key="cellIndex">
-            <button v-if="typeof cell === 'function' " @click="()=>{cell(row)}">
-              "Marcos lindo"
+            <button v-if="typeof cell === 'function'" @click="() => cell(row)">
+              {{ headers[cellIndex] }}
             </button>
+            <div v-else-if="typeof cell === 'string' && cell.startsWith('/')">
+              <router-link :to="cell">{{ headers[cellIndex] }}</router-link>
+            </div>
             <div v-else>
               {{ cell }}
             </div>
@@ -95,9 +99,17 @@ type Pagination = {
       </button>
     </div>
   </div>
+</div>
 </template>
 
 <style scoped>
+
+.container{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
 .scrollable-table {
   display: flex;
   flex-direction: column;
@@ -106,7 +118,6 @@ type Pagination = {
   overflow-y: auto;
   background-color: #fff;
   border-radius: 9px;
-  box-shadow: 0px 5px 5px 0 rgba(0, 0, 0, 0.1);
   scrollbar-width: 7px;
   scrollbar-color: transparent;
 }
@@ -136,7 +147,6 @@ type Pagination = {
   height: 100%;
   font-family: 'Inter', sans-serif;
   color: #000;
-  padding: 0;
   border-spacing: 0;
 }
 
@@ -152,21 +162,34 @@ tr:hover {
   background-color: #fff;
   position: sticky;
   top: 0;
-  font-size: .9rem;
+  font-size: 0.7rem;
   vertical-align: top;
-  height: 40px;
-  background-color: #a4a3a3;
+  background-color: #c4a57b;
+  padding: 16px;
+  color: #f9f3ea;
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+
 }
 
 .table td {
-  font-size: 0.8rem;
-
+  background-color: #fff;
+  top: 0;
+  font-size: 0.7rem;
+  vertical-align: top;
 }
 
 .table th,
 .table td {
   text-align: center;
   vertical-align: middle;
+}
+
+.table td button {
+  background-color: transparent;
+  width: 100%;
+  border: none;
+  color: #007bff;
+  cursor: pointer;
 }
 
 .pagination-button {
@@ -197,14 +220,14 @@ button {
   align-items: center;
   justify-content: center;
   color: #d9d9d9;
-  height: 32px;
+  height: 30px;
   width: 32px;
 
   border-radius: 100%;
   border: none;
 
   font-weight: 400;
-  font-size: 24px;
+  font-size: 12px;
   transition:
     color 0.3s,
     background-color 0.3s;
@@ -223,8 +246,5 @@ button:hover {
   content: '›';
 }
 
-*{
-  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
- }
  
 </style>

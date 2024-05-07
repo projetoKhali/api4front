@@ -1,20 +1,22 @@
 <template>
   <div class="dashboard-container">
-    <div class="chart-container">
-      <div class="statcircle-container">
-        <StatCircle
-          :percentage="calcularPorcentagemTotalFinalizadas(partner)"
-        />
+    <div class="left-side">
+       <div class="chart-container">
+        <div class="statcircle-container">
+          <StatCircle :percentage="calcularPorcentagemTotalFinalizadas(partner)" />
+        </div>
+        <div class="barchart-container">
+          <BarChart :chartData="formattedBarChartData" />
+        </div>
       </div>
-      <div class="barchart-container">
-        <BarChart :chartData="formattedBarChartData" />
+      <div class="pie-chart-container">
+        <PieChart :chartData="formattedPieChartData" />
       </div>
     </div>
-    <div class="progressbar-container">
-      <ProgressBar :tracks="tracksData" />
-    </div>
-    <div class="piechart-container">
-      <PieChart :chartData="formattedPieChartData" />
+    <div class="right-side">
+      <div class="progressbar-container">
+        <ProgressBar :tracks="tracksData" />
+      </div>      
     </div>
   </div>
 </template>
@@ -157,22 +159,76 @@ const formatarTracksData = (parceiroData: PartnerSchemaDashboard[]) => {
 <style scoped>
 .dashboard-container {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 100vh;
+  padding: 20px;
+  background-color: #EBF2E8;
+  gap: 2%
 }
+.left-side{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  border-radius: 5px;
+  gap: 10px
+}
+
+.right-side{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
+
 
 .chart-container {
   display: flex;
   align-items: center;
-  gap: 20px;
+  flex-direction: row;
+  height: 100%;
+  width: 100%;
+  gap: 2%;
+  border-radius: 10px;
 }
 
 .progressbar-container {
-  flex: 0.7;
-  height: 80px;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  background: rgb(186, 103, 25);
+  height: 100%;
+  width: 100%;
+  border-radius: 10px;
+
+}
+
+.barchart-container{
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  height: 100%;
+  width: 100%;
+  border-radius: 10px;
+  background: #fff;
+}
+
+.statcircle-container{
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  height: 100%;
+  width: 100%;
+  border-radius: 10px;
 }
 
 .piechart-container {
-  flex: 1.4;
-  padding-top: 20px;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  height: 100%;
+  width: 100%;
+  border-radius: 10px;
 }
 </style>

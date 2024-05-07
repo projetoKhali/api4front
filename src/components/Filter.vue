@@ -1,11 +1,26 @@
 <template>
   <div class="filter">
     <div
-      v-for="(field, index) in Object.keys(fields)"
+      v-for="(field, index) in Object.values(fields)"
+      class="filter-field"
       :key="index"
-      class="filter-row"
     >
-      <label>{{ fields[field].title }}</label>
+      <label>{{ field.title }}</label>
+      <input
+        v-if="field.type"
+        :type="field.type"
+        @input="field.onChange($event.target.value)"
+      />
+      <select
+        v-else-if="field.dropdown"
+        @change="field.onChange($event.target.value)"
+        >
+          <option
+            v-for="(option, optionIndex) in field.dropdown"
+            :key="optionIndex"
+            :value="field.dropdown"
+            >{{option}}</option>
+      </select>
     </div>
   </div>
 </template>

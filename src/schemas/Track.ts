@@ -3,8 +3,7 @@ export interface TrackSchema {
     name: string;
     insertDate: Date;
   }
-  
-  export type TrackPostSchema = Omit<TrackSchema, 'id' | 'insertDate'>;
-  
-  export type TrackPatchSchema = Partial<TrackPostSchema>;
-  
+
+export type TrackPostSchema = Omit<TrackSchema, 'id' | 'insertDate'>;
+
+export type TrackPatchSchema = Partial<TrackPostSchema>;

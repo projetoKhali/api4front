@@ -57,3 +57,24 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.filter {
+  width: 100%;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
+  align-items: start;
+  align-content: start;
+  gap: 1em;
+}
+
+.data-item {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
+  align-items: start;
+  align-content: start;
+  gap: 1em;
+}
+</style>

@@ -47,3 +47,14 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.filter-field {
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.25em;
+}
+</style>

@@ -16,10 +16,10 @@
         @change="field.onChange($event.target.value)"
         >
           <option
-            v-for="(option, optionIndex) in field.dropdown"
+            v-for="(option, optionIndex) in [null, ...field.dropdown]"
             :key="optionIndex"
             :value="field.dropdown"
-            >{{option}}</option>
+            >{{option || "Selecione"}}</option>
       </select>
     </div>
   </div>

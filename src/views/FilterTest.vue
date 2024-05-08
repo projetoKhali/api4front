@@ -195,7 +195,7 @@ const fields: FilterField[] = [
   {
     title: 'Name',
     onChange: value => {
-      currentFilters.name = value;
+      currentFilters.value.name = value;
       filterData();
     },
     type: 'text',
@@ -203,7 +203,7 @@ const fields: FilterField[] = [
   {
     title: 'Age',
     onChange: value => {
-      currentFilters.age = value;
+      currentFilters.value.age = value;
       filterData();
     },
     type: 'number',
@@ -211,7 +211,7 @@ const fields: FilterField[] = [
   {
     title: 'Birthday',
     onChange: value => {
-      currentFilters.birthday = value;
+      currentFilters.value.birthday = value;
       filterData();
     },
     type: 'date',
@@ -219,7 +219,7 @@ const fields: FilterField[] = [
   {
     title: 'Is Active',
     onChange: value => {
-      currentFilters.isActive = value;
+      currentFilters.value.isActive = value;
       filterData();
     },
     type: 'checkbox',
@@ -227,7 +227,7 @@ const fields: FilterField[] = [
   {
     title: 'Profile Type',
     onChange: value => {
-      currentFilters.profile = value;
+      currentFilters.value.profile = value;
       filterData();
     },
     dropdown: ['PartnerAdmin', 'Oracle'],

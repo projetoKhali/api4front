@@ -10,35 +10,30 @@ import FormExample from '../views/FormExample.vue';
 
 const routes = [
   {
-    path: '/tableExamplo',
-    name: 'Table Test',
-    component: PopupExample,
-  },
-  {
-    path: '/formExample',
-    name: 'Form Popup Example',
-    component: FormExample,
-  },
-  {
-    path: '/partner/:partnerId',
-    name: 'Partner',
-    component: PartnerDashboard,
+    path: '/track/:trackId',
+    name: 't',
+    component: TrackDashboard,
   },
   {
     path: '/listtrack',
-    name: 'List Track',
+    name: 'Tracks',
     component: ListTrack,
   },
   {
     path: '/partners',
-    name: 'partners',
+    name: 'Partners',
     component: ListPartner,
   },
   {
     path: '/users',
-    name: 'users',
+    name: 'Users',
     component: ListUser,
   },
+  {
+    path: '/partner/:partnerId',
+    name: ' ',
+    component: PartnerDashboard,
+  }
 ];
 
 const router = createRouter({

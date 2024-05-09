@@ -82,14 +82,13 @@ export async function getDashboardData(
           expertises: trackItem.expertises.map(
             (expertiseItem: PartnerExpertiseSchema) => ({
               name: expertiseItem.name,
-              startDate: new Date(expertiseItem.startDate),
-              endDate: new Date(expertiseItem.endDate),
-
+              insertDate: expertiseItem.insertDate ? new Date(expertiseItem.insertDate): null,
+              completeDate:  expertiseItem.completeDate ? new Date(expertiseItem.completeDate): null,
               qualifiers: expertiseItem.qualifiers.map(
                 (qualifierItem: PartnerQualifierSchema) => ({
                   name: qualifierItem.name,
-                  startDate: new Date(qualifierItem.startDate),
-                  endDate: new Date(qualifierItem.endDate),
+                  insertDate: qualifierItem.insertDate ? new Date(qualifierItem.insertDate) : qualifierItem.insertDate,
+                  completeDate: qualifierItem.completeDate ? new Date(qualifierItem.completeDate) : qualifierItem.completeDate
                 }),
               ),
             }),

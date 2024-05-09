@@ -68,8 +68,8 @@ const totalQualificadores = ref(0);
 
 onMounted(async () => {
   try {
-    const partnerId = String(route.params.trackName);
-    track.value = await getDataProduct(partnerId);
+    const trackId = Number(route.params.trackId);
+    track.value = await getDataProduct(trackId);
     console.log('Dados da track:', track.value);
 
     calcularPieChartData(track.value);
@@ -310,7 +310,12 @@ const calcularTotais = () => {
   flex-direction: column;
   justify-content: space-between;
 }
+
 .progressbar-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-height: 400px;
   height: 100%;
   width: 100%;
   padding: 5px;

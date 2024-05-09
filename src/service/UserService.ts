@@ -8,8 +8,8 @@ export async function parseUser(user: any): Promise<UserSchema> {
   return {
     id: user.id,
     name: user.name,
-    email: user.email,
-    profile: user.profileType,
+    login: user.login,
+    profileType: user.profileType,
   };
 }
 

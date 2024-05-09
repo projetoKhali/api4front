@@ -66,11 +66,22 @@ const calcularPorcentagemFinalizadas = (
 
   parceiroData.forEach(parceiro => {
     parceiro.tracks.forEach(track => {
-      const expertisesFinalizadas = track.expertises.filter(
-        expertise => expertise.endDate !== null,
-      ).length;
-      const totalExpertises = track.expertises.length;
-      const porcentagem = (expertisesFinalizadas / totalExpertises) * 100 || 0;
+      let totalQualifiers = 0;
+      let totalQualifiersCompleted = 0;
+
+      track.expertises.forEach(expertise => {
+        totalQualifiers += expertise.qualifiers.length;
+        expertise.qualifiers.forEach(qualifier => {
+          if (qualifier.completeDate !== null) {
+            totalQualifiersCompleted++;
+          }
+        });
+      });
+
+      const porcentagem = totalQualifiers
+        ? (totalQualifiersCompleted / totalQualifiers) * 100
+        : 0;
+
       data[track.name] = porcentagem;
     });
   });
@@ -88,7 +99,7 @@ const calcularPorcentagemTotalFinalizadas = (
     parceiro.tracks.forEach(track => {
       track.expertises.forEach(expertise => {
         totalExpertises++;
-        if (expertise.endDate) {
+        if (expertise.completeDate) {
           expertisesFinalizadas++;
         }
       });
@@ -104,7 +115,7 @@ const calcularPorcentagemTotalFinalizadas = (
 
 const calcularEstadoExpertises = (parceiroData: PartnerSchemaDashboard[]) => {
   const data: { [key: string]: number } = {
-    'Finalizados': 0,
+    'Finalizadas': 0,
     'Em progresso': 0,
     'Não iniciou': 0,
   };
@@ -112,11 +123,11 @@ const calcularEstadoExpertises = (parceiroData: PartnerSchemaDashboard[]) => {
   parceiroData.forEach(parceiro => {
     parceiro.tracks.forEach(track => {
       track.expertises.forEach(expertise => {
-        if (expertise.endDate) {
-          data['Finalizados']++;
+        if (expertise.completeDate) {
+          data['Finalizadas']++;
         } else if (
           expertise.qualifiers &&
-          expertise.qualifiers.some(qualifiers => qualifiers.endDate)
+          expertise.qualifiers.some(qualifier => qualifier.completeDate)
         ) {
           data['Em progresso']++;
         } else {
@@ -139,7 +150,7 @@ const formatarTracksData = (parceiroData: PartnerSchemaDashboard[]) => {
       track.expertises.forEach(expertise => {
         const totalqualifiers = expertise.qualifiers.length;
         const qualifiersConcluidos = expertise.qualifiers.filter(
-          qualifiers => qualifiers.endDate !== null,
+          qualifiers => qualifiers.completeDate !== null,
         ).length;
         const progress =
           totalqualifiers > 0
@@ -197,7 +208,7 @@ const formatarTracksData = (parceiroData: PartnerSchemaDashboard[]) => {
   display: flex;
   align-items: center;
   flex-direction: row;
-  background: rgb(186, 103, 25);
+  background: #fff;
   height: 100%;
   width: 100%;
   border-radius: 10px;
@@ -221,6 +232,7 @@ const formatarTracksData = (parceiroData: PartnerSchemaDashboard[]) => {
   height: 100%;
   width: 100%;
   border-radius: 10px;
+  background-color: #fff;
 }
 
 .piechart-container {
@@ -230,5 +242,6 @@ const formatarTracksData = (parceiroData: PartnerSchemaDashboard[]) => {
   height: 100%;
   width: 100%;
   border-radius: 10px;
+
 }
 </style>

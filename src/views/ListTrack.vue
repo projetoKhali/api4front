@@ -33,7 +33,7 @@ const fetchData = async () => {
             item.id,
             item.name,
             item.insertDate,
-            `/track/product/${item.name}`,
+            `/track/${item.id}`,
             
         ]));
         fullData.value = formatted;

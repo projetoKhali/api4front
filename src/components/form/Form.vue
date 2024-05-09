@@ -23,9 +23,11 @@
         :key="index"
         class="form-button-wrapper"
       >
+        <div class="div-button">
         <button class="form-button" @click="actions[action](data)">
           {{ action }}
         </button>
+        </div>
       </div>
     </ul>
   </div>
@@ -82,7 +84,8 @@ export default {
 .form-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: right;
+  gap: 20px;
 }
 
 .form-title {
@@ -92,16 +95,19 @@ export default {
 .form-field-list {
   display: flex;
   flex-direction: column;
+  text-align: right;
 }
 
 .form-row {
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
+  align-items: left;
+  padding: 5px;
+  height: 100%;
 }
 
 .form-row label {
-  text-align: right;
+  text-align: left;
 }
 
 .form-button-list {
@@ -109,5 +115,38 @@ export default {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
+}
+
+input{
+  border: 2px solid transparent;
+  width: 100%;
+  height: 100%;
+  padding-left: 0.8em;
+  outline: none;
+  overflow: hidden;
+  background-color: #F3F3F3;
+  border-radius: 4px;
+  transition: all 0.5s;
+  text-align: center;
+}
+.div-button{
+  display: flex;
+  flex-direction: row;
+  align-items: left;
+  justify-content: space-evenly;
+  width: 100%;
+  height: 25px;
+}
+
+button {
+  width: 90%;
+  height: 100%;
+  background-color: #7ea774;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 80%;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 </style>

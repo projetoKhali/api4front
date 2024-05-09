@@ -94,7 +94,7 @@ const chartOptions: ChartOptions<'bar'> = reactive({
 });
 
 const defaultDatasetOptions = {
-  backgroundColor: '#8d4428',
+  backgroundColor: '#443054',
   borderColor: '#EBF2E8',
   borderWidth: 1,
 };

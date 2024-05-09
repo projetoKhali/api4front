@@ -1,5 +1,5 @@
 <template>
-  <div id="progressbar">
+  <div id="scrollable-progressbar">
     <div
       v-for="(trackData, trackName) in tracks"
       :key="trackName"
@@ -17,7 +17,7 @@
           <div class="bar-wrapper">
             <div class="shell">
               <div class="bar" :style="{ width: progress + '%' }">
-                <span>{{ progress }}%</span>
+                <span>{{ progress.toFixed(2) }}%</span>
               </div>
             </div>
           </div>
@@ -36,7 +36,7 @@ export default {
 </script>
 
 <style scoped>
-#progressbar {
+#scrollable-progressbar {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -44,13 +44,13 @@ export default {
   font-family: sans-serif;
   background-color: #fff;
   width: 100%;
-  height: 100%; 
+  height: 100%;
   border-radius: 10px;
-  transition:
-    border-color 0.3s,
-    transform 0.3s;
-    gap: 10px
+  transition: border-color 0.3s, transform 0.3s;
+  gap: 10px;
+  overflow-y: auto;
 }
+
 
 .track-wrapper {
   display: flex;
@@ -61,7 +61,6 @@ export default {
   height: 100%;
   background-color: #ffffff;
   border-radius: 10px;
-
 }
 
 .wrapper {
@@ -72,6 +71,7 @@ export default {
 }
 
 .labeltrack {
+  padding-top: 20px;
   margin-bottom: 10px;
   font-size: 1.2em;
   color: #333333;

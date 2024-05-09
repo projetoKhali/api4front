@@ -8,16 +8,13 @@
         <Table :headers="tableHeaders" :initialData="fullData" :pagination="pagination" />
     </div>
     </div>
-    <Popup
-        v-if="isPopupOpen"
-        :TogglePopup="() => isPopupOpen  = !isPopupOpen"
-    >
-        <UserForm
-        :formActionTitle="'Título do Formulário'"
-        :user="partner"
-        :actions="actions"
-    ></UserForm>
-</Popup>
+    <FormPopup
+    v-if="isPopupOpen"
+    :formActionTitle="'Criar Parceiro'"
+    :data="partner"
+    :actions="actions"
+    :togglePopup="() => (isPopupOpen = !isPopupOpen)"
+  />
   </template>
   
   <script setup lang="ts">
@@ -25,8 +22,7 @@
   import Table from '../components/Table.vue';
   import { PartnerPostSchema, PartnerSchema } from '../schemas/Partner';
   import { createPartner, updatePartner } from '../service/PartnerService';
-  import UserForm from '../components/form/FormPopup.vue';
-  import Popup from '../components/Popup.vue';
+  import FormPopup from '../components/form/FormPopup.vue';
 
   
   
@@ -70,7 +66,7 @@
         item.compliance ? "Sim" : "Não",
         item.credit ? "Sim" : "Não",
         item.status ? "Ativo" : "Inativo",
-        item.memberType ? "Premium" : "Gratuito",
+        item.memberType ? "Sim" : "Não",
         formatDate(item.firstDateMembership),
         `/partner/${item.id}`,
         () => {
@@ -82,8 +78,8 @@
                     if (partner.value === undefined) {
                         return
                     }
-                    const {id, ...partnerData} = partner.value;
-                    updatePartner(id, partnerData)
+                    // const {id, ...partnerData} = partner.value;
+                    createPartner(partner.value)
                     console.log('Valor partner', partner.value)
                 }
              }

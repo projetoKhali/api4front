@@ -2,27 +2,26 @@
     <div class="conteiner">
         <div class="table-list-partner">
             <div class="button-div">
-                <button @click="() => addUser()"> Adicionar um novo usuario + </button>
+                <button @click="() => addUser() "> Adicionar um novo usuario + </button>
               </div>
             <h2>Lista de Usuários</h2>
             <Table :headers="tableHeaders" :initialData="fullData" :pagination="pagination" />
         </div>
     </div>
-        <FormPopup
-        v-if="isPopupOpen"
-        :formActionTitle="'Título do Formulário'"
-        :user="user"
-        :actions="actions"
-        :togglePopup="() => (isPopupOpen = !isPopupOpen)"
-    ></FormPopup>
+    <FormPopup
+    v-if="isPopupOpen"
+    :formActionTitle="'Criar Usuário'"
+    :data="user"
+    :actions="actions"
+    :togglePopup="() => (isPopupOpen = !isPopupOpen)"
+  />
 </template>
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import Table from '../components/Table.vue';
 import { UserSchema, UserPostSchema } from '@/schemas/User';
-import { createUser, updateUser } from '../service/UserService';
-import Popup from '../components/Popup.vue';
+import { createUser } from '../service/UserService';
 import FormPopup from '../components/form/FormPopup.vue';
 
 const tableHeaders = [
@@ -53,8 +52,8 @@ const fetchData = async () => {
                     if (user.value === undefined) {
                         return
                     }
-                    const {id, ...userData} = user.value;
-                    updateUser(id, userData)
+                    // const {id, ...userData} = user.value;
+                    createUser(user.value)
                     console.log('Valor user', user.value)
                 }
              }
@@ -79,10 +78,10 @@ const pagination = {
 
 const addUser = () => {
     const UserPost: UserPostSchema = {
-        name: "",
-        login: "",
-        password: "",
-        profileType: "PartnerAdmin",
+        name: " ",
+        login: " ",
+        password: " ",
+        profileType: "PartnerAdmin"
     } 
     user.value = UserPost;
     isPopupOpen.value = !isPopupOpen.value;

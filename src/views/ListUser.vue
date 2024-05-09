@@ -25,7 +25,7 @@
 import { ref, onMounted } from 'vue';
 import Table from '../components/Table.vue';
 import { UserSchema, UserPostSchema } from '@/schemas/User';
-import { createUser } from '../service/UserService';
+import { createUser, updateUser } from '../service/UserService';
 import FormPopup from '../components/form/FormPopup.vue';
 
 const tableHeaders = ['ID', 'Email', 'Nome', 'Type', 'Edição'];
@@ -59,7 +59,7 @@ const fetchData = async () => {
               return;
             }
             // const {id, ...userData} = user.value;
-            createUser(user.value);
+            updateUser(user.value.id, user.value);
             console.log('Valor user', user.value);
           },
         };

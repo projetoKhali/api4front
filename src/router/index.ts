@@ -1,12 +1,4 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import PartnerDashboard from '../views/PartnerDashboard.vue';
-import TrackDashboard from '../views/TrackDashboard.vue';
-import TableExample from '../views/TableExample.vue';
-import ListPartner from '../views/ListPartner.vue';
-import ListUser from '../views/ListUser.vue';
-import ListTrack from '../views/ListTrack.vue';
-import PopupExample from '../views/PopupExample.vue';
-import FormExample from '../views/FormExample.vue';
 
 interface Route {
   path: string;
@@ -19,27 +11,27 @@ const routes: Route[] = [
   {
     path: '/track/:trackId',
     name: 't',
-    component: TrackDashboard,
+    component: () => import('../views/TrackDashboard.vue'),
   },
   {
     path: '/listtrack',
     name: 'Tracks',
-    component: ListTrack,
+    component: () => import('../views/ListTrack.vue'),
   },
   {
     path: '/partners',
     name: 'Partners',
-    component: ListPartner,
+    component: () => import('../views/ListPartner.vue'),
   },
   {
     path: '/users',
     name: 'Users',
-    component: ListUser,
+    component: () => import('../views/ListUser.vue'),
   },
   {
     path: '/partner/:partnerId',
     name: ' ',
-    component: PartnerDashboard,
+    component: () => import('../views/PartnerDashboard.vue'),
   }
 ];
 

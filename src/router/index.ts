@@ -11,6 +11,7 @@ const routes: Route[] = [
   {
     path: '/track/:trackId',
     name: 'Track Dashboard',
+    hide: true,
     component: () => import('../views/TrackDashboard.vue'),
   },
   {
@@ -31,6 +32,7 @@ const routes: Route[] = [
   {
     path: '/partner/:partnerId',
     name: 'Partner Dashboard',
+    hide: true,
     component: () => import('../views/PartnerDashboard.vue'),
   }
 ];

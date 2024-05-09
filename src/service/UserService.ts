@@ -37,7 +37,7 @@ export async function updateUser(
   id: number,
   user: UserPatchSchema,
 ): Promise<UserSchema> {
-  const response = await axios.patch(`${API_URL}/user/${id}`, user);
+  const response = await axios.patch(`${API_URL}/user/edit/${id}`, user);
   return parseUser(response.data);
 }
 

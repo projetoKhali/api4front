@@ -59,7 +59,7 @@ export async function updatePartner(
   id: number,
   partner: PartnerPatchSchema,
 ): Promise<PartnerSchema> {
-  const response = await axios.patch(`${API_URL}/partner/${id}`, partner);
+  const response = await axios.patch(`${API_URL}/partner/edit/${id}`, partner);
   return parsePartner(response.data);
 }
 

@@ -1,9 +1,11 @@
 <template>
   <div class="dashboard-container">
     <div class="left-side">
-       <div class="chart-container">
+      <div class="chart-container">
         <div class="statcircle-container">
-          <StatCircle :percentage="calcularPorcentagemTotalFinalizadas(partner)" />
+          <StatCircle
+            :percentage="calcularPorcentagemTotalFinalizadas(partner)"
+          />
         </div>
         <div class="barchart-container">
           <BarChart :chartData="formattedBarChartData" />
@@ -16,7 +18,7 @@
     <div class="right-side">
       <div class="progressbar-container">
         <ProgressBar :tracks="tracksData" />
-      </div>      
+      </div>
     </div>
   </div>
 </template>
@@ -174,25 +176,24 @@ const formatarTracksData = (parceiroData: PartnerSchemaDashboard[]) => {
   justify-content: space-between;
   height: 100vh;
   padding: 20px;
-  background-color: #EBF2E8;
-  gap: 2%
+  background-color: #ebf2e8;
+  gap: 2%;
 }
-.left-side{
+.left-side {
   display: flex;
   flex-direction: column;
   height: 100%;
   width: 100%;
   border-radius: 5px;
-  gap: 10px
+  gap: 10px;
 }
 
-.right-side{
+.right-side {
   display: flex;
   flex-direction: column;
   height: 100%;
   width: 100%;
 }
-
 
 .chart-container {
   display: flex;
@@ -212,10 +213,9 @@ const formatarTracksData = (parceiroData: PartnerSchemaDashboard[]) => {
   height: 100%;
   width: 100%;
   border-radius: 10px;
-
 }
 
-.barchart-container{
+.barchart-container {
   display: flex;
   align-items: center;
   flex-direction: row;
@@ -225,7 +225,7 @@ const formatarTracksData = (parceiroData: PartnerSchemaDashboard[]) => {
   background: #fff;
 }
 
-.statcircle-container{
+.statcircle-container {
   display: flex;
   align-items: center;
   flex-direction: row;
@@ -242,6 +242,5 @@ const formatarTracksData = (parceiroData: PartnerSchemaDashboard[]) => {
   height: 100%;
   width: 100%;
   border-radius: 10px;
-
 }
 </style>

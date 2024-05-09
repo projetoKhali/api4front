@@ -2,26 +2,38 @@
   <div class="dashboard-container">
     <div class="left-side">
       <div class="cards">
-        <CountCard title="Total de parceiros" :number="totalParceiros" iconName="user" />
-        <CountCard title="Total de expertises" :number="totalExpertises" iconName="trophy"/>
-        <CountCard title="Total de qualificadores" :number="totalQualificadores" iconName="book-bookmark"/>
+        <CountCard
+          title="Total de parceiros"
+          :number="totalParceiros"
+          iconName="user"
+        />
+        <CountCard
+          title="Total de expertises"
+          :number="totalExpertises"
+          iconName="trophy"
+        />
+        <CountCard
+          title="Total de qualificadores"
+          :number="totalQualificadores"
+          iconName="book-bookmark"
+        />
       </div>
-        <div class="bottom">
-          <div class="table-expertise">
-            <h2>Tabela de Expertises</h2>
-            <Table
-              :headers="tableHeadExpertises"
-              :initialData="tableBodyExpertises"
-            />
-          </div>
-          <div class="table-qualify">
-            <h2>Tabela de Qualificadores</h2>
-            <Table
-              :headers="tableHeadQualificadores"
-              :initialData="tableBodyQualificadores"
-            />
-          </div>
+      <div class="bottom">
+        <div class="table-expertise">
+          <h2>Tabela de Expertises</h2>
+          <Table
+            :headers="tableHeadExpertises"
+            :initialData="tableBodyExpertises"
+          />
         </div>
+        <div class="table-qualify">
+          <h2>Tabela de Qualificadores</h2>
+          <Table
+            :headers="tableHeadQualificadores"
+            :initialData="tableBodyQualificadores"
+          />
+        </div>
+      </div>
     </div>
     <div class="right-side">
       <div class="piechart-container">
@@ -32,9 +44,8 @@
       </div>
     </div>
   </div>
-  <div class="down-buttom"> </div>
+  <div class="down-buttom"></div>
 </template>
-
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
@@ -117,10 +128,13 @@ const preencherTabelaExpertises = () => {
           dadosTabela.push([
             expertise.name,
             '1', // Número de Parceiros inicialmente '1'
-            calcularTempoMedioConclusaoExpertise(expertise.name).toFixed(2) + 'h',
+            calcularTempoMedioConclusaoExpertise(expertise.name).toFixed(2) +
+              'h',
           ]);
         } else {
-          dadosTabela[index][1] = (parseInt(dadosTabela[index][1]) + 1).toString(); // Incrementa o número de parceiros
+          dadosTabela[index][1] = (
+            parseInt(dadosTabela[index][1]) + 1
+          ).toString(); // Incrementa o número de parceiros
         }
       });
     });
@@ -140,10 +154,13 @@ const preencherTabelaQualificadores = () => {
           dadosTabela.push([
             qualifier.name,
             '1', // Número de Parceiros inicialmente '1'
-            calcularTempoMedioConclusaoQualifier(qualifier.name).toFixed(2) + 'h',
+            calcularTempoMedioConclusaoQualifier(qualifier.name).toFixed(2) +
+              'h',
           ]);
         } else {
-          dadosTabela[index][1] = (parseInt(dadosTabela[index][1]) + 1).toString(); // Incrementa o número de parceiros
+          dadosTabela[index][1] = (
+            parseInt(dadosTabela[index][1]) + 1
+          ).toString(); // Incrementa o número de parceiros
         }
       });
     });
@@ -264,7 +281,7 @@ const calcularTotais = () => {
   justify-content: space-between;
   height: 100vh;
   padding: 20px;
-  background-color: #EBF2E8;
+  background-color: #ebf2e8;
 }
 
 .table-container {
@@ -290,17 +307,17 @@ const calcularTotais = () => {
   gap: 20px;
 }
 
-.left-side{
+.left-side {
   height: 100%;
   width: 60%;
   display: flex;
   flex-direction: column;
   padding-right: 20px;
   padding-top: 8px;
-  gap: 10px
+  gap: 10px;
 }
 
-.right-side{
+.right-side {
   height: 100%;
   width: 40%;
   padding-left: 20px;
@@ -319,22 +336,20 @@ const calcularTotais = () => {
   height: 100%;
   width: 100%;
   padding: 5px;
-
 }
-h2{
+h2 {
   color: #222a49;
   text-align: left;
   font-size: 1.5vw;
   padding-top: 5px;
-
 }
 
 .table-qualify,
-.table-expertise{
+.table-expertise {
   height: 100%;
 }
 
-.bottom{
+.bottom {
   height: 100%;
   gap: 15%;
   display: flex;
@@ -343,8 +358,7 @@ h2{
   margin-bottom: 10%;
 }
 
-*{
- font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+* {
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
-
 </style>

@@ -22,7 +22,9 @@
       :stroke-dashoffset="dashOffset"
       stroke-linecap="round"
     />
-    <text x="50%" y="55%" style="font-size: 4px">{{ percentage.toFixed(1) }}%</text>
+    <text x="50%" y="55%" style="font-size: 4px">
+      {{ percentage.toFixed(1) }}%
+    </text>
     <text x="50%" y="70%" style="font-size: 2px">
       {{ additionalText }} Expertises
     </text>
@@ -69,5 +71,4 @@ const dashOffset = computed(
   text-anchor: middle;
   fill: #555;
 }
-
 </style>

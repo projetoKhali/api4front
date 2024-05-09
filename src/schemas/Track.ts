@@ -1,8 +1,8 @@
 export interface TrackSchema {
-    id: number;
-    name: string;
-    insertDate: Date;
-  }
+  id: number;
+  name: string;
+  insertDate: Date;
+}
 
 export type TrackPostSchema = Omit<TrackSchema, 'id' | 'insertDate'>;
 

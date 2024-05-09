@@ -42,69 +42,71 @@ type Pagination = {
 
 <template>
   <div class="container">
-  <div class="scrollable-table">
-    <table class="table">
-      <thead>
-        <tr>
-          <th v-for="(header, headerIndex) in headers" :key="headerIndex">
-            {{ header }}
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="(row, rowIndex) in data" :key="rowIndex">
-          <td v-for="(cell, cellIndex) in row" :key="cellIndex">
-            <button v-if="typeof cell === 'function'" @click="() => cell(row)">
-              {{ headers[cellIndex] }}
-            </button>
-            <div v-else-if="typeof cell === 'string' && cell.startsWith('/')">
-              <router-link :to="cell">{{ headers[cellIndex] }}</router-link>
-            </div>
-            <div v-else>
-              {{ cell }}
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="scrollable-table">
+      <table class="table">
+        <thead>
+          <tr>
+            <th v-for="(header, headerIndex) in headers" :key="headerIndex">
+              {{ header }}
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(row, rowIndex) in data" :key="rowIndex">
+            <td v-for="(cell, cellIndex) in row" :key="cellIndex">
+              <button
+                v-if="typeof cell === 'function'"
+                @click="() => cell(row)"
+              >
+                {{ headers[cellIndex] }}
+              </button>
+              <div v-else-if="typeof cell === 'string' && cell.startsWith('/')">
+                <router-link :to="cell">{{ headers[cellIndex] }}</router-link>
+              </div>
+              <div v-else>
+                {{ cell }}
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div v-if="pagination" class="pagination-button">
+      <div class="prev-button">
+        <button
+          v-if="currentPage > 0"
+          @click="
+            () => {
+              currentPage--;
+              data = pagination.getPageData(currentPage);
+            }
+          "
+        >
+          <div class="left-arrow"></div>
+        </button>
+      </div>
+      <div class="view-pages">
+        <span> {{ currentPage + 1 }} / {{ pagination.getTotalPages() }}</span>
+      </div>
+      <div class="next-button">
+        <button
+          v-if="currentPage < pagination.getTotalPages() - 1"
+          @click="
+            () => {
+              currentPage++;
+              data = pagination.getPageData(currentPage);
+            }
+          "
+        >
+          <div class="right-arrow"></div>
+        </button>
+      </div>
+    </div>
   </div>
-  <div v-if="pagination" class="pagination-button">
-    <div class="prev-button">
-      <button
-        v-if="currentPage > 0"
-        @click="
-          () => {
-            currentPage--;
-            data = pagination.getPageData(currentPage);
-          }
-        "
-      >
-        <div class="left-arrow"></div>
-      </button>
-    </div>
-    <div class="view-pages">
-      <span> {{ currentPage + 1 }} / {{ pagination.getTotalPages() }}</span>
-    </div>
-    <div class="next-button">
-      <button
-        v-if="currentPage < pagination.getTotalPages() - 1"
-        @click="
-          () => {
-            currentPage++;
-            data = pagination.getPageData(currentPage);
-          }
-        "
-      >
-        <div class="right-arrow"></div>
-      </button>
-    </div>
-  </div>
-</div>
 </template>
 
 <style scoped>
-
-.container{
+.container {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -167,8 +169,7 @@ tr:hover {
   background-color: #c4a57b;
   padding: 16px;
   color: #f9f3ea;
-  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 .table td {
@@ -245,6 +246,4 @@ button:hover {
 .right-arrow::before {
   content: '›';
 }
-
- 
 </style>

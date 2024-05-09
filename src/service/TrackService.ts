@@ -8,9 +8,7 @@ import { TrackPartnerQualifierSchema } from '@/schemas/track/TrackPartnerQualifi
 
 const API_URL: string = 'http://localhost:8080';
 
-export async function getDataProduct(
-  trackId: number,
-): Promise<TrackSchema[]> {
+export async function getDataProduct(trackId: number): Promise<TrackSchema[]> {
   try {
     const response = await axios.get(`${API_URL}/track/product/${trackId}`);
 

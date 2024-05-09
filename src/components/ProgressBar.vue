@@ -46,11 +46,12 @@ export default {
   width: 100%;
   height: 100%;
   border-radius: 10px;
-  transition: border-color 0.3s, transform 0.3s;
+  transition:
+    border-color 0.3s,
+    transform 0.3s;
   gap: 10px;
   overflow-y: auto;
 }
-
 
 .track-wrapper {
   display: flex;
@@ -128,7 +129,7 @@ export default {
   gap: 20px;
 }
 
-*{
-  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
- }
+* {
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
 </style>

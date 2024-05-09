@@ -4,6 +4,7 @@ interface Route {
   path: string;
   name: string;
   hide?: boolean;
+  // eslint-disable-next-line @typescript-eslint/ban-types
   component: Function;
 }
 

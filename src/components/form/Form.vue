@@ -24,9 +24,9 @@
         class="form-button-wrapper"
       >
         <div class="div-button">
-        <button class="form-button" @click="actions[action](data)">
-          {{ action }}
-        </button>
+          <button class="form-button" @click="actions[action](data)">
+            {{ action }}
+          </button>
         </div>
       </div>
     </ul>
@@ -117,19 +117,19 @@ export default {
   justify-content: space-evenly;
 }
 
-input{
+input {
   border: 2px solid transparent;
   width: 100%;
   height: 100%;
   padding-left: 0.8em;
   outline: none;
   overflow: hidden;
-  background-color: #F3F3F3;
+  background-color: #f3f3f3;
   border-radius: 4px;
   transition: all 0.5s;
   text-align: center;
 }
-.div-button{
+.div-button {
   display: flex;
   flex-direction: row;
   align-items: left;

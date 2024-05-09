@@ -42,7 +42,10 @@ const chartOptions = reactive({
     datalabels: {
       display: true,
       formatter: (value: any, ctx: any) => {
-        const total = ctx.chart.data.datasets[0].data.reduce((a: any, b: any) => a + b, 0);
+        const total = ctx.chart.data.datasets[0].data.reduce(
+          (a: any, b: any) => a + b,
+          0,
+        );
         const percentage = Math.round((value / total) * 100);
         return `${percentage}%`;
       },
@@ -55,7 +58,7 @@ let chartData = reactive({
     {
       label: 'Expertises',
       data: Object.values(props.chartData),
-      backgroundColor: ['#C76146','#8d4428', '#efc371'],
+      backgroundColor: ['#C76146', '#8d4428', '#efc371'],
     },
   ],
 });
@@ -69,14 +72,13 @@ watch(
         {
           label: 'Expertises',
           data: Object.values(newValue),
-          backgroundColor: ['#C76146','#8d4428', '#efc371'],
+          backgroundColor: ['#C76146', '#8d4428', '#efc371'],
         },
       ],
       ...chartOptions,
     };
   },
 );
-
 </script>
 
 <style scoped>
@@ -87,7 +89,7 @@ watch(
   flex-direction: column;
   align-items: center;
   background-color: white;
-	border-radius: 10px;
+  border-radius: 10px;
 }
 
 .chart-title {

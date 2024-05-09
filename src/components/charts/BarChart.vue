@@ -136,7 +136,7 @@ watch(
   height: 100%;
   max-height: 300px;
 }
-*{
-  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
- }
+* {
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
 </style>

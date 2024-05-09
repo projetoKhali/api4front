@@ -2,7 +2,12 @@
   <nav>
     <div :class="'oracle-logo'" />
     <ul>
-      <li v-for="route in $router.options.routes" :key="route.path">
+      <li
+        v-for="route in $router.options.routes.filter(route =>
+          !route.name.includes('[hide]'),
+        )"
+        :key="route.path"
+      >
         <router-link :to="route.path" :class="'router-link'">
           {{ route.name }}
         </router-link>

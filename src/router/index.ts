@@ -11,7 +11,7 @@ interface Route {
 const routes: Route[] = [
   {
     path: '/track/:trackId',
-    name: 'Track Dashboard',
+    name: '[hide] Track Dashboard',
     hide: true,
     component: () => import('../views/TrackDashboard.vue'),
   },
@@ -32,14 +32,14 @@ const routes: Route[] = [
   },
   {
     path: '/partner/:partnerId',
-    name: 'Partner Dashboard',
+    name: '[hide] Partner Dashboard',
     hide: true,
     component: () => import('../views/PartnerDashboard.vue'),
   },
 ];
 
 const routeRecordsRaw: RouteRecordRaw[] = routes
-  .filter((route: Route) => !route.hide)
+  // .filter((route: Route) => !route.hide)
   .map((route: Route) => ({
     path: route.path,
     name: route.name,

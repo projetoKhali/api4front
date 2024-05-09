@@ -8,7 +8,14 @@ import ListTrack from '../views/ListTrack.vue';
 import PopupExample from '../views/PopupExample.vue';
 import FormExample from '../views/FormExample.vue';
 
-const routes = [
+interface Route {
+  path: string;
+  name: string;
+  hide?: boolean;
+  component: Function;
+}
+
+const routes: Route[] = [
   {
     path: '/track/:trackId',
     name: 't',

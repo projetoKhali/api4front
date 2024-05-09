@@ -1,5 +1,5 @@
 <template>
-  <svg class="stat-circle" width="150" viewBox="0 0 20 20">
+  <svg class="stat-circle" width="100%" height="100%" viewBox="0 0 20 20">
     <circle
       class="bg"
       cx="10"
@@ -16,13 +16,15 @@
       r="8"
       :data-percentage="percentage"
       fill="none"
-      stroke="#94DF49"
+      stroke="#7EA774"
       stroke-width="2"
       :stroke-dasharray="`${dashArray} ${dashArray}`"
       :stroke-dashoffset="dashOffset"
       stroke-linecap="round"
     />
-    <text x="50%" y="55%" style="font-size: 4px">{{ percentage }}%</text>
+    <text x="50%" y="55%" style="font-size: 4px">
+      {{ percentage.toFixed(1) }}%
+    </text>
     <text x="50%" y="70%" style="font-size: 2px">
       {{ additionalText }} Expertises
     </text>
@@ -56,10 +58,9 @@ const dashOffset = computed(
 <style scoped>
 .stat-circle {
   background-color: #fff;
-  width: 200px;
-  height: 200px;
-  box-shadow: 0 5px 0 0 rgba(0, 0, 0, 0.1);
-  border-radius: 5px;
+  width: 100%;
+  border-radius: 10px;
+  height: 100%;
   transition:
     border-color 0.3s,
     transform 0.3s;

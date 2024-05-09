@@ -2,7 +2,11 @@
   <div class="popup">
     <div class="popup-inner">
       <slot />
-      <button class="popup-close" @click="() => TogglePopup('buttonTrigger')">
+      <button
+        v-if="togglePopup"
+        class="popup-close"
+        @click="() => togglePopup()"
+      >
         Close popup
       </button>
     </div>
@@ -11,11 +15,16 @@
 
 <script>
 export default {
-  props: ['TogglePopup'],
+  props: {
+    togglePopup: {
+      type: Function,
+      required: false,
+    },
+  },
 };
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 .popup {
   position: fixed;
   top: 0;
@@ -28,10 +37,10 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+}
 
-  .popup-inner {
-    background: #fff;
-    padding: 32px;
-  }
+.popup-inner {
+  background: #fff;
+  padding: 32px;
 }
 </style>

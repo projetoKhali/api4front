@@ -44,6 +44,10 @@ export default {
   },
 
   setup(props) {
+    if (!props.data) {
+      throw new Error('FormPopup Error: data parameter is required in order to populate the form');
+    }
+
     const formDataOnChange = Object.keys(props.data)
       .filter((key: string) => !props.hideFields.includes(key))
       .reduce((acc: Record<string, (object: Object) => void>, key: string) => {

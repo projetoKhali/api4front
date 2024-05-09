@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router';
+import { RouteRecordRaw, createRouter, createWebHistory } from 'vue-router';
 
 interface Route {
   path: string;
@@ -34,12 +34,20 @@ const routes: Route[] = [
     name: 'Partner Dashboard',
     hide: true,
     component: () => import('../views/PartnerDashboard.vue'),
-  }
+  },
 ];
+
+const routeRecordsRaw: RouteRecordRaw[] = routes
+  .filter((route: Route) => !route.hide)
+  .map((route: Route) => ({
+    path: route.path,
+    name: route.name,
+    component: route.component,
+  }));
 
 const router = createRouter({
   history: createWebHistory(),
-  routes,
+  routes: routeRecordsRaw,
 });
 
 export default router;

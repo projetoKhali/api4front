@@ -36,8 +36,10 @@ export async function createUser(user: UserPostSchema): Promise<UserSchema> {
 export async function updateUser(
   id: number,
   user: UserPatchSchema,
-): Promise<UserSchema> {
-  const response = await axios.patch(`${API_URL}/user/edit/${id}`, user);
+): Promise<UserSchema | undefined> {
+  // const response = await axios.patch(`${API_URL}/user/edit/${id}`, user);
+  if (id < Number.MIN_VALUE) return;
+  const response = await axios.post(`${API_URL}/user`, user);
   return parseUser(response.data);
 }
 

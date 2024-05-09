@@ -14,7 +14,7 @@ const routes: Route[] = [
     component: () => import('../views/TrackDashboard.vue'),
   },
   {
-    path: '/listtrack',
+    path: '/tracks',
     name: 'Tracks',
     component: () => import('../views/ListTrack.vue'),
   },

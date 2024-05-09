@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const API_URL: string = 'http://localhost:8080';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export async function parseUser(user: any): Promise<UserSchema> {
   return {
     id: user.id,
@@ -13,11 +13,10 @@ export async function parseUser(user: any): Promise<UserSchema> {
   };
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function mapUsers(user: any): Promise<UserSchema[]> {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return user ? await user.map(async (item: any) => parseUser(item)) : [];
 }
+/* eslint-enable @typescript-eslint/no-explicit-any */
 
 export async function getUsers(): Promise<UserSchema[]> {
   const response = await axios.get(`${API_URL}/user`);

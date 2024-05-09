@@ -11,6 +11,7 @@ import { PartnerQualifierSchema } from '@/schemas/partner/PartnerQualifier';
 
 const API_URL: string = 'http://localhost:8080';
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export async function parsePartner(partner: any): Promise<PartnerSchema> {
   return {
     id: partner.id,
@@ -35,13 +36,13 @@ export async function mapPartners(partners: any): Promise<PartnerSchema[]> {
     ? await partners.map(async (item: any) => parsePartner(item))
     : [];
 }
+/* eslint-enable @typescript-eslint/no-explicit-any */
 
 export async function getPartners(): Promise<PartnerSchema[]> {
   const response = await axios.get(`${API_URL}/partners`);
   return mapPartners(response.data);
 }
 
-/* eslint-enable @typescript-eslint/no-explicit-any */
 export async function getPartner(id: number): Promise<PartnerSchema> {
   const response = await axios.get(`${API_URL}/partners/${id}`);
   return parsePartner(response.data);

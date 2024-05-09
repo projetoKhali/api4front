@@ -85,13 +85,13 @@ const pagination = {
 };
 
 const addUser = () => {
-  const UserPost: UserPostSchema = {
-    name: ' ',
-    login: ' ',
-    password: ' ',
+  const userPost: UserPostSchema = {
+    name: '',
+    login: '',
+    password: '',
     profileType: 'PartnerAdmin',
   };
-  user.value = UserPost;
+  user.value = userPost;
   isPopupOpen.value = !isPopupOpen.value;
   actions.value = {
     salvar: (_: UserSchema) => {

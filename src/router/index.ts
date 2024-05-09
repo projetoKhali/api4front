@@ -10,7 +10,7 @@ interface Route {
 const routes: Route[] = [
   {
     path: '/track/:trackId',
-    name: 't',
+    name: 'Track Dashboard',
     component: () => import('../views/TrackDashboard.vue'),
   },
   {
@@ -30,7 +30,7 @@ const routes: Route[] = [
   },
   {
     path: '/partner/:partnerId',
-    name: ' ',
+    name: 'Partner Dashboard',
     component: () => import('../views/PartnerDashboard.vue'),
   }
 ];

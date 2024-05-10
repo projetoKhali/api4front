@@ -9,7 +9,10 @@
       <input
         v-if="field.type"
         :type="field.type"
-        @input="field.onChange($event.target.value)"
+        @input="field.onChange(field.type === 'checkbox'
+          ? $event.target.checked
+          : $event.target.value
+        )"
       />
       <select
         v-else-if="field.dropdown"

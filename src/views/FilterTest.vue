@@ -175,14 +175,14 @@ const filterData = () => {
     }
 
     if (
-      currentFilters.value.isActive &&
+      currentFilters.value.isActive !== null &&
       item.isActive !== currentFilters.value.isActive
     ) {
       return false;
     }
 
     if (
-      currentFilters.value.profileType &&
+      currentFilters.value.profileType !== null &&
       item.profileType !== currentFilters.value.profileType
     ) {
       return false;
@@ -232,7 +232,7 @@ const fields: FilterField[] = [
   {
     title: 'Profile Type',
     onChange: value => {
-      currentFilters.value.profile = value;
+      currentFilters.value.profileType = value;
       filterData();
     },
     dropdown: ['PartnerAdmin', 'Oracle'],

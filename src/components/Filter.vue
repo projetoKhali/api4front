@@ -9,17 +9,14 @@
       <input
         v-if="field.type"
         :type="field.type"
-        @input="field.onChange(field.type === 'checkbox'
-          ? $event.target.checked
-          : $event.target.value
-        )"
         :value="field.default"
         :checked="field.default"
+        @input="onChange(field.onChange, field, $event.target)"
       />
       <select
         v-else-if="field.dropdown"
         :value="field.default"
-        @change="field.onChange($event.target.value || null)"
+        @change="onChange(field.onChange, field, $event.target)"
       >
         <option
           v-for="(option, optionIndex) in [null, ...field.dropdown]"
@@ -47,7 +44,25 @@ export type FilterField = {
     }
 );
 
+function onChange(
+  callback: (value: string) => void,
+  field: FilterField,
+  target: HTMLInputElement | HTMLSelectElement,
+) {
+  switch (field.type) {
+    case 'checkbox':
+      return callback((target as HTMLInputElement)?.checked || null);
+    case 'number':
+      return callback(parseInt(target?.value) || null);
+    default:
+      return callback(target?.value || null);
+  }
+}
+
 export default {
+  methods: {
+    onChange,
+  },
   props: {
     fields: {
       type: Array as () => FilterField[],

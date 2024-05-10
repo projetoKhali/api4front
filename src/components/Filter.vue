@@ -13,10 +13,13 @@
           ? $event.target.checked
           : $event.target.value
         )"
+        :value="field.default"
+        :checked="field.default"
       />
       <select
         v-else-if="field.dropdown"
         @change="field.onChange($event.target.value)"
+        :value="field.default"
         >
           <option
             v-for="(option, optionIndex) in [null, ...field.dropdown]"
@@ -32,6 +35,7 @@
 export type FilterField = {
   title: string;
   onChange: (value: string) => void;
+  default?: string;
 } & (
   | {
       dropdown: string[];

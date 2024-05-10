@@ -147,10 +147,10 @@ const currentFilters = ref<{
   isActive: string | null;
   profileType: string | null;
 }>({
-  name: null,
+  name: '',
   age: null,
   birthday: null,
-  isActive: null,
+  isActive: true,
   profileType: null,
 });
 
@@ -200,6 +200,7 @@ const fields: FilterField[] = [
       filterData();
     },
     type: 'text',
+    default: currentFilters.value.name,
   },
   {
     title: 'Age',
@@ -208,6 +209,7 @@ const fields: FilterField[] = [
       filterData();
     },
     type: 'number',
+    default: currentFilters.value.age,
   },
   {
     title: 'Birthday',
@@ -216,6 +218,7 @@ const fields: FilterField[] = [
       filterData();
     },
     type: 'date',
+    default: currentFilters.value.birthday,
   },
   {
     title: 'Is Active',
@@ -224,6 +227,7 @@ const fields: FilterField[] = [
       filterData();
     },
     type: 'checkbox',
+    default: currentFilters.value.isActive,
   },
   {
     title: 'Profile Type',
@@ -232,6 +236,7 @@ const fields: FilterField[] = [
       filterData();
     },
     dropdown: ['PartnerAdmin', 'Oracle'],
+    default: currentFilters.value.profileType,
   },
 ];
 

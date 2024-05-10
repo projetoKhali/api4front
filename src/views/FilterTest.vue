@@ -20,14 +20,14 @@ const data = [
     name: 'John Doe',
     age: 30,
     birthday: '1990-01-01',
-    isActive: true,
+    isActive: false,
     profileType: 'PartnerAdmin',
   },
   {
     name: 'Jane Doe',
     age: 25,
     birthday: '1995-01-01',
-    isActive: false,
+    isActive: true,
     profileType: 'Oracle',
   },
   {
@@ -48,14 +48,14 @@ const data = [
     name: 'John Johnson',
     age: 45,
     birthday: '1975-01-01',
-    isActive: true,
+    isActive: false,
     profileType: 'PartnerAdmin',
   },
   {
     name: 'Jane Johnson',
     age: 50,
     birthday: '1970-01-01',
-    isActive: false,
+    isActive: true,
     profileType: 'Oracle',
   },
   {
@@ -76,14 +76,14 @@ const data = [
     name: 'John James',
     age: 65,
     birthday: '1955-01-01',
-    isActive: true,
+    isActive: false,
     profileType: 'PartnerAdmin',
   },
   {
     name: 'Jane James',
     age: 70,
     birthday: '1950-01-01',
-    isActive: false,
+    isActive: true,
     profileType: 'Oracle',
   },
   {
@@ -111,7 +111,7 @@ const data = [
     name: 'Jane White',
     age: 90,
     birthday: '1930-01-01',
-    isActive: false,
+    isActive: true,
     profileType: 'Oracle',
   },
   {
@@ -132,7 +132,7 @@ const data = [
     name: 'John Green',
     age: 105,
     birthday: '1915-01-01',
-    isActive: true,
+    isActive: false,
     profileType: 'PartnerAdmin',
   },
 ];

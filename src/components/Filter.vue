@@ -18,14 +18,16 @@
       />
       <select
         v-else-if="field.dropdown"
-        @change="field.onChange($event.target.value)"
         :value="field.default"
+        @change="field.onChange($event.target.value || null)"
+      >
+        <option
+          v-for="(option, optionIndex) in [null, ...field.dropdown]"
+          :key="optionIndex"
+          :value="option"
         >
-          <option
-            v-for="(option, optionIndex) in [null, ...field.dropdown]"
-            :key="optionIndex"
-            :value="field.dropdown"
-            >{{option || "Selecione"}}</option>
+          {{ option || null }}
+        </option>
       </select>
     </div>
   </div>

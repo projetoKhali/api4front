@@ -253,6 +253,16 @@ export default {
 </script>
 
 <style scoped>
+* {
+  text-align: center;
+}
+
+p {
+  margin: 0.25em;
+  padding: 0.25em;
+  width: 100%;
+}
+
 .filter {
   width: 100%;
   display: flex;
@@ -265,7 +275,7 @@ export default {
 
 .data-item {
   display: flex;
-  flex-flow: row wrap;
+  flex-direction: row;
   justify-content: space-evenly;
   align-items: start;
   align-content: start;

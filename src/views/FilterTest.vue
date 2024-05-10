@@ -1,6 +1,6 @@
 <template>
   <Filter :fields="fields" />
-  <ul>
+  <ul v-if="!!filteredData.length">
     <li class="data-item" v-for="(item, index) in filteredData" :key="index">
       <p>{{ item.name }}</p>
       <p>{{ item.age }}</p>
@@ -9,6 +9,7 @@
       <p>{{ item.profileType }}</p>
     </li>
   </ul>
+  <p v-else>No data found :/</p>
 </template>
 
 <script lang="ts">

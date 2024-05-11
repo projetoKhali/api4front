@@ -133,7 +133,7 @@ const fetchData = async () => {
               return;
             }
             // const {id, ...partnerData} = partner.value;
-            updatePartner(partner.value.id, partner.value);
+            createPartner(partner.value);
             console.log('Valor partner', partner.value);
           },
         };

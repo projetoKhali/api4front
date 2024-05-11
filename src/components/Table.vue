@@ -164,7 +164,7 @@ tr:hover {
   background-color: #fff;
   position: sticky;
   top: 0;
-  font-size: 0.7rem;
+  font-size: 0.8rem;
   vertical-align: top;
   background-color: #c4a57b;
   padding: 16px;
@@ -177,6 +177,7 @@ tr:hover {
   top: 0;
   font-size: 0.7rem;
   vertical-align: top;
+  padding: 10px;
 }
 
 .table th,

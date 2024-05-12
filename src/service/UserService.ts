@@ -2,6 +2,7 @@ import { UserSchema, UserPostSchema, UserPatchSchema } from '../schemas/User';
 import axios from 'axios';
 
 const API_URL: string = 'http://localhost:8080';
+const DEFAULT_PAGE_SIZE: number = 10;
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export async function parseUser(user: any): Promise<UserSchema> {
@@ -18,8 +19,13 @@ export async function mapUsers(user: any): Promise<UserSchema[]> {
 }
 /* eslint-enable @typescript-eslint/no-explicit-any */
 
-export async function getUsers(): Promise<UserSchema[]> {
-  const response = await axios.get(`${API_URL}/user`);
+export async function getUsers(
+  page?: number,
+  size?: number,
+): Promise<UserSchema[]> {
+  const response = await axios.get(
+    `${API_URL}/user/list?page=${page || 0}&size=${size || DEFAULT_PAGE_SIZE}`,
+  );
   return mapUsers(response.data);
 }
 

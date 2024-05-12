@@ -10,6 +10,7 @@ import { PartnerExpertiseSchema } from '@/schemas/partner/PartnerExpertise';
 import { PartnerQualifierSchema } from '@/schemas/partner/PartnerQualifier';
 
 const API_URL: string = 'http://localhost:8080';
+const DEFAULT_PAGE_SIZE: number = 10;
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export async function parsePartner(partner: any): Promise<PartnerSchema> {
@@ -38,8 +39,13 @@ export async function mapPartners(partners: any): Promise<PartnerSchema[]> {
 }
 /* eslint-enable @typescript-eslint/no-explicit-any */
 
-export async function getPartners(): Promise<PartnerSchema[]> {
-  const response = await axios.get(`${API_URL}/partners`);
+export async function getPartners(
+  page?: number,
+  size?: number,
+): Promise<PartnerSchema[]> {
+  const response = await axios.get(
+    `${API_URL}/partners/list?page=${page || 0}&size=${size || DEFAULT_PAGE_SIZE}`,
+  );
   return mapPartners(response.data);
 }
 

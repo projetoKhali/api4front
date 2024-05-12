@@ -7,7 +7,7 @@
       <h2>Lista de Usuários</h2>
       <Table
         :headers="tableHeaders"
-        :initialData="fullData"
+        :initialData="usersAtPage"
         :pagination="pagination"
       />
     </div>
@@ -30,7 +30,7 @@ import FormPopup from '../components/form/FormPopup.vue';
 
 const tableHeaders = ['ID', 'Email', 'Nome', 'Type', 'Edição'];
 
-const fullData = ref<
+const usersAtPage = ref<
   Array<[number, string, string, string, string, Function, Function]>
 >([]);
 const itemsPerPage: number = 10;
@@ -65,7 +65,7 @@ const fetchData = async () => {
         };
       },
     ]);
-    fullData.value = formatted;
+    usersAtPage.value = formatted;
   } catch (error) {
     console.error('Erro ao buscar dados da API:', error);
   }
@@ -74,13 +74,13 @@ const fetchData = async () => {
 onMounted(fetchData);
 
 const pagination = {
-  getTotalPages: () => Math.ceil(fullData.value.length / itemsPerPage),
+  getTotalPages: () => Math.ceil(usersAtPage.value.length / itemsPerPage),
   getPageData: (
     pageIndex: number,
   ): Array<[number, string, string, string, string, Function, Function]> => {
     const startIndex = pageIndex * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
-    return fullData.value.slice(startIndex, endIndex);
+    return usersAtPage.value.slice(startIndex, endIndex);
   },
 };
 

@@ -94,36 +94,38 @@ const fetchData = async (pageIndex: number) => {
     totalPages.value = partnersPage.totalPages;
 
     const data = partnersPage.content;
-    const formatted: Array<PartnerTableRow> = data.map((item: PartnerSchema) => [
-      item.id,
-      item.companyId,
-      item.name,
-      item.adminName,
-      item.adminEmail,
-      item.slogan,
-      item.country,
-      item.city,
-      item.address,
-      item.compliance ? 'Sim' : 'Não',
-      item.credit ? 'Sim' : 'Não',
-      item.status ? 'Ativo' : 'Inativo',
-      item.memberType ? 'Sim' : 'Não',
-      formatDate(item.firstDateMembership),
-      `/partner/${item.id}`,
-      () => {
-        partner.value = item;
-        isPopupOpen.value = !isPopupOpen.value;
-        console.log('Print', partner);
-        actions.value = {
-          salvar: (_: PartnerSchema) => {
-            if (partner.value === undefined) return;
-            // const {id, ...partnerData} = partner.value;
-            updatePartner(partner.value.id, partner.value);
-            console.log('Valor partner', partner.value);
-          },
-        };
-      },
-    ]);
+    const formatted: Array<PartnerTableRow> = data.map(
+      (item: PartnerSchema) => [
+        item.id,
+        item.companyId,
+        item.name,
+        item.adminName,
+        item.adminEmail,
+        item.slogan,
+        item.country,
+        item.city,
+        item.address,
+        item.compliance ? 'Sim' : 'Não',
+        item.credit ? 'Sim' : 'Não',
+        item.status ? 'Ativo' : 'Inativo',
+        item.memberType ? 'Sim' : 'Não',
+        formatDate(item.firstDateMembership),
+        `/partner/${item.id}`,
+        () => {
+          partner.value = item;
+          isPopupOpen.value = !isPopupOpen.value;
+          console.log('Print', partner);
+          actions.value = {
+            salvar: (_: PartnerSchema) => {
+              if (partner.value === undefined) return;
+              // const {id, ...partnerData} = partner.value;
+              updatePartner(partner.value.id, partner.value);
+              console.log('Valor partner', partner.value);
+            },
+          };
+        },
+      ],
+    );
     fullData.value = formatted;
   } catch (error) {
     console.error('Erro ao buscar dados da API:', error);
@@ -134,9 +136,7 @@ onMounted(() => fetchData(0));
 
 const pagination = {
   getTotalPages: () => totalPages.value,
-  getPageData: (
-    pageIndex: number,
-  ): Array<PartnerTableRow> => {
+  getPageData: (pageIndex: number): Array<PartnerTableRow> => {
     return fetchData(pageIndex);
   },
 };

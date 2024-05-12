@@ -59,7 +59,7 @@ const fetchData = async (pageIndex: number) => {
         console.log('Print', user);
         actions.value = {
           salvar: (_: UserSchema) => {
-            if (user.value === undefined) return
+            if (user.value === undefined) return;
             updateUser(user.value.id, user.value);
             console.log('Valor user', user.value);
           },

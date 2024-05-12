@@ -25,7 +25,7 @@
 import { ref, onMounted } from 'vue';
 import Table from '../components/Table.vue';
 import { UserSchema, UserPostSchema } from '@/schemas/User';
-import { createUser, updateUser } from '../service/UserService';
+import { getUsers, createUser, updateUser } from '../service/UserService';
 import FormPopup from '../components/form/FormPopup.vue';
 
 const tableHeaders = ['ID', 'Email', 'Nome', 'Type', 'Edição'];
@@ -34,17 +34,21 @@ const fullData = ref<
   Array<[number, string, string, string, string, Function, Function]>
 >([]);
 const itemsPerPage: number = 10;
+const totalPages = ref(0);
 const isPopupOpen = ref(false);
 const user = ref<UserSchema | UserPostSchema>();
 const actions = ref<{ salvar: (user: UserSchema) => void }>();
 
-const fetchData = async () => {
+const fetchData = async (pageIndex: number) => {
   try {
-    const response = await fetch('http://localhost:8080/user/list');
-    const data = await response.json();
+    const usersPage = await getUsers(pageIndex, itemsPerPage);
+
+    totalPages.value = usersPage.totalPages;
+
+    const data = usersPage.content;
     const formatted: Array<
       [number, string, string, string, string, Function, Function]
-    > = data.content.map((item: UserSchema) => [
+    > = data.map((item: UserSchema) => [
       item.id,
       item.login,
       item.name,
@@ -55,10 +59,7 @@ const fetchData = async () => {
         console.log('Print', user);
         actions.value = {
           salvar: (_: UserSchema) => {
-            if (user.value === undefined) {
-              return;
-            }
-            // const {id, ...userData} = user.value;
+            if (user.value === undefined) return
             updateUser(user.value.id, user.value);
             console.log('Valor user', user.value);
           },
@@ -71,16 +72,14 @@ const fetchData = async () => {
   }
 };
 
-onMounted(fetchData);
+onMounted(() => fetchData(0));
 
 const pagination = {
-  getTotalPages: () => Math.ceil(fullData.value.length / itemsPerPage),
+  getTotalPages: () => totalPages.value,
   getPageData: (
     pageIndex: number,
   ): Array<[number, string, string, string, string, Function, Function]> => {
-    const startIndex = pageIndex * itemsPerPage;
-    const endIndex = startIndex + itemsPerPage;
-    return fullData.value.slice(startIndex, endIndex);
+    return fetchData(pageIndex);
   },
 };
 

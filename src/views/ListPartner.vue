@@ -27,7 +27,11 @@
 import { ref, onMounted } from 'vue';
 import Table from '../components/Table.vue';
 import { PartnerPostSchema, PartnerSchema } from '../schemas/Partner';
-import { createPartner, updatePartner } from '../service/PartnerService';
+import {
+  getPartners,
+  createPartner,
+  updatePartner,
+} from '../service/PartnerService';
 import FormPopup from '../components/form/FormPopup.vue';
 
 const tableHeaders = [
@@ -70,6 +74,7 @@ type PartnerTableRow = [
 
 const fullData = ref<PartnerTableRow[]>([]);
 const itemsPerPage: number = 10;
+const totalPages = ref(0);
 const isPopupOpen = ref(false);
 const partner = ref<PartnerSchema | PartnerPostSchema>();
 const actions = ref<{ salvar: (user: PartnerSchema) => void }>();
@@ -82,11 +87,14 @@ const formatDate = (dateString: string) => {
   return `${day}/${month}/${year}`;
 };
 
-const fetchData = async () => {
+const fetchData = async (pageIndex: number) => {
   try {
-    const response = await fetch('http://localhost:8080/partner/list');
-    const data = await response.json();
-    const formatted: Array<PartnerTableRow> = data.content.map((item: PartnerSchema) => [
+    const partnersPage = await getPartners(pageIndex, itemsPerPage);
+
+    totalPages.value = partnersPage.totalPages;
+
+    const data = partnersPage.content;
+    const formatted: Array<PartnerTableRow> = data.map((item: PartnerSchema) => [
       item.id,
       item.companyId,
       item.name,
@@ -108,9 +116,7 @@ const fetchData = async () => {
         console.log('Print', partner);
         actions.value = {
           salvar: (_: PartnerSchema) => {
-            if (partner.value === undefined) {
-              return;
-            }
+            if (partner.value === undefined) return;
             // const {id, ...partnerData} = partner.value;
             updatePartner(partner.value.id, partner.value);
             console.log('Valor partner', partner.value);
@@ -124,16 +130,14 @@ const fetchData = async () => {
   }
 };
 
-onMounted(fetchData);
+onMounted(() => fetchData(0));
 
 const pagination = {
-  getTotalPages: () => Math.ceil(fullData.value.length / itemsPerPage),
+  getTotalPages: () => totalPages.value,
   getPageData: (
     pageIndex: number,
   ): Array<PartnerTableRow> => {
-    const startIndex = pageIndex * itemsPerPage;
-    const endIndex = startIndex + itemsPerPage;
-    return fullData.value.slice(startIndex, endIndex);
+    return fetchData(pageIndex);
   },
 };
 

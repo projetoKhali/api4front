@@ -49,28 +49,26 @@ const tableHeaders = [
   'Edição',
 ];
 
-const fullData = ref<
-  Array<
-    [
-      number,
-      string,
-      string,
-      string,
-      string,
-      string,
-      string,
-      string,
-      string,
-      string,
-      string,
-      string,
-      string,
-      string,
-      Function,
-      Function,
-    ]
-  >
->([]);
+type PartnerTableRow = [
+  number,
+  string,
+  string,
+  string,
+  string,
+  string,
+  string,
+  string,
+  string,
+  string,
+  string,
+  string,
+  string,
+  string,
+  Function,
+  Function,
+];
+
+const fullData = ref<PartnerTableRow[]>([]);
 const itemsPerPage: number = 10;
 const isPopupOpen = ref(false);
 const partner = ref<PartnerSchema | PartnerPostSchema>();
@@ -88,26 +86,7 @@ const fetchData = async () => {
   try {
     const response = await fetch('http://localhost:8080/partner/list');
     const data = await response.json();
-    const formatted: Array<
-      [
-        number,
-        string,
-        string,
-        string,
-        string,
-        string,
-        string,
-        string,
-        string,
-        string,
-        string,
-        string,
-        string,
-        string,
-        Function,
-        Function,
-      ]
-    > = data.content.map((item: PartnerSchema) => [
+    const formatted: Array<PartnerTableRow> = data.content.map((item: PartnerSchema) => [
       item.id,
       item.companyId,
       item.name,
@@ -151,26 +130,7 @@ const pagination = {
   getTotalPages: () => Math.ceil(fullData.value.length / itemsPerPage),
   getPageData: (
     pageIndex: number,
-  ): Array<
-    [
-      number,
-      string,
-      string,
-      string,
-      string,
-      string,
-      string,
-      string,
-      string,
-      string,
-      string,
-      string,
-      string,
-      string,
-      Function,
-      Function,
-    ]
-  > => {
+  ): Array<PartnerTableRow> => {
     const startIndex = pageIndex * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
     return fullData.value.slice(startIndex, endIndex);

@@ -4,7 +4,6 @@ import { ref, watch, onMounted, defineProps } from 'vue';
 const currentPage = ref(0);
 const data = ref([]);
 
-
 type Pagination = {
   getPageData: (pageIndex: number) => void;
   getTotalPages: () => number;
@@ -25,8 +24,11 @@ export default {
       required: false,
     },
   },
-  manualRefresh,
   setup(props) {
+    const manualRefresh = () => {
+      data.value = props.pagination?.getPageData(currentPage.value) || [];
+    };
+
     watch(
       () => props.initialData,
       () => {
@@ -36,6 +38,7 @@ export default {
       { immediate: true },
     );
     return {
+      manualRefresh,
       currentPage,
       data,
     };

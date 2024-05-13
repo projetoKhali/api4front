@@ -121,9 +121,10 @@ const fetchData = async (pageIndex: number) => {
             salvar: (_: PartnerSchema) => {
               if (partner.value === undefined) return;
               // const {id, ...partnerData} = partner.value;
-              updatePartner(partner.value.id, partner.value);
+              updatePartner(partner.value.id, partner.value).then(
+                tableComponent.value?.manualRefresh,
+              );
               console.log('Valor partner', partner.value);
-              tableComponent.value?.manualRefresh();
             },
           };
         },

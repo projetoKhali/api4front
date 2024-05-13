@@ -6,6 +6,7 @@
       </div>
       <h2>Lista de Usuários</h2>
       <Table
+        ref="tableComponent"
         :headers="tableHeaders"
         :initialData="usersAtPage"
         :pagination="pagination"
@@ -28,6 +29,7 @@ import { UserSchema, UserPostSchema } from '@/schemas/User';
 import { createUser, updateUser } from '../service/UserService';
 import FormPopup from '../components/form/FormPopup.vue';
 
+const tableComponent = ref<Table>();
 const tableHeaders = ['ID', 'Email', 'Nome', 'Type', 'Edição'];
 
 const usersAtPage = ref<
@@ -61,6 +63,7 @@ const fetchData = async () => {
             // const {id, ...userData} = user.value;
             updateUser(user.value.id, user.value);
             console.log('Valor user', user.value);
+            tableComponent.value?.manualRefresh();
           },
         };
       },
@@ -100,6 +103,7 @@ const addUser = () => {
       }
       createUser(user.value);
       console.log('Valor user', user.value);
+      tableComponent.value?.manualRefresh();
     },
   };
 };

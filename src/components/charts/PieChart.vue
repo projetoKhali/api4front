@@ -1,6 +1,6 @@
 <template>
   <div class="chart-container">
-    <Pie :data="chartData" />
+    <Pie :data="chartData" :options="chartOptions" />
   </div>
 </template>
 
@@ -25,7 +25,7 @@ const chartOptions = reactive({
     },
     title: {
       display: true,
-      text: props.title || 'Avanço das Expertises por Status',
+      text: 'Avanço das Expertises por Status',
       color: 'black',
       font: {
         size: 18,
@@ -41,28 +41,27 @@ const chartOptions = reactive({
     },
     datalabels: {
       display: true,
-      formatter: (value: any) => `${value}%`,
+      formatter: (value: any, ctx: any) => {
+        const total = ctx.chart.data.datasets[0].data.reduce(
+          (a: any, b: any) => a + b,
+          0,
+        );
+        const percentage = Math.round((value / total) * 100);
+        return `${percentage}%`;
+      },
     },
   },
 });
-
 let chartData = reactive({
   labels: Object.keys(props.chartData),
   datasets: [
     {
       label: 'Expertises',
       data: Object.values(props.chartData),
-      backgroundColor: Object.keys(props.chartData).map(() => getRandomColor()),
+      backgroundColor: ['#C76146', '#8d4428', '#efc371'],
     },
   ],
 });
-
-function getRandomColor() {
-  const greenTones = ['#4CAF50', '#66BB6A', '#81C784', '#A5D6A7', '#C8E6C9'];
-  const purpleTones = ['#9C27B0', '#AB47BC', '#BA68C8', '#CE93D8', '#E1BEE7'];
-  const colors = Math.random() < 0.5 ? greenTones : purpleTones;
-  return colors[Math.floor(Math.random() * colors.length)];
-}
 
 watch(
   () => props.chartData,
@@ -73,9 +72,10 @@ watch(
         {
           label: 'Expertises',
           data: Object.values(newValue),
-          backgroundColor: Object.keys(newValue).map(() => getRandomColor()),
+          backgroundColor: ['#C76146', '#8d4428', '#efc371'],
         },
       ],
+      ...chartOptions,
     };
   },
 );
@@ -83,14 +83,13 @@ watch(
 
 <style scoped>
 .chart-container {
-  border-radius: 5px;
-  box-shadow: 0px 5px 0 0 rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  width: 300px;
-  height: 300px;
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: white;
+  border-radius: 10px;
 }
 
 .chart-title {

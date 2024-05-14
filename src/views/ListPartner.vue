@@ -27,7 +27,11 @@
 import { ref, onMounted } from 'vue';
 import Table from '../components/Table.vue';
 import { PartnerPostSchema, PartnerSchema } from '../schemas/Partner';
-import { createPartner, updatePartner } from '../service/PartnerService';
+import {
+  getPartners,
+  createPartner,
+  updatePartner,
+} from '../service/PartnerService';
 import FormPopup from '../components/form/FormPopup.vue';
 
 const tableHeaders = [
@@ -49,29 +53,28 @@ const tableHeaders = [
   'Edição',
 ];
 
-const fullData = ref<
-  Array<
-    [
-      number,
-      string,
-      string,
-      string,
-      string,
-      string,
-      string,
-      string,
-      string,
-      string,
-      string,
-      string,
-      string,
-      string,
-      Function,
-      Function,
-    ]
-  >
->([]);
+type PartnerTableRow = [
+  number,
+  string,
+  string,
+  string,
+  string,
+  string,
+  string,
+  string,
+  string,
+  string,
+  string,
+  string,
+  string,
+  string,
+  Function,
+  Function,
+];
+
+const fullData = ref<PartnerTableRow[]>([]);
 const itemsPerPage: number = 10;
+const totalPages = ref(0);
 const isPopupOpen = ref(false);
 const partner = ref<PartnerSchema | PartnerPostSchema>();
 const actions = ref<{ salvar: (user: PartnerSchema) => void }>();
@@ -84,96 +87,57 @@ const formatDate = (dateString: string) => {
   return `${day}/${month}/${year}`;
 };
 
-const fetchData = async () => {
+const fetchData = async (pageIndex: number) => {
   try {
-    const response = await fetch('http://localhost:8080/partner/list');
-    const data = await response.json();
-    const formatted: Array<
-      [
-        number,
-        string,
-        string,
-        string,
-        string,
-        string,
-        string,
-        string,
-        string,
-        string,
-        string,
-        string,
-        string,
-        string,
-        Function,
-        Function,
-      ]
-    > = data.content.map((item: PartnerSchema) => [
-      item.id,
-      item.companyId,
-      item.name,
-      item.adminName,
-      item.adminEmail,
-      item.slogan,
-      item.country,
-      item.city,
-      item.address,
-      item.compliance ? 'Sim' : 'Não',
-      item.credit ? 'Sim' : 'Não',
-      item.status ? 'Ativo' : 'Inativo',
-      item.memberType ? 'Sim' : 'Não',
-      formatDate(item.firstDateMembership),
-      `/partner/${item.id}`,
-      () => {
-        partner.value = item;
-        isPopupOpen.value = !isPopupOpen.value;
-        console.log('Print', partner);
-        actions.value = {
-          salvar: (_: PartnerSchema) => {
-            if (partner.value === undefined) {
-              return;
-            }
-            // const {id, ...partnerData} = partner.value;
-            updatePartner(partner.value.id, partner.value);
-            console.log('Valor partner', partner.value);
-          },
-        };
-      },
-    ]);
+    const partnersPage = await getPartners(pageIndex, itemsPerPage);
+
+    totalPages.value = partnersPage.totalPages;
+
+    const data = partnersPage.content;
+    const formatted: Array<PartnerTableRow> = data.map(
+      (item: PartnerSchema) => [
+        item.id,
+        item.companyId,
+        item.name,
+        item.adminName,
+        item.adminEmail,
+        item.slogan,
+        item.country,
+        item.city,
+        item.address,
+        item.compliance ? 'Sim' : 'Não',
+        item.credit ? 'Sim' : 'Não',
+        item.status ? 'Ativo' : 'Inativo',
+        item.memberType ? 'Sim' : 'Não',
+        formatDate(item.firstDateMembership),
+        `/partner/${item.id}`,
+        () => {
+          partner.value = item;
+          isPopupOpen.value = !isPopupOpen.value;
+          console.log('Print', partner);
+          actions.value = {
+            salvar: (_: PartnerSchema) => {
+              if (partner.value === undefined) return;
+              // const {id, ...partnerData} = partner.value;
+              updatePartner(partner.value.id, partner.value);
+              console.log('Valor partner', partner.value);
+            },
+          };
+        },
+      ],
+    );
     fullData.value = formatted;
   } catch (error) {
     console.error('Erro ao buscar dados da API:', error);
   }
 };
 
-onMounted(fetchData);
+onMounted(() => fetchData(0));
 
 const pagination = {
-  getTotalPages: () => Math.ceil(fullData.value.length / itemsPerPage),
-  getPageData: (
-    pageIndex: number,
-  ): Array<
-    [
-      number,
-      string,
-      string,
-      string,
-      string,
-      string,
-      string,
-      string,
-      string,
-      string,
-      string,
-      string,
-      string,
-      string,
-      Function,
-      Function,
-    ]
-  > => {
-    const startIndex = pageIndex * itemsPerPage;
-    const endIndex = startIndex + itemsPerPage;
-    return fullData.value.slice(startIndex, endIndex);
+  getTotalPages: () => totalPages.value,
+  getPageData: (pageIndex: number): Array<PartnerTableRow> => {
+    return fetchData(pageIndex);
   },
 };
 

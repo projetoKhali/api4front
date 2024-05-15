@@ -1,6 +1,9 @@
-<script setup lang="ts">
+<script lang="ts">
 import { ref } from 'vue';
 import Table from '../components/Table.vue';
+import FormPopup from '../components/form/FormPopup.vue';
+import User from '../schemas/User';
+
 
 const tableHeaders = ['id', 'name', 'age', 'url', 'editar'];
 const fullData = [
@@ -16,9 +19,25 @@ const fullData = [
   [10, 'Jane Black', 44, '/track', user => processUser(user)],
 ];
 
+const isPopupOpen = ref(false);
+
 const processUser = (user: Object): void => {
-  console.log('User:', user);
-  console.log('typeof user:', typeof user);
+  userInPopup.value = {
+    name: user[1],
+    age: user[2],
+  };
+  isPopupOpen.value = true;
+};
+
+const userInPopup: ref<User | null> = ref()
+
+const actions = {
+  cancel: (data: User) => {
+    console.log('Data canceled:', data);
+  },
+  submit: (data: User) => {
+    console.log('Data submitted:', data);
+  },
 };
 
 const itemsPerPage: number = 3;
@@ -32,8 +51,31 @@ const pagination = {
     );
   },
 };
+
+export default {
+  components: {
+    Table,
+    FormPopup,
+  },
+  setup() {
+    return {
+      tableHeaders,
+      pagination,
+      isPopupOpen,
+      userInPopup,
+      actions,
+    };
+  },
+};
 </script>
 
 <template>
   <Table :headers="tableHeaders" :pagination="pagination" />
+    <FormPopup
+      v-if="isPopupOpen"
+      :formActionTitle="'Editar Usuário'"
+      :data="userInPopup"
+      :actions="actions"
+      :togglePopup="() => (isPopupOpen = !isPopupOpen)"
+    />
 </template>

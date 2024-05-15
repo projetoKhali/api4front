@@ -46,6 +46,11 @@ const routes: Route[] = [
     name: 'Compartive Track',
     component: () => import('../views/ComparativeTracks.vue'),
   },
+  {
+    path: '/compartive/partner',
+    name: 'Compartive Partner',
+    component: () => import('../views/ComparativePartner.vue'),
+  },
 ];
 
 const routeRecordsRaw: RouteRecordRaw[] = routes

@@ -12,7 +12,7 @@ import { PartnerQualifierSchema } from '@/schemas/partner/PartnerQualifier';
 const API_URL: string = 'http://localhost:8080';
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-export async function getDataMocked () {
+export async function getDataMocked() {
   return [];
 }
 

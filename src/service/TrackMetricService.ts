@@ -28,13 +28,13 @@ export async function mapTrackMetrics(
 
 /* eslint-enable @typescript-eslint/no-explicit-any */
 export async function getTrackMetrics(): Promise<TrackMetricsSchema[]> {
-  const response = await axios.get(`${API_URL}/tracks`);
+  const response = await axios.get(`${API_URL}/trackmetrics`);
   return mapTrackMetrics(response.data);
 }
 
 export async function getTrackMetric(
   trackId: number,
 ): Promise<TrackMetricsSchema> {
-  const response = await axios.get(`${API_URL}/tracks/${trackId}`);
+  const response = await axios.get(`${API_URL}/trackmetrics/${trackId}`);
   return parseTrackMetrics(response.data);
 }

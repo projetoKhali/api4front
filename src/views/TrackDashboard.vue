@@ -1,14 +1,41 @@
 <template>
   <div class="dashboard-container">
-    <div class="cards">
-      <CountCard title="Total de parceiros" :number="totalParceiros" />
-      <CountCard title="Total de expertises" :number="totalExpertises" />
-      <CountCard
-        title="Total de qualificadores"
-        :number="totalQualificadores"
-      />
+    <div class="left-side">
+      <div class="cards">
+        <CountCard
+          title="Total de parceiros"
+          :number="totalParceiros"
+          iconName="user"
+        />
+        <CountCard
+          title="Total de expertises"
+          :number="totalExpertises"
+          iconName="trophy"
+        />
+        <CountCard
+          title="Total de qualificadores"
+          :number="totalQualificadores"
+          iconName="book-bookmark"
+        />
+      </div>
+      <div class="bottom">
+        <div class="table-expertise">
+          <h2>Tabela de Expertises</h2>
+          <Table
+            :headers="tableHeadExpertises"
+            :initialData="tableBodyExpertises"
+          />
+        </div>
+        <div class="table-qualify">
+          <h2>Tabela de Qualificadores</h2>
+          <Table
+            :headers="tableHeadQualificadores"
+            :initialData="tableBodyQualificadores"
+          />
+        </div>
+      </div>
     </div>
-    <div class="chart-wrapper">
+    <div class="right-side">
       <div class="piechart-container">
         <PieChart :chartData="formattedPieChartData" />
       </div>
@@ -16,15 +43,8 @@
         <ProgressBar :tracks="progressBarData" />
       </div>
     </div>
-    <div>
-      <h2>Tabela de Expertises</h2>
-      <Table :head="tableHeadExpertises" :body="tableBodyExpertises" />
-    </div>
-    <div>
-      <h2>Tabela de Qualificadores</h2>
-      <Table :head="tableHeadQualificadores" :body="tableBodyQualificadores" />
-    </div>
   </div>
+  <div class="down-buttom"></div>
 </template>
 
 <script setup lang="ts">
@@ -35,6 +55,8 @@ import ProgressBar from '../components/ProgressBar.vue';
 import Table from '../components/Table.vue';
 import { getDataProduct } from '../service/TrackService';
 import { TrackSchema } from '../schemas/track/Track';
+import { useRoute } from 'vue-router';
+const route = useRoute();
 
 const track = ref<TrackSchema[]>([]);
 const progressBarData = ref<{ [key: string]: { [key: string]: number } }>({});
@@ -44,20 +66,21 @@ const tableHeadExpertises = [
   'Número de Parceiros',
   'Tempo Médio de Conclusão',
 ];
-const tableBodyExpertises = ref<Array<[string, number, number]>>([]);
+const tableBodyExpertises = ref<Array<[string, string, string]>>([]);
 const tableHeadQualificadores = [
   'Qualificador',
   'Número de Parceiros',
   'Tempo Médio de Conclusão',
 ];
-const tableBodyQualificadores = ref<Array<[string, number, number]>>([]);
+const tableBodyQualificadores = ref<Array<[string, string, string]>>([]);
 const totalParceiros = ref(0);
 const totalExpertises = ref(0);
 const totalQualificadores = ref(0);
 
 onMounted(async () => {
   try {
-    track.value = await getDataProduct('Track 1');
+    const trackId = Number(route.params.trackId);
+    track.value = await getDataProduct(trackId);
     console.log('Dados da track:', track.value);
 
     calcularPieChartData(track.value);
@@ -95,20 +118,23 @@ const calcularPieChartData = (track: TrackSchema[]) => {
 };
 
 const preencherTabelaExpertises = () => {
-  const dadosTabela: Array<[string, number, number]> = [];
+  const dadosTabela: Array<[string, string, string]> = [];
 
-  track.value.forEach((track: TrackSchema) => {
-    track.partners.forEach(partner => {
+  track.value.forEach((trackItem: TrackSchema) => {
+    trackItem.partners.forEach(partner => {
       partner.expertises.forEach(expertise => {
         const index = dadosTabela.findIndex(item => item[0] === expertise.name);
         if (index === -1) {
           dadosTabela.push([
             expertise.name,
-            1,
-            calcularTempoMedioConclusaoExpertise(expertise.name),
+            '1', // Número de Parceiros inicialmente '1'
+            calcularTempoMedioConclusaoExpertise(expertise.name).toFixed(2) +
+              'h',
           ]);
         } else {
-          dadosTabela[index][1]++;
+          dadosTabela[index][1] = (
+            parseInt(dadosTabela[index][1]) + 1
+          ).toString(); // Incrementa o número de parceiros
         }
       });
     });
@@ -118,20 +144,23 @@ const preencherTabelaExpertises = () => {
 };
 
 const preencherTabelaQualificadores = () => {
-  const dadosTabela: Array<[string, number, number]> = [];
+  const dadosTabela: Array<[string, string, string]> = [];
 
-  track.value.forEach(track => {
-    track.partners.forEach(partner => {
+  track.value.forEach(trackItem => {
+    trackItem.partners.forEach(partner => {
       partner.qualifiers.forEach(qualifier => {
         const index = dadosTabela.findIndex(item => item[0] === qualifier.name);
         if (index === -1) {
           dadosTabela.push([
             qualifier.name,
-            1,
-            calcularTempoMedioConclusaoQualifier(qualifier.name),
+            '1', // Número de Parceiros inicialmente '1'
+            calcularTempoMedioConclusaoQualifier(qualifier.name).toFixed(2) +
+              'h',
           ]);
         } else {
-          dadosTabela[index][1]++;
+          dadosTabela[index][1] = (
+            parseInt(dadosTabela[index][1]) + 1
+          ).toString(); // Incrementa o número de parceiros
         }
       });
     });
@@ -248,25 +277,88 @@ const calcularTotais = () => {
 <style scoped>
 .dashboard-container {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: space-between;
+  height: 100vh;
   padding: 20px;
+  background-color: #ebf2e8;
 }
 
 .table-container {
   height: 5px;
 }
 .piechart-container {
-  height: 20px;
+  height: 50%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 5px;
 }
 
 .cards {
   display: flex;
   gap: 10px;
+  height: 12%;
 }
 
 .chart-wrapper {
   display: flex;
   gap: 20px;
+}
+
+.left-side {
+  height: 100%;
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  padding-right: 20px;
+  padding-top: 8px;
+  gap: 10px;
+}
+
+.right-side {
+  height: 100%;
+  width: 40%;
+  padding-left: 20px;
+  border-radius: 15px;
+  padding-top: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.progressbar-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-height: 400px;
+  height: 100%;
+  width: 100%;
+  padding: 5px;
+}
+h2 {
+  color: #222a49;
+  text-align: left;
+  font-size: 1.5vw;
+  padding-top: 5px;
+}
+
+.table-qualify,
+.table-expertise {
+  height: 100%;
+}
+
+.bottom {
+  height: 100%;
+  gap: 15%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  margin-bottom: 10%;
+}
+
+* {
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 </style>

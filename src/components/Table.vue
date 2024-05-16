@@ -1,107 +1,125 @@
 <script setup lang="ts">
-import { ref, watch, defineProps } from 'vue';
-import axios from 'axios';
+import { ref, watch, onMounted, defineProps } from 'vue';
 
 const props = defineProps({
-  head: {
+  headers: {
     type: Array as () => Array<String>,
     required: true,
   },
-  route: {
-    type: String,
-    required: true,
+  initialData: {
+    type: Array as () => Array<Array<String>>,
+    required: false,
   },
-  size: {
-    type: Number,
-    default: 10,
+  pagination: {
+    type: Object as () => Pagination,
+    required: false,
   },
 });
 
 const currentPage = ref(0);
-const body = ref([]);
-const totalPages = ref(0);
+const data = ref([]);
 
-const showPrevButton = ref(true);
-const showNextButton = ref(true);
+onMounted(() => {
+  watch(
+    () => props.initialData,
+    () => {
+      data.value = props.initialData || props.pagination?.getPageData(0) || [];
+    },
+    { immediate: true },
+  );
 
-const fetchData = async () => {
-  try {
-    const response = await axios.get(props.route, {
-      params: {
-        page: currentPage.value,
-        size: props.size,
-      },
-    });
-    body.value = response.data.content;
-    totalPages.value = response.data.totalPages;
+  return {
+    currentPage,
+    data,
+  };
+});
 
-    // atualiza a visibilidade dos botões de paginação
-    showPrevButton.value = currentPage.value > 0;
-    showNextButton.value = currentPage.value < totalPages.value - 1;
-  } catch (error) {
-    console.error('Error fetching data', error);
-  }
-};
-
-watch(currentPage, fetchData, { immediate: true });
-
-const previousPage = () => {
-  if (currentPage.value > 0) {
-    currentPage.value--;
-  }
-};
-
-const nextPage = () => {
-  if (currentPage.value < totalPages.value - 1) {
-    currentPage.value++;
-  }
+type Pagination = {
+  getPageData: (pageIndex: number) => void;
+  getTotalPages: () => number;
 };
 </script>
 
 <template>
-  <div class="scrollable-table">
-    <table class="table">
-      <thead>
-        <tr>
-          <th v-for="(item, index) in head" :key="index">
-            {{ item }}
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="(line, index) in body" :key="index">
-          <td v-for="(cell, key) in line" :key="key">
-            {{ cell }}
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="pagination-button">
-    <div class="prev-button">
-      <button @click="previousPage" v-if="showPrevButton">
-        <div class="left-arrow"></div>
-      </button>
+  <div class="container">
+    <div class="scrollable-table">
+      <table class="table">
+        <thead>
+          <tr>
+            <th v-for="(header, headerIndex) in headers" :key="headerIndex">
+              {{ header }}
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(row, rowIndex) in data" :key="rowIndex">
+            <td v-for="(cell, cellIndex) in row" :key="cellIndex">
+              <button
+                v-if="typeof cell === 'function'"
+                @click="() => cell(row)"
+              >
+                {{ headers[cellIndex] }}
+              </button>
+              <div v-else-if="typeof cell === 'string' && cell.startsWith('/')">
+                <router-link :to="cell">{{ headers[cellIndex] }}</router-link>
+              </div>
+              <div v-else>
+                {{ cell }}
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-    <div class="view-pages">
-      <span> {{ currentPage + 1 }} / {{ totalPages }}</span>
-    </div>
-    <div class="next-button">
-      <button @click="nextPage" v-if="showNextButton">
-        <div class="right-arrow"></div>
-      </button>
+    <div v-if="pagination" class="pagination-button">
+      <div class="prev-button">
+        <button
+          v-if="currentPage > 0"
+          @click="
+            () => {
+              currentPage--;
+              data = pagination.getPageData(currentPage);
+            }
+          "
+        >
+          <div class="left-arrow"></div>
+        </button>
+      </div>
+      <div class="view-pages">
+        <span> {{ currentPage + 1 }} / {{ pagination.getTotalPages() }}</span>
+      </div>
+      <div class="next-button">
+        <button
+          v-if="currentPage < pagination.getTotalPages() - 1"
+          @click="
+            () => {
+              currentPage++;
+              data = pagination.getPageData(currentPage);
+            }
+          "
+        >
+          <div class="right-arrow"></div>
+        </button>
+      </div>
     </div>
   </div>
 </template>
 
 <style scoped>
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
 .scrollable-table {
+  display: flex;
+  flex-direction: column;
   width: 100%;
   height: 100%;
   overflow-y: auto;
   background-color: #fff;
   border-radius: 9px;
-  box-shadow: 0px 5px 5px 0 rgba(0, 0, 0, 0.1);
   scrollbar-width: 7px;
   scrollbar-color: transparent;
 }
@@ -131,7 +149,6 @@ const nextPage = () => {
   height: 100%;
   font-family: 'Inter', sans-serif;
   color: #000;
-  padding: 0;
   border-spacing: 0;
 }
 
@@ -147,20 +164,33 @@ tr:hover {
   background-color: #fff;
   position: sticky;
   top: 0;
-  font-size: 20px;
-  font-weight: 600;
+  font-size: 0.7rem;
   vertical-align: top;
-  height: 40px;
+  background-color: #c4a57b;
+  padding: 16px;
+  color: #f9f3ea;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 .table td {
-  line-height: 3;
+  background-color: #fff;
+  top: 0;
+  font-size: 0.7rem;
+  vertical-align: top;
 }
 
 .table th,
 .table td {
   text-align: center;
   vertical-align: middle;
+}
+
+.table td button {
+  background-color: transparent;
+  width: 100%;
+  border: none;
+  color: #007bff;
+  cursor: pointer;
 }
 
 .pagination-button {
@@ -188,18 +218,17 @@ tr:hover {
 
 button {
   display: flex;
-
   align-items: center;
   justify-content: center;
   color: #d9d9d9;
-  height: 32px;
+  height: 30px;
   width: 32px;
 
   border-radius: 100%;
   border: none;
 
   font-weight: 400;
-  font-size: 24px;
+  font-size: 12px;
   transition:
     color 0.3s,
     background-color 0.3s;

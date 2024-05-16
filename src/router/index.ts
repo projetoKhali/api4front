@@ -1,29 +1,64 @@
-import { createRouter, createWebHistory } from 'vue-router';
-import PartnerDashboard from '../views/PartnerDashboard.vue';
-import TrackDashboard from '../views/TrackDashboard.vue';
-import FormExample from '../views/FormExample.vue';
+import { RouteRecordRaw, createRouter, createWebHistory } from 'vue-router';
 
-const routes = [
+interface Route {
+  path: string;
+  name: string;
+  hide?: boolean;
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  component: Function;
+}
+
+const routes: Route[] = [
   {
-    path: '/addUser',
-    name: 'Form Example',
-    component: FormExample,
+    path: '/',
+    name: 'FilterTest',
+    component: () => import('../views/FilterTest.vue'),
   },
   {
-    path: '/partner',
-    name: 'Partner',
-    component: PartnerDashboard,
+    path: '/track/:trackId',
+    name: 'Track Dashboard',
+    hide: true,
+    component: () => import('../views/TrackDashboard.vue'),
   },
   {
-    path: '/track',
-    name: 'Track',
-    component: TrackDashboard,
+    path: '/tracks',
+    name: 'Tracks',
+    component: () => import('../views/ListTrack.vue'),
+  },
+  {
+    path: '/partners',
+    name: 'Partners',
+    component: () => import('../views/ListPartner.vue'),
+  },
+  {
+    path: '/users',
+    name: 'Users',
+    component: () => import('../views/ListUser.vue'),
+  },
+  {
+    path: '/partner/:partnerId',
+    name: 'Partner Dashboard',
+    hide: true,
+    component: () => import('../views/PartnerDashboard.vue'),
+  },
+  {
+    path: '/compartive/track',
+    name: 'Compartive Track',
+    component: () => import('../views/ComparativeTracks.vue'),
   },
 ];
 
+const routeRecordsRaw: RouteRecordRaw[] = routes
+  .filter((route: Route) => !route.hide)
+  .map((route: Route) => ({
+    path: route.path,
+    name: route.name,
+    component: route.component,
+  }));
+
 const router = createRouter({
   history: createWebHistory(),
-  routes,
+  routes: routeRecordsRaw,
 });
 
 export default router;

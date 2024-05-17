@@ -1,42 +1,48 @@
-<script setup lang="ts">
+<script lang="ts">
 import { ref, watch, onMounted, defineProps } from 'vue';
-
-const props = defineProps({
-  headers: {
-    type: Array as () => Array<String>,
-    required: true,
-  },
-  initialData: {
-    type: Array as () => Array<Array<String>>,
-    required: false,
-  },
-  pagination: {
-    type: Object as () => Pagination,
-    required: false,
-  },
-});
 
 const currentPage = ref(0);
 const data = ref([]);
 
-onMounted(() => {
-  watch(
-    () => props.initialData,
-    () => {
-      data.value = props.initialData || props.pagination?.getPageData(0) || [];
-    },
-    { immediate: true },
-  );
-
-  return {
-    currentPage,
-    data,
-  };
-});
-
 type Pagination = {
   getPageData: (pageIndex: number) => void;
   getTotalPages: () => number;
+};
+
+export default {
+  props: {
+    headers: {
+      type: Array as () => Array<String>,
+      required: true,
+    },
+    initialData: {
+      type: Array as () => Array<Array<String>>,
+      required: false,
+    },
+    pagination: {
+      type: Object as () => Pagination,
+      required: false,
+    },
+  },
+  setup(props) {
+    const manualRefresh = () => {
+      data.value = props.pagination?.getPageData(currentPage.value) || [];
+    };
+
+    watch(
+      () => props.initialData,
+      () => {
+        data.value =
+          props.initialData || props.pagination?.getPageData(0) || [];
+      },
+      { immediate: true },
+    );
+    return {
+      manualRefresh,
+      currentPage,
+      data,
+    };
+  },
 };
 </script>
 

@@ -7,7 +7,7 @@ const props = defineProps({
         type: String,
         required: true
     },
-    section:{
+    labels:{
         type: Array<String>,
         required: true
     },
@@ -17,11 +17,39 @@ const props = defineProps({
     }
 })
 
-let chart = ref(null)
+let chart = Bar;
 
-// rook que ao montar o componente, ele cria o gráfico
 onMounted(() => {
+    const datasets = props.data.map((dataset, index) => ({
+        label: props.labels[index],
+        data: dataset,
+        backgroundColor: '#'+(Math.random()*0xFFFFFF<<0).toString(16), // random color for each bar
+    }));
 
+    chart.value = new Bar(document.getElementById('stackedBarChart'), {
+        type: 'bar',
+        data: {
+            labels: props.labels,
+            datasets: datasets
+        },
+        options: {
+            responsive: true,
+            title: {
+                display: true,
+                text: props.title
+            },
+            scales: {
+                x: {
+                    beginAtZero: true,
+                    stacked: true,
+                },
+                y: {
+                    beginAtZero: true,
+                    stacked: true
+                }
+            }
+        }
+    });
 })
 
 </script>

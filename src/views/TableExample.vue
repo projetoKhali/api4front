@@ -4,7 +4,6 @@ import Table from '../components/Table.vue';
 import FormPopup from '../components/form/FormPopup.vue';
 import User from '../schemas/User';
 
-
 const tableHeaders = ['id', 'name', 'age', 'url', 'editar'];
 const fullData = [
   [1, 'John Doe', 25, '/track', user => processUser(user)],
@@ -29,7 +28,7 @@ const processUser = (user: Object): void => {
   isPopupOpen.value = true;
 };
 
-const userInPopup: ref<User | null> = ref()
+const userInPopup: ref<User | null> = ref();
 
 const actions = {
   cancel: (data: User) => {
@@ -71,11 +70,11 @@ export default {
 
 <template>
   <Table :headers="tableHeaders" :pagination="pagination" />
-    <FormPopup
-      v-if="isPopupOpen"
-      :formActionTitle="'Editar Usuário'"
-      :data="userInPopup"
-      :actions="actions"
-      :togglePopup="() => (isPopupOpen = !isPopupOpen)"
-    />
+  <FormPopup
+    v-if="isPopupOpen"
+    :formActionTitle="'Editar Usuário'"
+    :data="userInPopup"
+    :actions="actions"
+    :togglePopup="() => (isPopupOpen = !isPopupOpen)"
+  />
 </template>

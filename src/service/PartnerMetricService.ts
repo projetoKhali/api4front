@@ -32,13 +32,13 @@ export async function mapPartnersMetric(
 
 /* eslint-enable @typescript-eslint/no-explicit-any */
 export async function getPartnerMetrics(): Promise<PartnerMetricSchema[]> {
-  const response = await axios.get(`${API_URL}/partnermetrics`);
+  const response = await axios.get(`${API_URL}/partnerMetrics`);
   return mapPartnersMetric(response.data);
 }
 
 export async function getPartnerMetric(
   partnerId: number,
 ): Promise<PartnerMetricSchema> {
-  const response = await axios.get(`${API_URL}/partnermetrics/${partnerId}`);
+  const response = await axios.get(`${API_URL}/partnerMetrics/${partnerId}`);
   return parsePartnerMetric(response.data);
 }

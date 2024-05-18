@@ -22,7 +22,7 @@ rules:
     - error
     - 2
     - { 'SwitchCase': 1 }
-
+    
   # Enforce single quotes for strings
   quotes: ['error', 'single']
 

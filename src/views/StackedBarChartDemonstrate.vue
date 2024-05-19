@@ -41,15 +41,22 @@ function getBarHeight (data: number[][]) {
 </script>
 
 <style>
+body {
+    background-color: #F4EDF7;
+}
+
 .dashboard-container {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
+    background-color: #4f25c4;
 }
 
 .stacked-bar-chart-container {
     width: 200px;
     height: 200px;
+    background-color: #F4EDF7;
+    border-radius: 8px;
 }
 </style>

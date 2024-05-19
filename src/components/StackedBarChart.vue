@@ -27,7 +27,8 @@ const props = defineProps({
         required: true
     },
     height: {
-        type: Array<Array<number>>
+        type: Array<Array<number>>,
+        required: true
     }
 })
 
@@ -37,17 +38,17 @@ const props = defineProps({
 // const data = [[22, 10, 5], [22, 13, 8], [22, 9, 8]]
 
 const getBarStyle = (barIndex: number, segmentIndex: number) => {
-    const heightAtIndex = props.height[barIndex];
+    const heightAtIndex = props.height[barIndex]!;
     const heightAtSegment = heightAtIndex[segmentIndex];
 
     return {
-        // height: `${heightAtSegment}%`,
-        // backgroundColor: segmentIndex === 0 ? 'none' : segmentIndex === 1 ? '#B46BC2' : '#94DF49',
-        // 'border-radius': segmentIndex === 1 ? '2vh 2vh 0 0' : '0 0 0 0',
-
         height: `${heightAtSegment}%`,
-        backgroundColor: segmentIndex === 0 ? 'none' : segmentIndex === 1 ? 'yellow' : 'green',
-        'border-radius': segmentIndex === 1 ? '2vh 2vh 0 0' : '0 0 0 0',
+        backgroundColor: segmentIndex === 0 ? 'none' : segmentIndex === 1 ? '#B46BC2' : '#94DF49',
+        'border-radius': segmentIndex === 1 ? '1vh 1vh 0 0' : '0 0 0 0',
+
+        // height: `${heightAtSegment}%`,
+        // backgroundColor: segmentIndex === 0 ? 'none' : segmentIndex === 1 ? 'yellow' : 'green',
+        // 'border-radius': segmentIndex === 1 ? '2vh 2vh 0 0' : '0 0 0 0',
     };
 }
 </script>

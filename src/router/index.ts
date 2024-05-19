@@ -11,6 +11,11 @@ interface Route {
 const routes: Route[] = [
   {
     path: '/',
+    name: 'Stacked Bar Chart',
+    component: () => import('../views/StackedBarChartDemonstrate.vue'),
+  },
+  {
+    path: '/filter-test',
     name: 'FilterTest',
     component: () => import('../views/FilterTest.vue'),
   },

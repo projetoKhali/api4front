@@ -14,23 +14,27 @@ const labels = ['Marcos', 'Tania', 'Paulo']
 const data = [[22, 10, 5], [22, 13, 8], [22, 9, 8]]
 const height = 200;
 
-const getHeight = (barIndex: number, segmentIndex: number) => {
-    const dataAtIndex = data[barIndex];
-
-    if (!dataAtIndex || !dataAtIndex[segmentIndex]) {
-        return {};
+function getBarHeight (data: Number[][]) {
+    const heightList = [];
+    // iterate over the data
+    for (let i = 0; i < data.length; i++) {
+        const dataAtIndex = data[i]!;
+        // iterate over the data at index
+        for (let j = 0; j < dataAtIndex.length; j++) {
+            if (!dataAtIndex || !dataAtIndex[j]) {
+                continue;
+            }
+            const total = dataAtIndex.reduce((a, b) => a + b, 0);
+            const dataAtSegment = dataAtIndex[j];
+            
+            if (!total || !dataAtSegment) {
+                continue;
+            }
+            const segmentHeight = (dataAtSegment / total) * 100;
+            heightList.push(segmentHeight);
+        }
     }
-
-    const total = dataAtIndex.reduce((a, b) => a + b, 0);
-    const dataAtSegment = dataAtIndex[segmentIndex];
-
-    if (!total || !dataAtSegment) {
-        return {};
-    }
-
-    const segmentHeight = (dataAtSegment / total) * 100;
-
-    return segmentHeight;
+    return heightList;
 }
 </script>
 

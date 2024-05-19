@@ -27,38 +27,25 @@ const props = defineProps({
         required: true
     },
     height: {
-        type: Number,
-        required: true
+        type: Array<Array<number>>
     }
 })
 
 // exemplo de dado
-const title = 'Track Shell'
-const label = ['Marcos', 'Tania', 'Paulo']
-const data = [[22, 10, 5], [22, 13, 8], [22, 9, 8]]
+// const title = 'Track Shell'
+// const label = ['Marcos', 'Tania', 'Paulo']
+// const data = [[22, 10, 5], [22, 13, 8], [22, 9, 8]]
 
 const getBarStyle = (barIndex: number, segmentIndex: number) => {
-    const dataAtIndex = data[barIndex];
-
-    if (!dataAtIndex || !dataAtIndex[segmentIndex]) {
-        return {};
-    }
-
-    const total = dataAtIndex.reduce((a, b) => a + b, 0);
-    const dataAtSegment = dataAtIndex[segmentIndex];
-
-    if (!total || !dataAtSegment) {
-        return {};
-    }
-
-    const segmentHeight = (dataAtSegment / total) * 100;
+    const heightAtIndex = props.height[barIndex];
+    const heightAtSegment = heightAtIndex[segmentIndex];
 
     return {
-        // height: props.height,
+        // height: `${heightAtSegment}%`,
         // backgroundColor: segmentIndex === 0 ? 'none' : segmentIndex === 1 ? '#B46BC2' : '#94DF49',
         // 'border-radius': segmentIndex === 1 ? '2vh 2vh 0 0' : '0 0 0 0',
 
-        height: `${segmentHeight}%`,
+        height: `${heightAtSegment}%`,
         backgroundColor: segmentIndex === 0 ? 'none' : segmentIndex === 1 ? 'yellow' : 'green',
         'border-radius': segmentIndex === 1 ? '2vh 2vh 0 0' : '0 0 0 0',
     };

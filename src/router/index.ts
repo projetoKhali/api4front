@@ -11,46 +11,51 @@ interface Route {
 const routes: Route[] = [
   {
     path: '/',
-    name: 'FilterTest',
-    component: () => import('../views/FilterTest.vue'),
+    name: 'Stacked Bar Chart Example',
+    component: () => import('../views/StackedBarChartExample.vue'),
   },
-  {
-    path: '/track/:trackId',
-    name: 'Track Dashboard',
-    hide: true,
-    component: () => import('../views/TrackDashboard.vue'),
-  },
-  {
-    path: '/tracks',
-    name: 'Tracks',
-    component: () => import('../views/ListTrack.vue'),
-  },
-  {
-    path: '/partners',
-    name: 'Partners',
-    component: () => import('../views/ListPartner.vue'),
-  },
-  {
-    path: '/users',
-    name: 'Users',
-    component: () => import('../views/ListUser.vue'),
-  },
-  {
-    path: '/partner/:partnerId',
-    name: 'Partner Dashboard',
-    hide: true,
-    component: () => import('../views/PartnerDashboard.vue'),
-  },
-  {
-    path: '/compartive/track',
-    name: 'Compartive Track',
-    component: () => import('../views/ComparativeTracks.vue'),
-  },
-  {
-    path: '/compartive/partner',
-    name: 'Compartive Partner',
-    component: () => import('../views/ComparativePartner.vue'),
-  },
+  // {
+  //   path: '/filterTest',
+  //   name: 'FilterTest',
+  //   component: () => import('../views/FilterTest.vue'),
+  // },
+  // {
+  //   path: '/track/:trackId',
+  //   name: 'Track Dashboard',
+  //   hide: true,
+  //   component: () => import('../views/TrackDashboard.vue'),
+  // },
+  // {
+  //   path: '/tracks',
+  //   name: 'Tracks',
+  //   component: () => import('../views/ListTrack.vue'),
+  // },
+  // {
+  //   path: '/partners',
+  //   name: 'Partners',
+  //   component: () => import('../views/ListPartner.vue'),
+  // },
+  // {
+  //   path: '/users',
+  //   name: 'Users',
+  //   component: () => import('../views/ListUser.vue'),
+  // },
+  // {
+  //   path: '/partner/:partnerId',
+  //   name: 'Partner Dashboard',
+  //   hide: true,
+  //   component: () => import('../views/PartnerDashboard.vue'),
+  // },
+  // {
+  //   path: '/compartive/track',
+  //   name: 'Compartive Track',
+  //   component: () => import('../views/ComparativeTracks.vue'),
+  // },
+  // {
+  //   path: '/compartive/partner',
+  //   name: 'Compartive Partner',
+  //   component: () => import('../views/ComparativePartner.vue'),
+  // },
 ];
 
 const routeRecordsRaw: RouteRecordRaw[] = routes

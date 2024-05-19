@@ -43,18 +43,12 @@ const getBarStyle = (barIndex: number, segmentIndex: number) => {
 
     return {
         height: `${heightAtSegment}%`,
-        backgroundColor: segmentIndex === 0 ? 'none' : segmentIndex === 1 ? '#B46BC2' : '#94DF49',
-        'border-radius': segmentIndex === 1 ? '1vh 1vh 0 0' : '0 0 0 0',
-
-        // height: `${heightAtSegment}%`,
-        // backgroundColor: segmentIndex === 0 ? 'none' : segmentIndex === 1 ? 'yellow' : 'green',
-        // 'border-radius': segmentIndex === 1 ? '2vh 2vh 0 0' : '0 0 0 0',
+        backgroundColor: segmentIndex === 0 ? 'none' : segmentIndex === 1 ? '#B46BC2' : '#94DF49'
     };
 }
 </script>
 
 <style scoped>
-/* TODO: ajustar estilo */
 .conteiner {
     display: flex;
     flex-direction: column;

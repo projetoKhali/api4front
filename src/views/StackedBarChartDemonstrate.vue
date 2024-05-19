@@ -1,7 +1,7 @@
 <template>
     <div class="dashboard-container">
         <div class="stacked-bar-chart-container">
-            <StackedBarChart :title="title" :labels="labels" :data="data" :height="height" />
+            <StackedBarChart :title="title" :itens="itens" :data="data" :height="height" />
         </div>
     </div>
 </template>
@@ -10,14 +10,15 @@
 import StackedBarChart from '../components/StackedBarChart.vue';
 
 const title = 'Track Shell'
-const labels = ['Marcos', 'Tania', 'Paulo']
+const itens = ['Marcos', 'Tania', 'Paulo']
 const data = [[22, 10, 5], [22, 13, 8], [22, 9, 8]]
-const height = 200;
+const height = getBarHeight(data);
 
-function getBarHeight (data: Number[][]) {
-    const heightList = [];
+function getBarHeight (data: number[][]) {
     // iterate over the data
+    const heightList = [];
     for (let i = 0; i < data.length; i++) {
+        const listAtIndex = [];
         const dataAtIndex = data[i]!;
         // iterate over the data at index
         for (let j = 0; j < dataAtIndex.length; j++) {
@@ -31,8 +32,9 @@ function getBarHeight (data: Number[][]) {
                 continue;
             }
             const segmentHeight = (dataAtSegment / total) * 100;
-            heightList.push(segmentHeight);
+            listAtIndex.push(segmentHeight);
         }
+        heightList.push(listAtIndex);
     }
     return heightList;
 }

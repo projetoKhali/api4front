@@ -2,7 +2,7 @@
     <div class="conteiner">
         <div class="chart">
             <div v-for="(bar, i) in data" class="bar-container">
-                <div v-for="(segment, j) in bar" class="bar-segment" :style="getBarStyle(i, j)"></div>
+                <div v-for="(segment, j) in bar" class="bar-segment" :style="getBarStyle(i, j+1)"></div>
             </div>
         </div>
         <div class="title">
@@ -13,20 +13,24 @@
 
 <script setup lang="ts">
 
-// const props = defineProps({
-//     title: {
-//         type: String,
-//         required: true
-//     },
-//     labels: {
-//         type: Array<String>,
-//         required: true
-//     },
-//     data: {
-//         type: Array<Array<Number>>,
-//         required: true
-//     }
-// })
+const props = defineProps({
+    title: {
+        type: String,
+        required: true
+    },
+    itens: {
+        type: Array<String>,
+        required: true
+    },
+    data: {
+        type: Array<Array<Number>>,
+        required: true
+    },
+    height: {
+        type: Number,
+        required: true
+    }
+})
 
 // exemplo de dado
 const title = 'Track Shell'
@@ -50,8 +54,13 @@ const getBarStyle = (barIndex: number, segmentIndex: number) => {
     const segmentHeight = (dataAtSegment / total) * 100;
 
     return {
+        // height: props.height,
+        // backgroundColor: segmentIndex === 0 ? 'none' : segmentIndex === 1 ? '#B46BC2' : '#94DF49',
+        // 'border-radius': segmentIndex === 1 ? '2vh 2vh 0 0' : '0 0 0 0',
+
         height: `${segmentHeight}%`,
-        backgroundColor: segmentIndex === 0 ? 'blue' : segmentIndex === 1 ? 'yellow' : 'green',
+        backgroundColor: segmentIndex === 0 ? 'none' : segmentIndex === 1 ? 'yellow' : 'green',
+        'border-radius': segmentIndex === 1 ? '2vh 2vh 0 0' : '0 0 0 0',
     };
 }
 </script>
@@ -73,7 +82,6 @@ const getBarStyle = (barIndex: number, segmentIndex: number) => {
     justify-content: flex-end;
     width: 20%;
     height: 30vh;
-    background: palegoldenrod;
     margin: 0 10px;
 }
 

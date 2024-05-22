@@ -6,8 +6,9 @@
       </div>
       <h2>Lista de Usuários</h2>
       <Table
+        ref="tableComponent"
         :headers="tableHeaders"
-        :initialData="fullData"
+        :initialData="usersAtPage"
         :pagination="pagination"
       />
     </div>
@@ -28,9 +29,10 @@ import { UserSchema, UserPostSchema } from '@/schemas/User';
 import { getUsers, createUser, updateUser } from '../service/UserService';
 import FormPopup from '../components/form/FormPopup.vue';
 
+const tableComponent = ref<Table>();
 const tableHeaders = ['ID', 'Email', 'Nome', 'Type', 'Edição'];
 
-const fullData = ref<
+const usersAtPage = ref<
   Array<[number, string, string, string, string, Function, Function]>
 >([]);
 const itemsPerPage: number = 10;
@@ -60,13 +62,15 @@ const fetchData = async (pageIndex: number) => {
         actions.value = {
           salvar: (_: UserSchema) => {
             if (user.value === undefined) return;
-            updateUser(user.value.id, user.value);
+            updateUser(user.value.id, user.value).then(
+              tableComponent.value?.manualRefresh,
+            );
             console.log('Valor user', user.value);
           },
         };
       },
     ]);
-    fullData.value = formatted;
+    usersAtPage.value = formatted;
   } catch (error) {
     console.error('Erro ao buscar dados da API:', error);
   }
@@ -99,6 +103,7 @@ const addUser = () => {
       }
       createUser(user.value);
       console.log('Valor user', user.value);
+      tableComponent.value?.manualRefresh();
     },
   };
 };

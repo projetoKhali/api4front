@@ -8,6 +8,7 @@
       </div>
       <h2>Lista de Parceiros</h2>
       <Table
+        ref="tableComponent"
         :headers="tableHeaders"
         :initialData="fullData"
         :pagination="pagination"
@@ -34,6 +35,7 @@ import {
 } from '../service/PartnerService';
 import FormPopup from '../components/form/FormPopup.vue';
 
+const tableComponent = ref<Table>();
 const tableHeaders = [
   'ID',
   'Código',
@@ -119,7 +121,9 @@ const fetchData = async (pageIndex: number) => {
             salvar: (_: PartnerSchema) => {
               if (partner.value === undefined) return;
               // const {id, ...partnerData} = partner.value;
-              updatePartner(partner.value.id, partner.value);
+              updatePartner(partner.value.id, partner.value).then(
+                tableComponent.value?.manualRefresh,
+              );
               console.log('Valor partner', partner.value);
             },
           };
@@ -167,6 +171,7 @@ const addPartner = () => {
       }
       createPartner(partner.value);
       console.log('Valor user', partner.value);
+      tableComponent.value?.manualRefresh();
     },
   };
 };

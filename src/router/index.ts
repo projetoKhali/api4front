@@ -11,12 +11,17 @@ interface Route {
 const routes: Route[] = [
   {
     path: '/',
+    name: 'Stacked Bar Chart',
+    component: () => import('../views/StackedBarChartDemonstrate.vue'),
+  },
+  {
+    path: '/filter-test',
     name: 'FilterTest',
     component: () => import('../views/FilterTest.vue'),
   },
   {
     path: '/track/:trackId',
-    name: 'Track Dashboard',
+    name: '[hide] Track Dashboard',
     hide: true,
     component: () => import('../views/TrackDashboard.vue'),
   },
@@ -37,7 +42,7 @@ const routes: Route[] = [
   },
   {
     path: '/partner/:partnerId',
-    name: 'Partner Dashboard',
+    name: '[hide] Partner Dashboard',
     hide: true,
     component: () => import('../views/PartnerDashboard.vue'),
   },
@@ -54,7 +59,7 @@ const routes: Route[] = [
 ];
 
 const routeRecordsRaw: RouteRecordRaw[] = routes
-  .filter((route: Route) => !route.hide)
+  // .filter((route: Route) => !route.hide)
   .map((route: Route) => ({
     path: route.path,
     name: route.name,

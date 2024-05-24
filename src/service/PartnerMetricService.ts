@@ -1,8 +1,10 @@
+import { Page } from '../schemas/Page';
 import { PartnerMetricSchema } from '@/schemas/partner/PartnerMetric';
 
 import axios from 'axios';
 
 const API_URL: string = 'http://localhost:8080';
+const DEFAULT_PAGE_SIZE: number = 10;
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export async function parsePartnerMetric(
@@ -20,20 +22,26 @@ export async function parsePartnerMetric(
 }
 
 export async function mapPartnersMetric(
-  partnersMetric: any,
+  data: any,
 ): Promise<PartnerMetricSchema[]> {
-  return partnersMetric
-    ? await Promise.all(
-        partnersMetric.map(async (p: any) => await parsePartnerMetric(p)),
-      )
+  return data
+    ? await Promise.all(data.map(async (p: any) => await parsePartnerMetric(p)))
     : [];
 }
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 /* eslint-enable @typescript-eslint/no-explicit-any */
-export async function getPartnerMetrics(): Promise<PartnerMetricSchema[]> {
-  const response = await axios.get(`${API_URL}/partnerMetrics`);
-  return mapPartnersMetric(response.data);
+export async function getPartnerMetrics(
+  page?: number,
+  size?: number,
+): Promise<Page<PartnerMetricSchema>> {
+  const response = await axios.get(
+    `${API_URL}/partnerMetrics?page=${page || 0}&size=${size || DEFAULT_PAGE_SIZE}`,
+  );
+  return Page.from<PartnerMetricSchema>({
+    ...response.data,
+    content: await mapPartnersMetric(response.data.content),
+  });
 }
 
 export async function getPartnerMetric(

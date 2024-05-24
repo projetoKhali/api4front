@@ -1,6 +1,6 @@
 <template>
-  <div class="dashboard-container">
-    <div class="left-side">
+  <div class="container">
+    <div class="top">
       <div class="card flex justify-content-center">
         <MultiSelect
           v-model="selectedCities"
@@ -12,7 +12,7 @@
         />
       </div>
     </div>
-    <div class="right-side"></div>
+    <div class="bottom"></div>
   </div>
 </template>
 

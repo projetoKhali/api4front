@@ -10,7 +10,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import Table from '../components/Table.vue';
-import { TrackSchema } from '@/schemas/Track';
+import { TrackSchema } from '../schemas/Track';
 
 const tableHeaders = ['ID', 'Nome', 'Data de criação', 'Dashboard'];
 

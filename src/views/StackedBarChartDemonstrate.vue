@@ -24,7 +24,7 @@ const height = (() => {
             }
             const total = dataAtIndex.reduce((a, b) => a + b, 0);
             const dataAtSegment = dataAtIndex[j];
-            
+
             if (!total || !dataAtSegment) {
                 continue;
             }
@@ -37,7 +37,7 @@ const height = (() => {
 })();
 </script>
 
-<style>
+<style scoped>
 body {
     background-color: #F4EDF7;
 }

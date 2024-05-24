@@ -9,7 +9,6 @@
           optionLabel="name"
           placeholder="Select Cities"
           :maxSelectedLabels="3"
-          class="w-full md:w-20rem"
         />
       </div>
     </div>

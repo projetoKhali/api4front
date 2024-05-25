@@ -5,7 +5,7 @@
       class="filter-field"
       :key="index"
     >
-      <label>{{ field.title }}</label>
+      <label v-if="field.title">{{ field.title }}</label>
       <input
         v-if="field.type"
         :type="field.type"
@@ -36,8 +36,8 @@
 
 <script lang="ts">
 export type FilterField = {
-  title: string;
   onChange: (value: string) => void;
+  title?: string;
   default?: string;
 } & (
   | {

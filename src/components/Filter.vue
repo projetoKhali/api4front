@@ -26,6 +26,9 @@
           {{ option || null }}
         </option>
       </select>
+      <p v-else :style="{ 'color': 'red', 'font-weight': 'bold' }">
+        Tipo de filto desconhecido
+      </p>
     </div>
   </div>
 </template>

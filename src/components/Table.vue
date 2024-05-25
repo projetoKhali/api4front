@@ -94,6 +94,17 @@ export default {
               <div v-else-if="typeof cell === 'string' && cell.startsWith('/')">
                 <router-link :to="cell">{{ headers[cellIndex] }}</router-link>
               </div>
+              <input
+                v-else-if="isCellCheckbox(cell)"
+                type="checkbox"
+                :checked="cell.checked"
+                @click="
+                  () => {
+                    cell.checked = !cell.checked;
+                    cell.onClick(row);
+                  }
+                "
+              />
               <div v-else>
                 {{ cell }}
               </div>

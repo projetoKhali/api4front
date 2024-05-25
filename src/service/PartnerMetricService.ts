@@ -32,11 +32,15 @@ export async function mapPartnersMetric(
 
 /* eslint-enable @typescript-eslint/no-explicit-any */
 export async function getPartnerMetrics(
+  partialName: string,
   page?: number,
   size?: number,
 ): Promise<Page<PartnerMetricSchema>> {
   const response = await axios.get(
-    `${API_URL}/partnerMetrics?page=${page || 0}&size=${size || DEFAULT_PAGE_SIZE}`,
+    `${API_URL}/partnerMetrics?` +
+      `partialName=${partialName}&` +
+      `page=${page || 0}&` +
+      `size=${size || DEFAULT_PAGE_SIZE}`,
   );
   return Page.from<PartnerMetricSchema>({
     ...response.data,

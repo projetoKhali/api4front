@@ -40,8 +40,12 @@ export default {
     },
   },
   setup(props) {
-    const manualRefresh = () => {
-      data.value = props.pagination?.getPageData(currentPage.value) || [];
+    const manualRefresh = optionalDataOverride => {
+      if (optionalDataOverride) {
+        data.value = optionalDataOverride;
+      } else {
+        data.value = props.pagination?.getPageData(currentPage.value) || [];
+      }
     };
 
     watch(

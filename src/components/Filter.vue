@@ -11,6 +11,7 @@
         :type="field.type"
         :value="field.default"
         :checked="field.default"
+        :placeholder="field.placeholder"
         @input="onChange(field.onChange, field, $event.target)"
       />
       <select
@@ -43,7 +44,11 @@ export type FilterField = {
       dropdown: string[];
     }
   | {
-      type: 'text' | 'number' | 'date' | 'checkbox';
+      type: 'number' | 'date' | 'checkbox';
+    }
+  | {
+      type: 'text';
+      placeholder?: string;
     }
 );
 

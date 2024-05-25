@@ -4,6 +4,15 @@ import { ref, watch, onMounted, defineProps } from 'vue';
 // https://stackoverflow.com/questions/38508420/how-to-know-if-a-function-is-async#38510353
 const AsyncFunction = (async () => {}).constructor;
 
+export class CheckboxTableCell {
+  public checked: boolean;
+  public onClick: (row) => void;
+  constructor(checked: boolean, onClick: (row) => void) {
+    this.checked = checked;
+    this.onClick = onClick;
+  }
+}
+
 const currentPage = ref(0);
 const data = ref([]);
 

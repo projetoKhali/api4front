@@ -10,7 +10,6 @@
       <Table
         ref="tableComponent"
         :headers="tableHeaders"
-        :initialData="fullData"
         :pagination="pagination"
       />
     </div>
@@ -127,15 +126,13 @@ const fetchData = async (pageIndex: number) => {
       };
     },
   ]);
-  fullData.value = formatted;
+  return fullData.value = formatted;
 };
-
-onMounted(() => fetchData(0));
 
 const pagination = {
   getTotalPages: () => totalPages.value,
-  getPageData: (pageIndex: number): Array<PartnerTableRow> => {
-    return fetchData(pageIndex);
+  getPageData: async (pageIndex: number): Array<PartnerTableRow> => {
+    return await fetchData(pageIndex);
   },
 };
 

@@ -8,7 +8,6 @@
       <Table
         ref="tableComponent"
         :headers="tableHeaders"
-        :initialData="usersAtPage"
         :pagination="pagination"
       />
     </div>
@@ -69,17 +68,15 @@ const fetchData = async (pageIndex: number) => {
       };
     },
   ]);
-  usersAtPage.value = formatted;
+  return usersAtPage.value = formatted;
 };
-
-onMounted(() => fetchData(0));
 
 const pagination = {
   getTotalPages: () => totalPages.value,
-  getPageData: (
+  getPageData: async (
     pageIndex: number,
   ): Array<[number, string, string, string, string, Function, Function]> => {
-    return fetchData(pageIndex);
+    return await fetchData(pageIndex);
   },
 };
 

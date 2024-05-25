@@ -25,6 +25,13 @@ export async function mapTracks(tracks: any): Promise<TrackSchema[]> {
 }
 /* eslint-enable @typescript-eslint/no-explicit-any */
 
+export async function getTracks(): Promise<TrackSchema[]> {
+  const response = await axios.get(
+    `${API_URL}/track`
+  );
+  return mapTracks(response.data);
+}
+
 export async function getDashboardData(trackId: number): Promise<TrackSchemaDashboard[]> {
   try {
     const response = await axios.get(`${API_URL}/track/product/${trackId}`);

@@ -1,6 +1,9 @@
 <script lang="ts">
 import { ref, watch, onMounted, defineProps } from 'vue';
 
+// https://stackoverflow.com/questions/38508420/how-to-know-if-a-function-is-async#38510353
+const AsyncFunction = (async () => {}).constructor;
+
 const currentPage = ref(0);
 const data = ref([]);
 
@@ -32,8 +35,17 @@ export default {
     watch(
       () => props.initialData,
       () => {
-        data.value =
-          props.initialData || props.pagination?.getPageData(0) || [];
+        data.value = props.initialData || [];
+
+        if (props.pagination?.getPageData) {
+          const pageFunction = props.pagination?.getPageData;
+
+          if (pageFunction instanceof AsyncFunction) {
+            props.pagination.getPageData(0).then(value => (data.value = value));
+          } else {
+            data.value = pageFunction(0);
+          }
+        }
       },
       { immediate: true },
     );
@@ -82,9 +94,9 @@ export default {
         <button
           v-if="currentPage > 0"
           @click="
-            () => {
+            async () => {
               currentPage--;
-              data = pagination.getPageData(currentPage);
+              data = await pagination.getPageData(currentPage);
             }
           "
         >
@@ -98,9 +110,9 @@ export default {
         <button
           v-if="currentPage < pagination.getTotalPages() - 1"
           @click="
-            () => {
+            async () => {
               currentPage++;
-              data = pagination.getPageData(currentPage);
+              data = await pagination.getPageData(currentPage);
             }
           "
         >
@@ -118,6 +130,7 @@ export default {
   width: 100%;
   height: 100%;
 }
+
 .scrollable-table {
   display: flex;
   flex-direction: column;

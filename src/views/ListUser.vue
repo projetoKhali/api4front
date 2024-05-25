@@ -42,38 +42,34 @@ const user = ref<UserSchema | UserPostSchema>();
 const actions = ref<{ salvar: (user: UserSchema) => void }>();
 
 const fetchData = async (pageIndex: number) => {
-  try {
-    const usersPage = await getUsers(pageIndex, itemsPerPage);
+  const usersPage = await getUsers(pageIndex, itemsPerPage);
 
-    totalPages.value = usersPage.totalPages;
+  totalPages.value = usersPage.totalPages;
 
-    const data = usersPage.content;
-    const formatted: Array<
-      [number, string, string, string, string, Function, Function]
-    > = data.map((item: UserSchema) => [
-      item.id,
-      item.login,
-      item.name,
-      item.profileType,
-      () => {
-        user.value = item;
-        isPopupOpen.value = !isPopupOpen.value;
-        console.log('Print', user);
-        actions.value = {
-          salvar: (_: UserSchema) => {
-            if (user.value === undefined) return;
-            updateUser(user.value.id, user.value).then(
-              tableComponent.value?.manualRefresh,
-            );
-            console.log('Valor user', user.value);
-          },
-        };
-      },
-    ]);
-    usersAtPage.value = formatted;
-  } catch (error) {
-    console.error('Erro ao buscar dados da API:', error);
-  }
+  const data = usersPage.content;
+  const formatted: Array<
+    [number, string, string, string, string, Function, Function]
+  > = data.map((item: UserSchema) => [
+    item.id,
+    item.login,
+    item.name,
+    item.profileType,
+    () => {
+      user.value = item;
+      isPopupOpen.value = !isPopupOpen.value;
+      console.log('Print', user);
+      actions.value = {
+        salvar: (_: UserSchema) => {
+          if (user.value === undefined) return;
+          updateUser(user.value.id, user.value).then(
+            tableComponent.value?.manualRefresh,
+          );
+          console.log('Valor user', user.value);
+        },
+      };
+    },
+  ]);
+  usersAtPage.value = formatted;
 };
 
 onMounted(() => fetchData(0));

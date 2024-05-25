@@ -90,50 +90,44 @@ const formatDate = (dateString: string) => {
 };
 
 const fetchData = async (pageIndex: number) => {
-  try {
-    const partnersPage = await getPartners(pageIndex, itemsPerPage);
+  const partnersPage = await getPartners(pageIndex, itemsPerPage);
 
-    totalPages.value = partnersPage.totalPages;
+  totalPages.value = partnersPage.totalPages;
 
-    const data = partnersPage.content;
-    const formatted: Array<PartnerTableRow> = data.map(
-      (item: PartnerSchema) => [
-        item.id,
-        item.companyId,
-        item.name,
-        item.adminName,
-        item.adminEmail,
-        item.slogan,
-        item.country,
-        item.city,
-        item.address,
-        item.compliance ? 'Sim' : 'Não',
-        item.credit ? 'Sim' : 'Não',
-        item.status ? 'Ativo' : 'Inativo',
-        item.memberType ? 'Sim' : 'Não',
-        formatDate(item.firstDateMembership),
-        `/partner/${item.id}`,
-        () => {
-          partner.value = item;
-          isPopupOpen.value = !isPopupOpen.value;
-          console.log('Print', partner);
-          actions.value = {
-            salvar: (_: PartnerSchema) => {
-              if (partner.value === undefined) return;
-              // const {id, ...partnerData} = partner.value;
-              updatePartner(partner.value.id, partner.value).then(
-                tableComponent.value?.manualRefresh,
-              );
-              console.log('Valor partner', partner.value);
-            },
-          };
+  const data = partnersPage.content;
+  const formatted: Array<PartnerTableRow> = data.map((item: PartnerSchema) => [
+    item.id,
+    item.companyId,
+    item.name,
+    item.adminName,
+    item.adminEmail,
+    item.slogan,
+    item.country,
+    item.city,
+    item.address,
+    item.compliance ? 'Sim' : 'Não',
+    item.credit ? 'Sim' : 'Não',
+    item.status ? 'Ativo' : 'Inativo',
+    item.memberType ? 'Sim' : 'Não',
+    formatDate(item.firstDateMembership),
+    `/partner/${item.id}`,
+    () => {
+      partner.value = item;
+      isPopupOpen.value = !isPopupOpen.value;
+      console.log('Print', partner);
+      actions.value = {
+        salvar: (_: PartnerSchema) => {
+          if (partner.value === undefined) return;
+          // const {id, ...partnerData} = partner.value;
+          updatePartner(partner.value.id, partner.value).then(
+            tableComponent.value?.manualRefresh,
+          );
+          console.log('Valor partner', partner.value);
         },
-      ],
-    );
-    fullData.value = formatted;
-  } catch (error) {
-    console.error('Erro ao buscar dados da API:', error);
-  }
+      };
+    },
+  ]);
+  fullData.value = formatted;
 };
 
 onMounted(() => fetchData(0));

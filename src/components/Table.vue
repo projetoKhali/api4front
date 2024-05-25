@@ -13,6 +13,9 @@ export class CheckboxTableCell {
   }
 }
 
+const isCellCheckbox = cell =>
+  typeof cell === 'object' && cell instanceof CheckboxTableCell;
+
 const currentPage = ref(0);
 const data = ref([]);
 
@@ -59,6 +62,7 @@ export default {
       { immediate: true },
     );
     return {
+      isCellCheckbox,
       manualRefresh,
       currentPage,
       data,

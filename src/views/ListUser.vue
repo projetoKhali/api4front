@@ -1,5 +1,5 @@
 <template>
-  <div class="conteiner">
+  <div class="container">
     <div class="table-list-partner">
       <div class="button-div">
         <button @click="() => addUser()">Adicionar um novo usuario +</button>
@@ -103,7 +103,7 @@ const addUser = () => {
 </script>
 
 <style scoped>
-.conteiner {
+.container {
   display: flex;
   flex-direction: column;
   align-items: left;

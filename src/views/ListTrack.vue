@@ -1,5 +1,5 @@
 <template>
-  <div class="conteiner">
+  <div class="container">
     <div class="table-list-partner">
       <h2>Lista de Tracks</h2>
       <Table :headers="tableHeaders" :initialData="fullData" />
@@ -46,7 +46,7 @@ onMounted(fetchData);
 </script>
 
 <style scoped>
-.conteiner {
+.container {
   display: flex;
   flex-direction: column;
   align-items: left;

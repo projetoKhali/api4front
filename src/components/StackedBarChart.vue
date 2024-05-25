@@ -1,5 +1,5 @@
 <template>
-  <div class="conteiner">
+  <div class="container">
     <div class="chart">
       <div v-for="(bar, i) in data" class="bar-container">
         <div
@@ -53,7 +53,7 @@ const getBarStyle = (barIndex: number, segmentIndex: number) => {
 </script>
 
 <style scoped>
-.conteiner {
+.container {
   display: flex;
   flex-direction: column;
   justify-content: center;

@@ -88,29 +88,34 @@ export default {
         </thead>
         <tbody>
           <tr v-for="(row, rowIndex) in data" :key="rowIndex">
-            <td v-for="(cell, cellIndex) in row" :key="cellIndex">
+            <td
+              v-for="(field, cellIndex) in Object.keys(row).filter(
+                key => !key.toLowerCase().includes('hide'),
+              )"
+              :key="cellIndex"
+            >
               <button
-                v-if="typeof cell === 'function'"
-                @click="() => cell(row)"
+                v-if="typeof row[field] === 'function'"
+                @click="() => row[field](row)"
               >
                 {{ headers[cellIndex] }}
               </button>
-              <div v-else-if="typeof cell === 'string' && cell.startsWith('/')">
-                <router-link :to="cell">{{ headers[cellIndex] }}</router-link>
+              <div v-else-if="typeof row[field] === 'string' && row[field].startsWith('/')">
+                <router-link :to="row[field]">{{ headers[cellIndex] }}</router-link>
               </div>
               <input
-                v-else-if="isCellCheckbox(cell)"
+                v-else-if="isCellCheckbox(row[field])"
                 type="checkbox"
-                :checked="cell.checked"
+                :checked="row[field].checked"
                 @click="
                   () => {
-                    cell.checked = !cell.checked;
-                    cell.onClick(row);
+                    row[field].checked = !row[field].checked;
+                    row[field].onClick(row);
                   }
                 "
               />
               <div v-else>
-                {{ cell }}
+                {{ row[field] }}
               </div>
             </td>
           </tr>

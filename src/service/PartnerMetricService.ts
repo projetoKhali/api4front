@@ -9,13 +9,13 @@ export async function parsePartnerMetric(
   partnerMetric: any,
 ): Promise<PartnerMetricSchema> {
   return {
-    id: partnerMetric.id,
-    name: partnerMetric.name,
-    city: partnerMetric.city,
+    id: partnerMetric.pt_id,
+    name: partnerMetric.pt_name,
+    city: partnerMetric.pt_city,
     tracks: partnerMetric.tracks,
-    completedTracks: partnerMetric.completedTracks,
+    completedTracks: partnerMetric.completed_tracks,
     qualifiers: partnerMetric.qualifiers,
-    completedQualifiers: partnerMetric.completedQualifiers,
+    completedQualifiers: partnerMetric.completed_qualifiers,
   };
 }
 

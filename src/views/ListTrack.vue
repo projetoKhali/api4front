@@ -1,5 +1,5 @@
 <template>
-  <div class="conteiner">
+  <div class="container">
     <div class="table-list-partner">
       <h2>Lista de Tracks</h2>
       <Table :headers="tableHeaders" :initialData="fullData" />
@@ -10,7 +10,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import Table from '../components/Table.vue';
-import { TrackSchema } from '@/schemas/Track';
+import { TrackSchema } from '../schemas/Track';
 
 const tableHeaders = ['ID', 'Nome', 'Data de criação', 'Dashboard'];
 
@@ -46,7 +46,7 @@ onMounted(fetchData);
 </script>
 
 <style scoped>
-.conteiner {
+.container {
   display: flex;
   flex-direction: column;
   align-items: left;

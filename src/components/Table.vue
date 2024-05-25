@@ -1,6 +1,21 @@
 <script lang="ts">
 import { ref, watch, onMounted, defineProps } from 'vue';
 
+// https://stackoverflow.com/questions/38508420/how-to-know-if-a-function-is-async#38510353
+const AsyncFunction = (async () => {}).constructor;
+
+export class CheckboxTableCell {
+  public checked: boolean;
+  public onClick: (row) => void;
+  constructor(checked: boolean, onClick: (row) => void) {
+    this.checked = checked;
+    this.onClick = onClick;
+  }
+}
+
+const isCellCheckbox = cell =>
+  typeof cell === 'object' && cell instanceof CheckboxTableCell;
+
 const currentPage = ref(0);
 const data = ref([]);
 
@@ -25,19 +40,33 @@ export default {
     },
   },
   setup(props) {
-    const manualRefresh = () => {
-      data.value = props.pagination?.getPageData(currentPage.value) || [];
+    const manualRefresh = optionalDataOverride => {
+      if (optionalDataOverride) {
+        data.value = optionalDataOverride;
+      } else {
+        data.value = props.pagination?.getPageData(currentPage.value) || [];
+      }
     };
 
     watch(
       () => props.initialData,
       () => {
-        data.value =
-          props.initialData || props.pagination?.getPageData(0) || [];
+        data.value = props.initialData || [];
+
+        if (props.pagination?.getPageData) {
+          const pageFunction = props.pagination?.getPageData;
+
+          if (pageFunction instanceof AsyncFunction) {
+            props.pagination.getPageData(0).then(value => (data.value = value));
+          } else {
+            data.value = pageFunction(0);
+          }
+        }
       },
       { immediate: true },
     );
     return {
+      isCellCheckbox,
       manualRefresh,
       currentPage,
       data,
@@ -59,18 +88,34 @@ export default {
         </thead>
         <tbody>
           <tr v-for="(row, rowIndex) in data" :key="rowIndex">
-            <td v-for="(cell, cellIndex) in row" :key="cellIndex">
+            <td
+              v-for="(field, cellIndex) in Object.keys(row).filter(
+                key => !key.toLowerCase().includes('hide'),
+              )"
+              :key="cellIndex"
+            >
               <button
-                v-if="typeof cell === 'function'"
-                @click="() => cell(row)"
+                v-if="typeof row[field] === 'function'"
+                @click="() => row[field](row)"
               >
                 {{ headers[cellIndex] }}
               </button>
-              <div v-else-if="typeof cell === 'string' && cell.startsWith('/')">
-                <router-link :to="cell">{{ headers[cellIndex] }}</router-link>
+              <div v-else-if="typeof row[field] === 'string' && row[field].startsWith('/')">
+                <router-link :to="row[field]">{{ headers[cellIndex] }}</router-link>
               </div>
+              <input
+                v-else-if="isCellCheckbox(row[field])"
+                type="checkbox"
+                :checked="row[field].checked"
+                @click="
+                  () => {
+                    row[field].checked = !row[field].checked;
+                    row[field].onClick(row);
+                  }
+                "
+              />
               <div v-else>
-                {{ cell }}
+                {{ row[field] }}
               </div>
             </td>
           </tr>
@@ -82,9 +127,9 @@ export default {
         <button
           v-if="currentPage > 0"
           @click="
-            () => {
+            async () => {
               currentPage--;
-              data = pagination.getPageData(currentPage);
+              data = await pagination.getPageData(currentPage);
             }
           "
         >
@@ -98,9 +143,9 @@ export default {
         <button
           v-if="currentPage < pagination.getTotalPages() - 1"
           @click="
-            () => {
+            async () => {
               currentPage++;
-              data = pagination.getPageData(currentPage);
+              data = await pagination.getPageData(currentPage);
             }
           "
         >
@@ -118,6 +163,7 @@ export default {
   width: 100%;
   height: 100%;
 }
+
 .scrollable-table {
   display: flex;
   flex-direction: column;

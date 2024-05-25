@@ -1,4 +1,4 @@
-export interface PartnerMetricSchema {
+export interface PartnerMetricsSchema {
   id: number;
   name: string;
   city: string;

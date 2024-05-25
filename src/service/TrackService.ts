@@ -1,5 +1,6 @@
+import { TrackSchema as TrackSchemaDashboard } from '../schemas/track/Track';
+import { TrackSchema } from '@/schemas/Track';
 import { TrackExpertiseSchema } from '@/schemas/track/TrackExpertise';
-import { TrackSchema } from '../schemas/track/Track';
 import axios from 'axios';
 import { TrackQualifierSchema } from '@/schemas/track/TrackQualifier';
 import { TrackPartnerSchema } from '@/schemas/track/TrackPartner';
@@ -8,11 +9,34 @@ import { TrackPartnerQualifierSchema } from '@/schemas/track/TrackPartnerQualifi
 
 const API_URL: string = 'http://localhost:8080';
 
-export async function getDataProduct(trackId: number): Promise<TrackSchema[]> {
+/* eslint-disable @typescript-eslint/no-explicit-any */
+export async function parseTrack(track: any): Promise<TrackSchema> {
+  return {
+    id: track.id,
+    name: track.name,
+    insertDate: new Date(track.insertDate),
+  };
+}
+
+export async function mapTracks(tracks: any): Promise<TrackSchema[]> {
+  return tracks
+    ? await Promise.all(tracks.map(async (p: any) => await parseTrack(p)))
+    : [];
+}
+/* eslint-enable @typescript-eslint/no-explicit-any */
+
+export async function getTracks(): Promise<TrackSchema[]> {
+  const response = await axios.get(
+    `${API_URL}/track`
+  );
+  return mapTracks(response.data);
+}
+
+export async function getDashboardData(trackId: number): Promise<TrackSchemaDashboard[]> {
   try {
     const response = await axios.get(`${API_URL}/track/product/${trackId}`);
 
-    const tracks: TrackSchema[] = [
+    const tracks: TrackSchemaDashboard[] = [
       {
         name: response.data.nameTrack,
         expertises: response.data.expertises.map(

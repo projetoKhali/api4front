@@ -53,7 +53,7 @@ import PieChart from '../components/charts/PieChart.vue';
 import CountCard from '../components/CountCard.vue';
 import ProgressBar from '../components/ProgressBar.vue';
 import Table from '../components/Table.vue';
-import { getDataProduct } from '../service/TrackService';
+import { getDashboardData } from '../service/TrackService';
 import { TrackSchema } from '../schemas/track/Track';
 import { useRoute } from 'vue-router';
 const route = useRoute();
@@ -80,7 +80,7 @@ const totalQualificadores = ref(0);
 onMounted(async () => {
   try {
     const trackId = Number(route.params.trackId);
-    track.value = await getDataProduct(trackId);
+    track.value = await getDashboardData(trackId);
     console.log('Dados da track:', track.value);
 
     calcularPieChartData(track.value);

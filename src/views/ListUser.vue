@@ -1,5 +1,5 @@
 <template>
-  <div class="conteiner">
+  <div class="container">
     <div class="table-list-partner">
       <div class="button-div">
         <button @click="() => addUser()">Adicionar um novo usuario +</button>
@@ -8,7 +8,6 @@
       <Table
         ref="tableComponent"
         :headers="tableHeaders"
-        :initialData="usersAtPage"
         :pagination="pagination"
       />
     </div>
@@ -25,7 +24,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import Table from '../components/Table.vue';
-import { UserSchema, UserPostSchema } from '@/schemas/User';
+import { UserSchema, UserPostSchema } from '../schemas/User';
 import { getUsers, createUser, updateUser } from '../service/UserService';
 import FormPopup from '../components/form/FormPopup.vue';
 
@@ -42,48 +41,42 @@ const user = ref<UserSchema | UserPostSchema>();
 const actions = ref<{ salvar: (user: UserSchema) => void }>();
 
 const fetchData = async (pageIndex: number) => {
-  try {
-    const usersPage = await getUsers(pageIndex, itemsPerPage);
+  const usersPage = await getUsers(pageIndex, itemsPerPage);
 
-    totalPages.value = usersPage.totalPages;
+  totalPages.value = usersPage.totalPages;
 
-    const data = usersPage.content;
-    const formatted: Array<
-      [number, string, string, string, string, Function, Function]
-    > = data.map((item: UserSchema) => [
-      item.id,
-      item.login,
-      item.name,
-      item.profileType,
-      () => {
-        user.value = item;
-        isPopupOpen.value = !isPopupOpen.value;
-        console.log('Print', user);
-        actions.value = {
-          salvar: (_: UserSchema) => {
-            if (user.value === undefined) return;
-            updateUser(user.value.id, user.value).then(
-              tableComponent.value?.manualRefresh,
-            );
-            console.log('Valor user', user.value);
-          },
-        };
-      },
-    ]);
-    usersAtPage.value = formatted;
-  } catch (error) {
-    console.error('Erro ao buscar dados da API:', error);
-  }
+  const data = usersPage.content;
+  const formatted: Array<
+    [number, string, string, string, string, Function, Function]
+  > = data.map((item: UserSchema) => [
+    item.id,
+    item.login,
+    item.name,
+    item.profileType,
+    () => {
+      user.value = item;
+      isPopupOpen.value = !isPopupOpen.value;
+      console.log('Print', user);
+      actions.value = {
+        salvar: (_: UserSchema) => {
+          if (user.value === undefined) return;
+          updateUser(user.value.id, user.value).then(
+            tableComponent.value?.manualRefresh,
+          );
+          console.log('Valor user', user.value);
+        },
+      };
+    },
+  ]);
+  return usersAtPage.value = formatted;
 };
-
-onMounted(() => fetchData(0));
 
 const pagination = {
   getTotalPages: () => totalPages.value,
-  getPageData: (
+  getPageData: async (
     pageIndex: number,
   ): Array<[number, string, string, string, string, Function, Function]> => {
-    return fetchData(pageIndex);
+    return await fetchData(pageIndex);
   },
 };
 
@@ -110,7 +103,7 @@ const addUser = () => {
 </script>
 
 <style scoped>
-.conteiner {
+.container {
   display: flex;
   flex-direction: column;
   align-items: left;
@@ -130,17 +123,25 @@ const addUser = () => {
 button {
   width: 20%;
   height: 60px;
-  background-color: #7ea774; /* cor de fundo */
-  color: white; /* cor do texto */
-  border: none; /* remove a borda */
-  border-radius: 5px; /* arredonda as bordas */
-  font-size: 80%; /* tamanho da fonte */
-  cursor: pointer; /* cursor ao passar por cima */
-  transition: background-color 0.3s; /* transição suave da cor de fundo */
+  /* cor de fundo */
+  background-color: #7ea774;
+  /* cor do texto */
+  color: white;
+  /* remove a borda */
+  border: none;
+  /* arredonda as bordas */
+  border-radius: 5px;
+  /* tamanho da fonte */
+  font-size: 80%;
+  /* cursor ao passar por cima */
+  cursor: pointer;
+  /* transição suave da cor de fundo */
+  transition: background-color 0.3s;
 }
 
 .custom-button:hover {
-  background-color: #45a049; /* cor de fundo quando hover */
+  /* cor de fundo quando hover */
+  background-color: #45a049;
 }
 
 .button-div {

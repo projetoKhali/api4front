@@ -5,12 +5,13 @@
       class="filter-field"
       :key="index"
     >
-      <label>{{ field.title }}</label>
+      <label v-if="field.title">{{ field.title }}</label>
       <input
         v-if="field.type"
         :type="field.type"
         :value="field.default"
         :checked="field.default"
+        :placeholder="field.placeholder"
         @input="onChange(field.onChange, field, $event.target)"
       />
       <select
@@ -26,21 +27,28 @@
           {{ option || null }}
         </option>
       </select>
+      <p v-else :style="{ 'color': 'red', 'font-weight': 'bold' }">
+        Tipo de filto desconhecido
+      </p>
     </div>
   </div>
 </template>
 
 <script lang="ts">
 export type FilterField = {
-  title: string;
   onChange: (value: string) => void;
+  title?: string;
   default?: string;
 } & (
   | {
       dropdown: string[];
     }
   | {
-      type: 'text' | 'number' | 'date' | 'checkbox';
+      type: 'number' | 'date' | 'checkbox';
+    }
+  | {
+      type: 'text';
+      placeholder?: string;
     }
 );
 

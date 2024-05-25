@@ -36,11 +36,11 @@ export async function getPartnerMetrics(
   page?: number,
   size?: number,
 ): Promise<Page<PartnerMetricSchema>> {
-  const response = await axios.get(
+  const response = await axios.post(
     `${API_URL}/partnerMetrics?` +
-      `partialName=${partialName}&` +
       `page=${page || 0}&` +
       `size=${size || DEFAULT_PAGE_SIZE}`,
+    { partialName },
   );
   return Page.from<PartnerMetricSchema>({
     ...response.data,

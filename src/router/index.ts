@@ -15,6 +15,11 @@ const routes: Route[] = [
     component: () => import('../views/StackedBarChartDemonstrate.vue'),
   },
   {
+    path: '/table-example',
+    name: 'Table Example',
+    component: () => import('../views/TableExample.vue'),
+  },
+  {
     path: '/filter-test',
     name: 'FilterTest',
     component: () => import('../views/FilterTest.vue'),

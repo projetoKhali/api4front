@@ -134,7 +134,7 @@ const preencherTabelaExpertises = () => {
         } else {
           dadosTabela[index][1] = (
             parseInt(dadosTabela[index][1]) + 1
-          ).toString(); // Incrementa o número de parceiros
+          ).toString();
         }
       });
     });

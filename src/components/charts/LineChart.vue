@@ -17,7 +17,7 @@ import {
   ChartOptions,
 } from 'chart.js';
 import { Line } from 'vue-chartjs';
-import { defineProps, reactive, watch } from 'vue';
+import { defineProps, reactive, watch, toRefs } from 'vue';
 
 ChartJS.register(
   Title,
@@ -43,6 +43,8 @@ export interface ChartData {
 const props = defineProps<{
   chartData: ChartData;
 }>();
+
+const { chartData } = toRefs(props);
 
 const chartOptions: ChartOptions<'line'> = reactive({
   maintainAspectRatio: false,
@@ -80,17 +82,18 @@ const chartOptions: ChartOptions<'line'> = reactive({
   },
 });
 
-const chartData = reactive<ChartData>({
-  labels: props.chartData.labels,
-  datasets: props.chartData.datasets.map(dataset => ({ ...dataset })),
+const reactiveChartData = reactive<ChartData>({
+  labels: [],
+  datasets: []
 });
 
 watch(
-  () => props.chartData,
+  chartData,
   newValue => {
-    chartData.labels = newValue.labels;
-    chartData.datasets = newValue.datasets.map(dataset => ({ ...dataset }));
+    reactiveChartData.labels = newValue.labels;
+    reactiveChartData.datasets = newValue.datasets.map(dataset => ({ ...dataset }));
   },
+  { immediate: true }
 );
 </script>
 

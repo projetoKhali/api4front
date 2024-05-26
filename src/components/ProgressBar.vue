@@ -39,18 +39,13 @@ export default {
 #scrollable-progressbar {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  justify-content: top;
+  align-items: bottom;
   font-family: sans-serif;
   background-color: #fff;
   width: 100%;
   height: 100%;
   border-radius: 10px;
-  transition:
-    border-color 0.3s,
-    transform 0.3s;
-  gap: 10px;
-  overflow-y: auto;
 }
 
 .track-wrapper {
@@ -99,7 +94,7 @@ export default {
 }
 
 .shell {
-  height: 20px;
+  height: 30px;
   width: 100%;
   border: 1px solid #aaa;
   border-radius: 13px;
@@ -118,6 +113,7 @@ export default {
   padding: 4px 5px;
   color: #fff;
   font-size: 0.7em;
+  font-weight: bold;
 }
 
 .container {

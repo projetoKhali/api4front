@@ -1,4 +1,6 @@
+import { ExpertisePartnerMetricSchema, PartnerExpertiseMetricSchema } from '@/schemas/partner/PartnerExpertise';
 import { PartnerMetricSchema } from '@/schemas/partner/PartnerMetric';
+import { PartnerTrackMetricSchema, TrackDetailSchema } from '@/schemas/partner/PartnerTrack';
 
 import axios from 'axios';
 
@@ -41,4 +43,33 @@ export async function getPartnerMetric(
 ): Promise<PartnerMetricSchema> {
   const response = await axios.get(`${API_URL}/partnerMetrics/${partnerId}`);
   return parsePartnerMetric(response.data);
+}
+
+export async function getPartnerExpertiseQualifiers(partnerNames: string[]): Promise<ExpertisePartnerMetricSchema[]> {
+  const query = partnerNames.map(name => `partnerNames=${encodeURIComponent(name)}`).join('&');
+  const response = await axios.get(`${API_URL}/partner/expertiseQualifierProgress?${query}`);
+  return response.data.map((item: any) => ({
+    expertise: item.expertise,
+    qualifiersExpertise: item.qualifiersExpertise,
+    partners: item.partners.map((partner: any) => ({
+      partnerName: partner.partnerName,
+      location: partner.location,
+      finalizedQualifiers: partner.finalizedQualifiers,
+    } as PartnerExpertiseMetricSchema)),
+  } as ExpertisePartnerMetricSchema));
+}
+
+export async function getPartnerTrackExpertises(partnerNames: string[]): Promise<PartnerTrackMetricSchema[]> {
+  const query = partnerNames.map(name => `partnerNames=${encodeURIComponent(name)}`).join('&');
+  const response = await axios.get(`${API_URL}/partner/trackExpertiseProgress?${query}`);
+  return response.data.map((item: any) => ({
+    partner: item.partner,
+    location: item.location,
+    tracks: item.tracks.map((track: any) => ({
+      trackName: track.trackName,
+      expertisesTrack: track.expertisesTrack,
+      progressExpertises: track.progressExpertises,
+      finalizedExpertises: track.finalizedExpertises,
+    } as TrackDetailSchema)),
+  } as PartnerTrackMetricSchema));
 }

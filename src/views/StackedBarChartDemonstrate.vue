@@ -11,7 +11,7 @@ import StackedBarChart from '../components/StackedBarChart.vue';
 
 const title = 'Track Shell'
 const itens = ['Marcos', 'Tania', 'Paulo']
-const data = [[22, 10, 5], [22, 13, 8], [22, 9, 8]]
+const data = [[22, 21, 5], [22, 13, 8], [22, 9, 8]]
 
 const height = (() => {
     const heightList = [];

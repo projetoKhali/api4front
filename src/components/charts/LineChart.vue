@@ -51,7 +51,7 @@ const chartOptions: ChartOptions<'line'> = reactive({
   scales: {
     y: {
       grid: {
-        display: true,
+        display: false,
       },
     },
     x: {
@@ -63,18 +63,10 @@ const chartOptions: ChartOptions<'line'> = reactive({
   plugins: {
     legend: {
       display: true,
+      position: 'bottom', 
     },
     tooltip: {
       enabled: true,
-    },
-    title: {
-      display: true,
-      text: 'Progresso por Track',
-      color: 'black',
-      font: {
-        size: 18,
-        weight: 'bold',
-      },
     },
     datalabels: {
       display: false,
@@ -104,7 +96,6 @@ watch(
   align-items: center;
   width: 100%;
   height: 100%;
-  max-height: 300px;
 }
 * {
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;

@@ -1,26 +1,30 @@
 <template>
   <div class="dashboard-container">
+    <div class="top-side">
+      <div class="linechart-container-progress">
+        <h3> Progresso médio por track</h3>
+        <LineChart :chartData="chartDataProgress" />
+      </div>
+    </div>
+    <div class="bottom-side"> 
       <div class="left-side">
         <div class="linechart-container-time">
+          <h3> Tempo médio de conclusão</h3>
           <LineChart :chartData="chartDataTime" />
         </div>
-        <div class="linechart-container-progress">
-          <LineChart :chartData="chartDataProgress" />
-        </div>
         <div class="linechart-container-count">
+          <h3>Quantidade por track</h3>
           <LineChart :chartData="chartDataCount" />
         </div>
       </div>
       <div class="right-side"> 
-        <div class="bar-chat-dashboard"> 
-          <BarChart :chartData="formattedBarChartData" />
-        </div>
         <div class="table-dashboard"> 
           <Table
             :headers="tableHeadTrack"
             :initialData="tableBodyTrack"
           />
       </div>      
+    </div>
     </div>
   </div>
 </template>
@@ -47,15 +51,6 @@ const tableHeadTrack = [
   'Média de conclusão',
   'Tempo Médio de conclusão'
 ];
-
-const selectedCities = ref();
-const cities = ref([
-  { name: 'New York', code: 'NY' },
-  { name: 'Rome', code: 'RM' },
-  { name: 'London', code: 'LDN' },
-  { name: 'Istanbul', code: 'IST' },
-  { name: 'Paris', code: 'PRS' },
-]);
 
 interface chartLineType {
   labels: string[];
@@ -183,27 +178,77 @@ function updateChartData() {
 <style scoped>
 .dashboard-container {
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  flex-direction: column;
   height: 100vh;
+  width: 100vw;
   padding: 20px;
   background-color: #ebf2e8;
-  flex: 1;
+  gap: 4px;
 }
 
-.left-side {
+.top-side{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 40%;
+  width: 100%;
+  padding: 10px;
+}
+
+.bottom-side{
+  display: flex;
+  flex-direction: row;
+  height: 50%;
+  width: 100%;
+  gap: 10px;
+  padding: 10px;
+}
+
+.left-side{
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  height: 60%;
+  width: 100%;
+  gap: 10px
 }
 
-.right-side {
+.right-side{
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
 }
-
 .linechart-container-time, .linechart-container-progress, .linechart-container-count, .bar-chat-dashboard, .table-dashboard {
   flex: 1;
+}
+
+.linechart-container-time,
+.linechart-container-count,
+.linechart-container-progress
+{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+}
+
+.table-dashboard{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+h3{
+  font-size: 0.8rem;
 }
 </style>

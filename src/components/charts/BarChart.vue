@@ -55,7 +55,7 @@ const chartOptions: ChartOptions<'bar'> = reactive({
       ticks: {
         display: true,
       },
-      barThickness: 'flex',
+      barThickness: 'absolute',
       grid: {
         display: false,
       },
@@ -76,10 +76,6 @@ const chartOptions: ChartOptions<'bar'> = reactive({
         size: 18,
         weight: 'bold',
       },
-      padding: {
-        top: 20,
-        bottom: 10,
-      },
     },
     datalabels: {
       display: true,
@@ -98,9 +94,9 @@ const chartOptions: ChartOptions<'bar'> = reactive({
 });
 
 const defaultDatasetOptions = {
-  backgroundColor: 'rgba(148,223,74,1.00)',
-  borderColor: 'rgba(148,223,74,1.00)',
-  borderWidth: 2,
+  backgroundColor: '#443054',
+  borderColor: '#EBF2E8',
+  borderWidth: 1,
 };
 
 let chartData: ChartData = reactive({
@@ -133,10 +129,14 @@ watch(
 
 <style scoped>
 .chart-container {
-  border-radius: 5px;
-  box-shadow: 0px 5px 0 0 rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  width: 300px;
-  height: 300px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  max-height: 300px;
+}
+* {
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 </style>

@@ -4,7 +4,7 @@ import {
   PartnerPostSchema,
   PartnerPatchSchema,
 } from '../schemas/Partner';
-import { PartnerSchemaDashboard } from '../schemas/partner/Partner';
+import { PartnerSchemaDashboard, PartnerSchemaReport } from '../schemas/partner/Partner';
 import axios from 'axios';
 import { PartnerExpertiseSchema } from '@/schemas/partner/PartnerExpertise';
 import { PartnerQualifierSchema } from '@/schemas/partner/PartnerQualifier';
@@ -38,6 +38,29 @@ export async function mapPartners(partners: any): Promise<PartnerSchema[]> {
     ? await Promise.all(partners.map(async (p: any) => await parsePartner(p)))
     : [];
 }
+
+export async function parsePartnerReport(partner: any): Promise<PartnerSchemaReport> {
+  return {
+    partner: partner.partner,
+    track: partner.track,
+    trackStartDate: partner.trackStartDate,
+    trackEndDate: partner.trackEndDate,
+    expertise: partner.expertise,
+    expertiseStartDate: partner.expertiseStartDate,
+    expertiseEndDate: partner.expertiseEndDate,
+    qualifier: partner.qualifier,
+    qualifierStartDate: partner.qualifierStartDate,
+    qualifierEndDate: partner.qualifierEndDate,
+    qualifierExpiration: partner.qualifierExpiration,
+  };
+}
+
+export async function mapPartnersReport(partners: any): Promise<PartnerSchemaReport[]> {
+  return partners
+    ? await Promise.all(partners.map(async (p: any) => await parsePartnerReport(p)))
+    : [];
+}
+
 /* eslint-enable @typescript-eslint/no-explicit-any */
 
 export async function getPartners(
@@ -122,4 +145,17 @@ export async function getDashboardData(
     console.error('Erro ao obter dados do Parceiro:', error);
     throw error;
   }
+}
+
+export async function getPartnersReport(
+  page?: number,
+  size?: number,
+): Promise<Page<PartnerSchemaReport>> {
+  const response = await axios.get(
+    `${API_URL}/partner/list?page=${page || 0}&size=${size || DEFAULT_PAGE_SIZE}`,
+  );
+  return Page.from<PartnerSchemaReport>({
+    ...response.data,
+    content: await mapPartnersReport(response.data.content),
+  });
 }

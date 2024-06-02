@@ -3,8 +3,8 @@
     <div :class="'oracle-logo'" />
     <ul>
       <li
-        v-for="route in $router.options.routes.filter(route =>
-          !route.name.includes('[hide]'),
+        v-for="route in $router.options.routes.filter(
+          route => !route.name.includes('[hide]'),
         )"
         :key="route.path"
       >

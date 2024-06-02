@@ -25,7 +25,7 @@ const chartOptions = reactive({
     },
     title: {
       display: true,
-      text: 'Avanço das Expertises por Status',
+      text: 'Distribuição',
       color: 'black',
       font: {
         size: 18,
@@ -56,7 +56,7 @@ let chartData = reactive({
   labels: Object.keys(props.chartData),
   datasets: [
     {
-      label: 'Expertises',
+      label: 'Fat',
       data: Object.values(props.chartData),
       backgroundColor: ['#C76146', '#8d4428', '#efc371'],
     },

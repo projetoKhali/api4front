@@ -81,9 +81,9 @@ const tableHeadPartner = [
   'Parceiros',
   'Região',
   'Número de Expertises',
-  '% Conclusão Expertise',
+  'Nº Expertises concluídas',
   'Número de qualificadores',
-  '% Conclusão de Qualificadores',
+  'Nº Qualificadores Concluídos',
 ];
 
 type PartnerTableRow = [string, string, number, number, number, number];
@@ -179,8 +179,10 @@ const calcularProgressoExpertise = (
 
     partners.forEach(partner => {
       const { partnerName, finalizedQualifiers } = partner;
-      const percentualConclusao =
-        (finalizedQualifiers / totalQualificadores) * 100;
+      let percentualConclusao = 0;
+      if (totalQualificadores > 0) {
+        percentualConclusao = (finalizedQualifiers / totalQualificadores) * 100;
+      }
       progressoParceiros[partnerName] = percentualConclusao;
     });
 

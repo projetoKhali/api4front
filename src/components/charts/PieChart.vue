@@ -70,7 +70,7 @@ watch(
       labels: Object.keys(newValue),
       datasets: [
         {
-          label: 'Expertises',
+          label: 'Dados',
           data: Object.values(newValue),
           backgroundColor: ['#C76146', '#8d4428', '#efc371'],
         },

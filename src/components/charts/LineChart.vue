@@ -58,12 +58,17 @@ const chartOptions: ChartOptions<'line'> = reactive({
       grid: {
         display: false,
       },
+      ticks: {
+        font: {
+          size: 11, // Defina o tamanho da fonte aqui
+        },
+      },
     },
   },
   plugins: {
     legend: {
       display: true,
-      position: 'bottom', 
+      position: 'top',
     },
     tooltip: {
       enabled: true,
@@ -76,16 +81,18 @@ const chartOptions: ChartOptions<'line'> = reactive({
 
 const reactiveChartData = reactive<ChartData>({
   labels: [],
-  datasets: []
+  datasets: [],
 });
 
 watch(
   chartData,
   newValue => {
     reactiveChartData.labels = newValue.labels;
-    reactiveChartData.datasets = newValue.datasets.map(dataset => ({ ...dataset }));
+    reactiveChartData.datasets = newValue.datasets.map(dataset => ({
+      ...dataset,
+    }));
   },
-  { immediate: true }
+  { immediate: true },
 );
 </script>
 
@@ -95,7 +102,8 @@ watch(
   flex-direction: row;
   align-items: center;
   width: 100%;
-  height: 100%;
+  height: 80%;
+  padding: 10px;
 }
 * {
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;

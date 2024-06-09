@@ -1,4 +1,3 @@
-import { PartnerExpertiseMetricSchema } from '../partner/PartnerExpertise';
 import { TrackPartnerExpertiseSchema } from './TrackPartnerExpertise';
 import { TrackPartnerQualifierSchema } from './TrackPartnerQualifier';
 

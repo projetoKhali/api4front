@@ -1,13 +1,13 @@
 export interface PartnerReportSchema {
-  partner: string;
-  track: string;
-  trackStart: string;
-  trackEnd: string;
-  expertise: string;
-  expertiseStart: string;
-  expertiseEnd: string;
-  qualifier: string;
-  qualifierStart: string;
-  qualifierEnd: string;
-  qualifierExpiration: string;
+  partner: string,
+  track: string,
+  trackStartDate: Date,
+  trackEndDate: Date,
+  expertise: string,
+  expertiseStartDate: Date,
+  expertiseEndDate: Date,
+  qualifier: string,
+  qualifierStartDate: Date,
+  qualifierEndDate: Date,
+  qualifierExpiration: Date
 }

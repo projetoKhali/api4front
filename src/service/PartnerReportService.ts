@@ -33,7 +33,7 @@ export async function mapPartnersReport(
 }
 /* eslint-enable @typescript-eslint/no-explicit-any */
 
-export async function gerPartnerReports(
+export default async function getPartnerReports(
   page?: number,
   size?: number,
 ): Promise<Page<PartnerReportSchema>> {

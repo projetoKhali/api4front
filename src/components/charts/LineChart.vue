@@ -58,12 +58,17 @@ const chartOptions: ChartOptions<'line'> = reactive({
       grid: {
         display: false,
       },
+      ticks: {
+        font: {
+          size: 11, // Defina o tamanho da fonte aqui
+        },
+      },
     },
   },
   plugins: {
     legend: {
       display: true,
-      position: 'bottom',
+      position: 'top',
     },
     tooltip: {
       enabled: true,
@@ -97,7 +102,8 @@ watch(
   flex-direction: row;
   align-items: center;
   width: 100%;
-  height: 100%;
+  height: 80%;
+  padding: 10px;
 }
 * {
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;

@@ -106,18 +106,19 @@ const getBarStyle = (barIndex: number, segmentIndex: number) => {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 120px;
+  width: 100%;
   height: 140px;
   background-color: #fff;
   position: relative;
+  padding-left: 25px;
 }
 
 .bar-container {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  width: 20%;
-  height: 100%; /* Altura fixa para todas as barras */
+  width: 20px;
+  height: 100%;
   margin: 0 10px;
   position: relative;
 }
@@ -128,7 +129,7 @@ const getBarStyle = (barIndex: number, segmentIndex: number) => {
   justify-content: center;
   list-style-type: none;
   width: 100%;
-  height: 100%; /* Altura fixa para o gráfico */
+  height: 100%;
 }
 
 .bar-segment {
@@ -143,7 +144,7 @@ const getBarStyle = (barIndex: number, segmentIndex: number) => {
 
 .title {
   margin-top: 10px;
-  font-size: 0.5rem;
+  font-size: 0.4rem;
 }
 
 .tooltip {

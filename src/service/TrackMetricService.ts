@@ -9,12 +9,17 @@ export async function parseTrackMetrics(
 ): Promise<TrackMetricsSchema> {
   return {
     trackId: tracks.tkId,
+    trackName: tracks.tkName,
     expertiseCount: tracks.expertiseCount,
     qualifierCount: tracks.qualifierCount,
     partnerCount: tracks.partnerCount,
-    expertiseCompletedOnTime: tracks.expertiseCompletedOnTime,
-    qualifierCompletedOnTime: tracks.qualifierCompletedOnTime,
-    qualifierCompletedOnPercentage: tracks.qualifierCompletedOnPercentage,
+    expertiseCompletedOnTime: tracks.avgExpertiseCompletionTime,
+    qualifierCompletedOnTime: tracks.avgQualifierCompletionTime,
+    expertiseCompletedOnPercentage: tracks.avgExpertiseCompletionPercentage,
+    qualifierCompletedOnPercentage: tracks.avgQualifierCompletionPercentage,
+    avgExpiredQualifiers: tracks.avgExpiredQualifiers,
+    avgTrackCompletionPercentage: tracks.avgTrackCompletionPercentage,
+    avgTrackCompletionTime: tracks.avgTrackCompletionTime,
   };
 }
 

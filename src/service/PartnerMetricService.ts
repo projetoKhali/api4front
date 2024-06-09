@@ -1,12 +1,12 @@
 import {
   ExpertisePartnerMetricSchema,
   PartnerExpertiseMetricSchema,
-} from '@/schemas/partner/PartnerExpertise';
-import { PartnerMetricSchema } from '@/schemas/partner/PartnerMetric';
+} from '../schemas/partner/PartnerExpertise';
+import { PartnerMetricSchema } from '../schemas/partner/PartnerMetric';
 import {
   PartnerTrackMetricSchema,
   TrackDetailSchema,
-} from '@/schemas/partner/PartnerTrack';
+} from '../schemas/partner/PartnerTrack';
 
 import axios from 'axios';
 

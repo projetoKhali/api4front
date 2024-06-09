@@ -13,18 +13,27 @@
     </div>
     <div class="bottom-side">
       <div class="left-side">
-        <div class="scketed-side"> 
+        <div class="scketed-side">
           <div class="legend-stacked">
             <h2>Desempenho dos Parceiros por Track</h2>
             <div class="legend-item">
-            <div class="labal-total"> Total de Expertises</div>
-            <div class="labal-associate"> Expertises Associadas</div>
-            <div class="labal-final"> Expertises Finalizadas</div>
+              <div class="labal-total">Total de Expertises</div>
+              <div class="labal-associate">Expertises Associadas</div>
+              <div class="labal-final">Expertises Finalizadas</div>
+            </div>
           </div>
-        </div>
           <div class="stackbar">
-            <div v-for="track in tracksWithData" :key="track.titulo" class="stacked-bar-chart-container">
-              <StackedBarChart :title="track.titulo" :itens="track.itens" :data="track.data" :height="height" />
+            <div
+              v-for="track in tracksWithData"
+              :key="track.titulo"
+              class="stacked-bar-chart-container"
+            >
+              <StackedBarChart
+                :title="track.titulo"
+                :itens="track.itens"
+                :data="track.data"
+                :height="height"
+              />
             </div>
           </div>
         </div>
@@ -37,10 +46,7 @@
           <PieChart :chartData="formattedPieChartData" />
         </div>
         <div class="table-dashboard">
-          <Table
-            :headers="tableHeadPartner"
-            :initialData="tableBodyTrack"
-          />
+          <Table :headers="tableHeadPartner" :initialData="tableBodyTrack" />
         </div>
       </div>
     </div>
@@ -51,7 +57,11 @@
 import { ref, onMounted, watch, computed } from 'vue';
 import MultiSelect from 'primevue/multiselect';
 import { PartnerMetricSchema } from '../schemas/partner/PartnerMetric';
-import { getPartnerMetrics, getPartnerExpertiseQualifiers, getPartnerTrackExpertises } from '../service/PartnerMetricService';
+import {
+  getPartnerMetrics,
+  getPartnerExpertiseQualifiers,
+  getPartnerTrackExpertises,
+} from '../service/PartnerMetricService';
 import StackedBarChart from '../components/StackedBarChart.vue';
 import ProgressBar from '../components/ProgressBar.vue';
 import Table from '../components/Table.vue';
@@ -64,7 +74,7 @@ const selectedPartners = ref<PartnerMetricSchema[]>([]);
 const partnerOptions = ref<PartnerMetricSchema[]>([]);
 const tableBodyTrack = ref<PartnerTableRow[]>([]);
 const formattedPieChartData = ref<{ [key: string]: number }>({});
-const trackExpertises = ref<PartnerTrackMetricSchema[]>([])
+const trackExpertises = ref<PartnerTrackMetricSchema[]>([]);
 const tracksData = ref<{ [key: string]: { [key: string]: number } }>({});
 
 const tableHeadPartner = [
@@ -73,17 +83,10 @@ const tableHeadPartner = [
   'Número de Expertises',
   '% Conclusão Expertise',
   'Número de qualificadores',
-  '% Conclusão de Qualificadores'
+  '% Conclusão de Qualificadores',
 ];
 
-type PartnerTableRow = [
-  string,
-  string,
-  number,
-  number,
-  number,
-  number
-];
+type PartnerTableRow = [string, string, number, number, number, number];
 
 interface TrackWithData {
   titulo: string;
@@ -106,7 +109,6 @@ const tracksWithData = computed<TrackWithData[]>(() => {
   });
   return tracks;
 });
-
 
 const uniqueTracks = computed(() => {
   const tracks: string[] = [];
@@ -131,16 +133,18 @@ const height = computed(() => {
 const getChartData = (track: string) => {
   const data: number[][] = [];
   trackExpertises.value.forEach(partner => {
-    const relevantTrack = partner.tracks.find(partnerTrack => partnerTrack.trackName === track);
+    const relevantTrack = partner.tracks.find(
+      partnerTrack => partnerTrack.trackName === track,
+    );
     if (relevantTrack) {
       data.push([
         relevantTrack.expertisesTrack,
         relevantTrack.progressExpertises,
-        relevantTrack.finalizedExpertises
+        relevantTrack.finalizedExpertises,
       ]);
     }
   });
-  console.log("dataaa", data);
+  console.log('dataaa', data);
   return data;
 };
 
@@ -162,65 +166,78 @@ onMounted(async () => {
   }
 });
 
-const calcularProgressoExpertise = (expertiseData: ExpertisePartnerMetricSchema[]) => {
+const calcularProgressoExpertise = (
+  expertiseData: ExpertisePartnerMetricSchema[],
+) => {
   const progressoExpertises: { [key: string]: { [key: string]: number } } = {};
 
-  expertiseData.forEach((expertise) => {
+  expertiseData.forEach(expertise => {
     const { expertise: expertiseName, partners } = expertise;
 
     const totalQualificadores = expertise.qualifiersExpertise;
     const progressoParceiros: { [key: string]: number } = {};
 
-    partners.forEach((partner) => {
+    partners.forEach(partner => {
       const { partnerName, finalizedQualifiers } = partner;
-      const percentualConclusao = (finalizedQualifiers / totalQualificadores) * 100;
+      const percentualConclusao =
+        (finalizedQualifiers / totalQualificadores) * 100;
       progressoParceiros[partnerName] = percentualConclusao;
     });
 
     progressoExpertises[expertiseName] = progressoParceiros;
   });
 
-  return tracksData.value = progressoExpertises;
+  return (tracksData.value = progressoExpertises);
 };
 
-watch(selectedPartners, async (newVal) => {
-  console.log('Selected partners:', newVal);
-  const mappedData: PartnerTableRow[] = newVal.map(partner => [
-    partner.name,
-    partner.city,
-    partner.tracks,
-    partner.completedTracks,
-    partner.qualifiers,
-    partner.completedQualifiers
-  ]);
-  tableBodyTrack.value = mappedData;
+watch(
+  selectedPartners,
+  async newVal => {
+    console.log('Selected partners:', newVal);
+    const mappedData: PartnerTableRow[] = newVal.map(partner => [
+      partner.name,
+      partner.city,
+      partner.tracks,
+      partner.completedTracks,
+      partner.qualifiers,
+      partner.completedQualifiers,
+    ]);
+    tableBodyTrack.value = mappedData;
 
-  const pieData = calculateCityPercentage(newVal);
-  formattedPieChartData.value = pieData;
+    const pieData = calculateCityPercentage(newVal);
+    formattedPieChartData.value = pieData;
 
-  console.log("bar", trackExpertises)
-  console.log("height", height)
+    console.log('bar', trackExpertises);
+    console.log('height', height);
 
-  if (newVal.length > 0) {
-    const partnerNames = newVal.map(partner => partner.name);
+    if (newVal.length > 0) {
+      const partnerNames = newVal.map(partner => partner.name);
 
-    try {
-      const expertiseQualifiers = await getPartnerExpertiseQualifiers(partnerNames);
-      console.log('Expertise Qualifiers:', expertiseQualifiers);
+      try {
+        const expertiseQualifiers =
+          await getPartnerExpertiseQualifiers(partnerNames);
+        console.log('Expertise Qualifiers:', expertiseQualifiers);
 
-      const trackExpertisesData = await getPartnerTrackExpertises(partnerNames);
-      console.log('Track Expertises:', trackExpertises);
+        const trackExpertisesData =
+          await getPartnerTrackExpertises(partnerNames);
+        console.log('Track Expertises:', trackExpertises);
 
-      trackExpertises.value = trackExpertisesData;
+        trackExpertises.value = trackExpertisesData;
 
-      const progressoExpertises = calcularProgressoExpertise(expertiseQualifiers);
-      console.log('Progresso das Expertises:', progressoExpertises);
-      console.log('tracksWithData:', tracksWithData);
-    } catch (error) {
-      console.error('Erro ao carregar dados de expertise/qualifiers e tracks/expertises:', error);
+        const progressoExpertises =
+          calcularProgressoExpertise(expertiseQualifiers);
+        console.log('Progresso das Expertises:', progressoExpertises);
+        console.log('tracksWithData:', tracksWithData);
+      } catch (error) {
+        console.error(
+          'Erro ao carregar dados de expertise/qualifiers e tracks/expertises:',
+          error,
+        );
+      }
     }
-  }
-}, { deep: true });
+  },
+  { deep: true },
+);
 
 function getPartnerOptions() {
   partnerOptions.value = partners.value;
@@ -248,7 +265,6 @@ function calculateCityPercentage(partners: PartnerMetricSchema[]) {
 </script>
 
 <style>
-
 .dashboard-container {
   display: flex;
   flex-direction: column;
@@ -277,7 +293,7 @@ function calculateCityPercentage(partners: PartnerMetricSchema[]) {
   background-color: #555; /* Cor do indicador de rolagem ao passar o mouse */
 }
 
-.top-side{
+.top-side {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -286,7 +302,7 @@ function calculateCityPercentage(partners: PartnerMetricSchema[]) {
   width: 100%;
 }
 
-.bottom-side{
+.bottom-side {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -297,15 +313,15 @@ function calculateCityPercentage(partners: PartnerMetricSchema[]) {
   padding: 10px;
 }
 
-.left-side{
+.left-side {
   display: flex;
   flex-direction: column;
   height: 100%;
   width: 100%;
-  gap: 10px
+  gap: 10px;
 }
 
-.right-side{
+.right-side {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -313,7 +329,7 @@ function calculateCityPercentage(partners: PartnerMetricSchema[]) {
   height: 100%;
   width: 100%;
 
-  gap: 10px
+  gap: 10px;
 }
 
 .pie-chart-container {
@@ -374,7 +390,7 @@ function calculateCityPercentage(partners: PartnerMetricSchema[]) {
   border-radius: 8px;
 }
 
-.stackbar{
+.stackbar {
   display: flex;
   flex-direction: row;
   justify-content: left;
@@ -397,36 +413,33 @@ function calculateCityPercentage(partners: PartnerMetricSchema[]) {
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  gap: 10px
+  gap: 10px;
 }
 
 .labal-total {
-  background-color: #E0E0E0;
+  background-color: #e0e0e0;
   width: 180px;
   text-align: center;
   align-items: center;
   padding: 8px;
   border-radius: 15px;
-
 }
 
 .labal-associate {
-  background-color: #B46BC2;
+  background-color: #b46bc2;
   width: 180px;
   text-align: center;
   align-items: center;
   padding: 8px;
   border-radius: 15px;
-
 }
 
 .labal-final {
-  background-color: #94DF49;
+  background-color: #94df49;
   width: 180px;
   text-align: center;
   align-items: center;
   padding: 8px;
   border-radius: 15px;
-
 }
 </style>

@@ -2,14 +2,14 @@
   <div class="dashboard-container">
     <div class="top-side">
       <div class="linechart-container-progress">
-        <h3> Progresso médio por track</h3>
+        <h3>Progresso médio por track</h3>
         <LineChart :chartData="chartDataProgress" />
       </div>
     </div>
-    <div class="bottom-side"> 
+    <div class="bottom-side">
       <div class="left-side">
         <div class="linechart-container-time">
-          <h3> Tempo médio de conclusão</h3>
+          <h3>Tempo médio de conclusão</h3>
           <LineChart :chartData="chartDataTime" />
         </div>
         <div class="linechart-container-count">
@@ -17,14 +17,11 @@
           <LineChart :chartData="chartDataCount" />
         </div>
       </div>
-      <div class="right-side"> 
-        <div class="table-dashboard"> 
-          <Table
-            :headers="tableHeadTrack"
-            :initialData="tableBodyTrack"
-          />
-      </div>      
-    </div>
+      <div class="right-side">
+        <div class="table-dashboard">
+          <Table :headers="tableHeadTrack" :initialData="tableBodyTrack" />
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -49,7 +46,7 @@ const tableHeadTrack = [
   'Número de parceiros',
   'Abandono',
   'Média de conclusão',
-  'Tempo Médio de conclusão'
+  'Tempo Médio de conclusão',
 ];
 
 interface chartLineType {
@@ -62,26 +59,26 @@ interface datasetType {
   data: number[];
   borderColor: string;
   borderWidth: number;
-  fill: boolean
+  fill: boolean;
 }
 
-type TrackTableRow = [
-  string,
-  number,
-  number,
-  number,
-  number
-];
+type TrackTableRow = [string, number, number, number, number];
 
 const formattedBarChartData = ref({
   labels: [] as string[],
-  datasets: [] as { label: string; data: number[]; backgroundColor: string; borderColor: string; borderWidth: number }[],
+  datasets: [] as {
+    label: string;
+    data: number[];
+    backgroundColor: string;
+    borderColor: string;
+    borderWidth: number;
+  }[],
 });
 
 onMounted(async () => {
   try {
     tracks.value = await getTrackMetrics();
-    console.log("tracks loaded", tracks.value);
+    console.log('tracks loaded', tracks.value);
 
     const mappedData: TrackTableRow[] = tracks.value.map(track => [
       `Track ${track.trackId}`,
@@ -116,7 +113,7 @@ function updateChartData() {
         borderColor: 'red',
         borderWidth: 2,
         fill: false,
-      }
+      },
     ],
   };
 
@@ -136,7 +133,7 @@ function updateChartData() {
         borderColor: 'red',
         borderWidth: 2,
         fill: false,
-      }
+      },
     ],
   };
 
@@ -156,7 +153,7 @@ function updateChartData() {
         borderColor: 'orange',
         borderWidth: 2,
         fill: false,
-      }
+      },
     ],
   };
 
@@ -186,7 +183,7 @@ function updateChartData() {
   gap: 4px;
 }
 
-.top-side{
+.top-side {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -196,7 +193,7 @@ function updateChartData() {
   padding: 10px;
 }
 
-.bottom-side{
+.bottom-side {
   display: flex;
   flex-direction: row;
   height: 50%;
@@ -205,15 +202,15 @@ function updateChartData() {
   padding: 10px;
 }
 
-.left-side{
+.left-side {
   display: flex;
   flex-direction: column;
   height: 60%;
   width: 100%;
-  gap: 10px
+  gap: 10px;
 }
 
-.right-side{
+.right-side {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -221,14 +218,17 @@ function updateChartData() {
   height: 100%;
   width: 100%;
 }
-.linechart-container-time, .linechart-container-progress, .linechart-container-count, .bar-chat-dashboard, .table-dashboard {
+.linechart-container-time,
+.linechart-container-progress,
+.linechart-container-count,
+.bar-chat-dashboard,
+.table-dashboard {
   flex: 1;
 }
 
 .linechart-container-time,
 .linechart-container-count,
-.linechart-container-progress
-{
+.linechart-container-progress {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -240,7 +240,7 @@ function updateChartData() {
   border-radius: 8px;
 }
 
-.table-dashboard{
+.table-dashboard {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -248,7 +248,7 @@ function updateChartData() {
   height: 100%;
   width: 100%;
 }
-h3{
+h3 {
   font-size: 0.8rem;
 }
 </style>

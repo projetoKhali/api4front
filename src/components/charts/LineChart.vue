@@ -63,7 +63,7 @@ const chartOptions: ChartOptions<'line'> = reactive({
   plugins: {
     legend: {
       display: true,
-      position: 'bottom', 
+      position: 'bottom',
     },
     tooltip: {
       enabled: true,
@@ -76,16 +76,18 @@ const chartOptions: ChartOptions<'line'> = reactive({
 
 const reactiveChartData = reactive<ChartData>({
   labels: [],
-  datasets: []
+  datasets: [],
 });
 
 watch(
   chartData,
   newValue => {
     reactiveChartData.labels = newValue.labels;
-    reactiveChartData.datasets = newValue.datasets.map(dataset => ({ ...dataset }));
+    reactiveChartData.datasets = newValue.datasets.map(dataset => ({
+      ...dataset,
+    }));
   },
-  { immediate: true }
+  { immediate: true },
 );
 </script>
 

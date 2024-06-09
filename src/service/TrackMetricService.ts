@@ -22,7 +22,9 @@ export async function mapTrackMetrics(
   tracks: any,
 ): Promise<TrackMetricsSchema[]> {
   return tracks
-    ? await Promise.all(tracks.map(async (item: any) => await parseTrackMetrics(item)))
+    ? await Promise.all(
+        tracks.map(async (item: any) => await parseTrackMetrics(item)),
+      )
     : [];
 }
 

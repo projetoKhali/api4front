@@ -12,4 +12,3 @@ export type UserPostSchema = Omit<UserSchema, 'id'> & {
 };
 
 export type UserPatchSchema = Partial<Omit<UserSchema, 'id'>>;
-

@@ -44,6 +44,7 @@ export async function getPartnerMetric(
   return parsePartnerMetric(response.data);
 }
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export async function getPartnerExpertiseQualifiers(partnerNames: string[]): Promise<ExpertisePartnerMetricSchema[]> {
   const query = partnerNames.map(name => `partnerNames=${encodeURIComponent(name)}`).join('&');
   const response = await axios.get(`${API_URL}/partner/expertiseQualifierProgress?${query}`);
@@ -72,3 +73,4 @@ export async function getPartnerTrackExpertises(partnerNames: string[]): Promise
     } as TrackDetailSchema)),
   } as PartnerTrackMetricSchema));
 }
+/* eslint-enable @typescript-eslint/no-explicit-any */

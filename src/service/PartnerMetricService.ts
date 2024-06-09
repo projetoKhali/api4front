@@ -36,6 +36,7 @@ export async function mapPartnersMetric(
       )
     : [];
 }
+/* eslint-enable @typescript-eslint/no-explicit-any */
 
 export async function getPartnerMetrics(): Promise<PartnerMetricSchema[]> {
   const response = await axios.get(`${API_URL}/partnerMetrics`);
@@ -49,6 +50,7 @@ export async function getPartnerMetric(
   return parsePartnerMetric(response.data);
 }
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export async function getPartnerExpertiseQualifiers(
   partnerNames: string[],
 ): Promise<ExpertisePartnerMetricSchema[]> {

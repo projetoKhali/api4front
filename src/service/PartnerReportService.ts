@@ -1,4 +1,4 @@
-import { Page } from '@/schemas/Page';
+import { Page } from '../schemas/Page';
 import { PartnerReportSchema } from '@/schemas/partner/PartnerReport';
 import axios from 'axios';
 
@@ -12,14 +12,14 @@ export async function parseReport(
   return {
     partner: partnerReport.partner,
     track: partnerReport.track,
-    trackStart: partnerReport.trackStart,
-    trackEnd: partnerReport.trackEnd,
+    trackStartDate: partnerReport.trackStart,
+    trackEndDate: partnerReport.trackEnd,
     expertise: partnerReport.expertise,
-    expertiseStart: partnerReport.expertiseStart,
-    expertiseEnd: partnerReport.expertiseEnd,
+    expertiseStartDate: partnerReport.expertiseStart,
+    expertiseEndDate: partnerReport.expertiseEnd,
     qualifier: partnerReport.qualifier,
-    qualifierStart: partnerReport.qualifierStart,
-    qualifierEnd: partnerReport.qualifierEnd,
+    qualifierStartDate: partnerReport.qualifierStart,
+    qualifierEndDate: partnerReport.qualifierEnd,
     qualifierExpiration: partnerReport.qualifierExpiration,
   };
 }

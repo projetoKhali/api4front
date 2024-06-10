@@ -3,9 +3,9 @@ import downloadCSV from './csv';
 import { TrackMetricsSchema } from '@/schemas/track/TrackMetrics';
 
 export default async function downloadTrackCSV() {
-    let reportData: TrackMetricsSchema[] = await getTrackMetrics();
-  
-    const filename = 'track_' + new Date().toISOString() + '.csv';
-  
-    downloadCSV(reportData, filename);
-  }
+  const reportData: TrackMetricsSchema[] = await getTrackMetrics();
+
+  const filename = 'track_' + new Date().toISOString() + '.csv';
+
+  downloadCSV(reportData, filename);
+}

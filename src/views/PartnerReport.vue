@@ -2,6 +2,11 @@
     <div class="dashboard-container">
       <div class="left-side">
         <h2>Relatório de Parceiro</h2>
+        <div class="button-div">
+        <button>
+          Extrair Relatório
+        </button>
+      </div>
       <Table :headers="tableHeaders" :initialData="fullData"
       :pagination="pagination"/>
     </div>
@@ -11,9 +16,8 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import Table from '../components/Table.vue';
-import { PartnerReportSchema } from '../schemas/partner/PartnerReport';
 import { getPartnerReports } from '../service/PartnerReportService';
-import { getPartners } from '../service/PartnerService';
+import { PartnerReportSchema } from '../schemas/partner/PartnerReport';
 
 //Colocar os campos que deseja ver:
 const tableHeaders = ['Parceiro', 'Track' , 'Início da Track', 'Fim da Track', 'Expertise', 'Início da Expertise', 'Fim da Expertise', 'Qualifier', 'Início do Qualifier', 'Fim do Qualifier', 'Data de expiração qualifier'];
@@ -48,7 +52,7 @@ const pagination = {
 
 const fetchData = async (pageIndex: number) => {
   try {
-    const partnerPage = await getPartners(pageIndex, itemsPerPage);
+    const partnerPage = await getPartnerReports(pageIndex, itemsPerPage);
 
     totalPages.value = partnerPage.totalPages;
 
@@ -151,5 +155,34 @@ const fetchData = async (pageIndex: number) => {
     width: 100%;
     border-radius: 10px;
   }
+  button {
+  width: 20%;
+  height: 60px;
+  background-color: #7ea774; /* cor de fundo */
+  color: white; /* cor do texto */
+  border: none; /* remove a borda */
+  border-radius: 5px; /* arredonda as bordas */
+  font-size: 80%; /* tamanho da fonte */
+  cursor: pointer; /* cursor ao passar por cima */
+  transition: background-color 0.3s; /* transição suave da cor de fundo */
+}
+
+.custom-button:hover {
+  background-color: #45a049; /* cor de fundo quando hover */
+}
+
+.button-div {
+  display: flex;
+  flex-direction: column;
+  align-items: right;
+  width: 100%;
+  height: 9%;
+  padding-bottom: 10px;
+  padding-top: 10px;
+}
+
+* {
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
   </style>
   

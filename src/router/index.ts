@@ -46,6 +46,11 @@ const routes: Route[] = [
     name: 'Compartive Partner',
     component: () => import('../views/ComparativePartner.vue'),
   },
+  {
+    path: '/report/partner',
+    name: 'Report Partner',
+    component: () => import('../views/PartnerReport.vue'),
+  },
 ];
 
 const routeRecordsRaw: RouteRecordRaw[] = routes

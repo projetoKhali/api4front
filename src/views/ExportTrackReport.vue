@@ -22,31 +22,54 @@ import { TrackMetricsSchema } from '@/schemas/track/TrackMetrics';
 import downloadTrackCSV from '../report/track';
 
 const tableComponent = ref<Table>();
-const tableHeaders = ['Nome', 'Quantidade de Expertises', 'Quantidade de Qualifiers', 'Quantidade de Partners', 'Expertises finalizadas no prazo', 'Qualifiers finalizadas no prazo', 'Conclusão de expertises', 'Conclusão de qualifiers', 'Média de Qualifiers expirados', 'Média de conclusão de expertise', 'Média de conclusão de qualifier'];
+const tableHeaders = [
+  'Nome',
+  'Quantidade de Expertises',
+  'Quantidade de Qualifiers',
+  'Quantidade de Partners',
+  'Expertises finalizadas no prazo',
+  'Qualifiers finalizadas no prazo',
+  'Conclusão de expertises',
+  'Conclusão de qualifiers',
+  'Média de Qualifiers expirados',
+  'Média de conclusão de expertise',
+  'Média de conclusão de qualifier',
+];
 
 const fullData = ref<TrackTableRow[]>([]);
 const tracks = ref<TrackMetricsSchema[]>([]);
 const itemsPerPage = 10;
 
-type TrackTableRow = [string, number, number, number, number, number, number, number, number, number, number];
+type TrackTableRow = [
+  string,
+  number,
+  number,
+  number,
+  number,
+  number,
+  number,
+  number,
+  number,
+  number,
+  number,
+];
 
 const fetchData = async (page: number) => {
   try {
     tracks.value = await getTrackMetrics();
     const formatted: TrackTableRow[] = tracks.value.map(track => [
-        track.trackName,
-        track.expertiseCount,
-        track.qualifierCount,
-        track.partnerCount,
-        track.expertiseCompletedOnTime ?? 0,
-        track.qualifierCompletedOnTime ?? 0,
-        track.expertiseCompletedOnPercentage,
-        track.qualifierCompletedOnPercentage,
-        track.avgExpiredQualifiers,
-        track.avgTrackCompletionPercentage,
-        track.avgTrackCompletionTime ?? 0,
-      ],
-    );
+      track.trackName,
+      track.expertiseCount,
+      track.qualifierCount,
+      track.partnerCount,
+      track.expertiseCompletedOnTime ?? 0,
+      track.qualifierCompletedOnTime ?? 0,
+      track.expertiseCompletedOnPercentage,
+      track.qualifierCompletedOnPercentage,
+      track.avgExpiredQualifiers,
+      track.avgTrackCompletionPercentage,
+      track.avgTrackCompletionTime ?? 0,
+    ]);
     fullData.value = formatted;
   } catch (error) {
     console.error('Erro ao buscar dados da API:', error);
@@ -55,9 +78,9 @@ const fetchData = async (page: number) => {
 
 onMounted(() => fetchData(1));
 
-const exportCSV = () =>{
-    downloadTrackCSV();
-  };
+const exportCSV = () => {
+  downloadTrackCSV();
+};
 </script>
 
 <style scoped>

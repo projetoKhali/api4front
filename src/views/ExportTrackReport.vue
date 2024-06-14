@@ -22,7 +22,7 @@ import { TrackMetricsSchema } from '@/schemas/track/TrackMetrics';
 import downloadTrackCSV from '../report/track';
 
 const tableComponent = ref<Table>();
-const tableHeaders = ['Nome', 'Quantidade Expertise', 'Quantidade Qualifier', 'Quantidade de Partners', 'Expertises finalizadas no prazo', 'Qualifiers finalizadas no prazo', 'Conclusão de expertises', 'Conclusão de qualifiers', 'Média de Qualifiers expirados', 'Média de conclusão de expertise', 'Média de conclusão de qualifier'];
+const tableHeaders = ['Nome', 'Quantidade de Expertises', 'Quantidade de Qualifiers', 'Quantidade de Partners', 'Expertises finalizadas no prazo', 'Qualifiers finalizadas no prazo', 'Conclusão de expertises', 'Conclusão de qualifiers', 'Média de Qualifiers expirados', 'Média de conclusão de expertise', 'Média de conclusão de qualifier'];
 
 const fullData = ref<TrackTableRow[]>([]);
 const tracks = ref<TrackMetricsSchema[]>([]);
@@ -71,7 +71,7 @@ const exportCSV = () =>{
   background-color: #ebf2e8;
 }
 
-.table-list-partner {
+.table-list-track {
   display: flex;
   flex-direction: column;
   padding-left: 20px;
@@ -80,18 +80,18 @@ const exportCSV = () =>{
 
 button {
   width: 20%;
-  height: 60px;
-  background-color: #7ea774; 
-  color: white; 
-  border: none; 
-  border-radius: 5px; 
-  font-size: 80%; 
-  cursor: pointer; 
-  transition: background-color 0.3s; 
+  height: 100px;
+  background-color: #7ea774; /* cor de fundo */
+  color: white; /* cor do texto */
+  border: none; /* remove a borda */
+  border-radius: 5px; /* arredonda as bordas */
+  font-size: 80%; /* tamanho da fonte */
+  cursor: pointer; /* cursor ao passar por cima */
+  transition: background-color 0.3s; /* transição suave da cor de fundo */
 }
 
 .custom-button:hover {
-  background-color: #45a049;
+  background-color: #45a049; /* cor de fundo quando hover */
 }
 
 .button-div {
@@ -99,7 +99,7 @@ button {
   flex-direction: column;
   align-items: right;
   width: 100%;
-  height: 9%;
+  height: 16%;
   padding-bottom: 10px;
   padding-top: 10px;
 }

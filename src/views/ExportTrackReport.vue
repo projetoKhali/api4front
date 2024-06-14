@@ -2,7 +2,7 @@
   <div class="conteiner">
     <div class="table-list-track">
       <div class="button-div">
-        <button @click="() => downloadCSV()">Exportar Relatório</button>
+        <button @click="() => exportCSV()">Exportar Relatório</button>
       </div>
       <h2>Lista de Tracks</h2>
       <Table
@@ -19,7 +19,7 @@ import { ref, onMounted } from 'vue';
 import Table from '../components/Table.vue';
 import { getTrackMetrics } from '../service/TrackMetricService';
 import { TrackMetricsSchema } from '@/schemas/track/TrackMetrics';
-import { downloadCSV } from '../report/csv';
+import downloadTrackCSV from '../report/track';
 
 const tableComponent = ref<Table>();
 const tableHeaders = ['Nome', 'Quantidade Expertise', 'Quantidade Qualifier', 'Quantidade de Partners', 'Expertises finalizadas no prazo', 'Qualifiers finalizadas no prazo', 'Conclusão de expertises', 'Conclusão de qualifiers', 'Média de Qualifiers expirados', 'Média de conclusão de expertise', 'Média de conclusão de qualifier'];
@@ -55,12 +55,9 @@ const fetchData = async (page: number) => {
 
 onMounted(() => fetchData(1));
 
-const downloadCSV = () => {
-  const data = tableComponent.value?.getData();
-  if (data) {
-    downloadCSV(data, 'track-report');
-  }
-};
+const exportCSV = () =>{
+    downloadTrackCSV();
+  };
 </script>
 
 <style scoped>

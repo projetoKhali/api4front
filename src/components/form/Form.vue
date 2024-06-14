@@ -9,7 +9,7 @@
         :key="index"
         class="form-row"
       >
-        <label>{{ key }}</label>
+        <label>{{ getDisplayName(key) }}</label>
         <input
           :type="getFormFieldInputType(data, key)"
           :value="data[key]"
@@ -25,7 +25,7 @@
       >
         <div class="div-button">
           <button class="form-button" @click="actions[action](data)">
-            {{ action }}
+            {{ getDisplayName(action) }}
           </button>
         </div>
       </div>
@@ -34,6 +34,8 @@
 </template>
 
 <script lang="ts">
+import { getDisplayName } from '../../util/util';
+
 function getFormFieldInputType(data: Object, key: string): string {
   if (data[key] instanceof Date) {
     return 'date';
@@ -68,6 +70,7 @@ export default {
   },
   setup() {
     return {
+      getDisplayName,
       getFormFieldInputType,
     };
   },
@@ -129,6 +132,7 @@ input {
   transition: all 0.5s;
   text-align: center;
 }
+
 .div-button {
   display: flex;
   flex-direction: row;

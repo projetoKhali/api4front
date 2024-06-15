@@ -29,7 +29,7 @@ export async function parsePartner(partner: any): Promise<PartnerSchema> {
     credit: partner.credit,
     status: partner.status,
     memberType: partner.memberType,
-    insertDate: new Date(partner.insertDate),
+    insertDate: partner.firstDateMembership,
   };
 }
 

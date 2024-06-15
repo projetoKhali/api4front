@@ -92,6 +92,7 @@ const formatDate = (dateString: string) => {
 const fetchData = async (pageIndex: number) => {
   try {
     const partnersPage = await getPartners(pageIndex, itemsPerPage);
+    console.log(partnersPage);
 
     totalPages.value = partnersPage.totalPages;
 
@@ -111,7 +112,7 @@ const fetchData = async (pageIndex: number) => {
         item.credit ? 'Sim' : 'Não',
         item.status ? 'Ativo' : 'Inativo',
         item.memberType ? 'Sim' : 'Não',
-        formatDate(item.firstDateMembership),
+        formatDate(item.insertDate),
         `/partner/${item.id}`,
         () => {
           partner.value = item;
@@ -193,6 +194,7 @@ const addPartner = () => {
   flex-direction: column;
   padding-left: 20px;
   padding-right: 20px;
+  min-height: 70%;
 }
 
 button {
@@ -216,7 +218,7 @@ button {
   flex-direction: column;
   align-items: right;
   width: 100%;
-  height: 9%;
+  height: 50px;
   padding-bottom: 10px;
   padding-top: 10px;
 }

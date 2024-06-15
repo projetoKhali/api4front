@@ -3,10 +3,10 @@
       <div class="left-side">
         <h2>Relatório de Parceiro</h2>
         <div class="button-div">
-        <button>
-          Extrair Relatório
-        </button>
-      </div>
+          <button @click="() => exportCSV()">
+            Extrair Relatório
+          </button>
+        </div>
       <Table :headers="tableHeaders" :initialData="fullData"
       :pagination="pagination"/>
     </div>
@@ -16,11 +16,12 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import Table from '../components/Table.vue';
-import { getPartnerReports } from '../service/PartnerReportService';
+import getPartnerReports from '../service/PartnerReportService';
 import { PartnerReportSchema } from '../schemas/partner/PartnerReport';
+import downloadPartnerCSV from '../report/partner';
 
 //Colocar os campos que deseja ver:
-const tableHeaders = ['Parceiro', 'Track' , 'Início da Track', 'Fim da Track', 'Expertise', 'Início da Expertise', 'Fim da Expertise', 'Qualifier', 'Início do Qualifier', 'Fim do Qualifier', 'Data de expiração qualifier'];
+const tableHeaders = ['Parceiro', 'Track' , 'Início da Track', 'Conclusão da Track', 'Expertise', 'Início da Expertise', 'Conclusão da Expertise', 'Qualifier', 'Início do Qualifier', 'Conclusão do Qualifier', 'Data de expiração qualifier'];
 //total de paginas 
 const totalPages = ref(0);
 //numero de itens na pagina
@@ -53,6 +54,7 @@ const pagination = {
 const fetchData = async (pageIndex: number) => {
   try {
     const partnerPage = await getPartnerReports(pageIndex, itemsPerPage);
+    console.log(partnerPage);
 
     totalPages.value = partnerPage.totalPages;
 
@@ -77,7 +79,9 @@ const fetchData = async (pageIndex: number) => {
   }
 };
 
-
+const exportCSV = () => {
+  downloadPartnerCSV();
+}
 
 </script>
   

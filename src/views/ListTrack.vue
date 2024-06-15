@@ -61,7 +61,7 @@ onMounted(fetchData);
   flex-direction: column;
   padding-left: 20px;
   padding-right: 20px;
-  height: 60%;
+  min-height: 40%;
 }
 
 * {

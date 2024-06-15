@@ -206,7 +206,6 @@ const addPartner = () => {
         return;
       }
       try {
-        console.log('Valor user', partner.value);
         await createPartner(partner.value);
         tableComponent.value?.manualRefresh();
         openNotificationPopup({
@@ -220,7 +219,6 @@ const addPartner = () => {
           message: 'Erro ao criar parceiro.',
           type: 2,
         });
-        console.error('Erro ao criar parceiro:', error);
       }
     },
   };

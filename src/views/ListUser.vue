@@ -139,7 +139,6 @@ const addUser = () => {
         return;
       }
       try {
-        console.log('Valor user', user.value);
         await createUser(user.value);
         tableComponent.value?.manualRefresh();
         openNotificationPopup({
@@ -153,7 +152,6 @@ const addUser = () => {
           message: 'Erro ao criar usuário.',
           type: 2,
         });
-        console.error('Erro ao criar usuário:', error);
       }
     },
   };

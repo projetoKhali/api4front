@@ -165,7 +165,7 @@ const fetchData = async (pageIndex: number) => {
   } catch (error) {
     openNotificationPopup({
       title: 'Ops, algo deu errado',
-      text: 'Erro ao buscar dados da API.',
+      message: 'Erro ao buscar dados da API.',
       type: 2,
     });
     console.error('Erro ao buscar dados da API:', error);
@@ -211,13 +211,13 @@ const addPartner = () => {
         tableComponent.value?.manualRefresh();
         openNotificationPopup({
           title: 'Parceiro criado!',
-          text: '',
+          message: '',
           type: 1,
         });
       } catch (e) {
         openNotificationPopup({
           title: 'Ops, algo deu errado',
-          text: 'Erro ao criar parceiro.',
+          message: 'Erro ao criar parceiro.',
           type: 2,
         });
         console.error('Erro ao criar parceiro:', error);

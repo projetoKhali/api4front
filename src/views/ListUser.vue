@@ -106,7 +106,7 @@ const fetchData = async (pageIndex: number) => {
   } catch (error) {
     openNotificationPopup({
       title: 'Ops, algo deu errado',
-      text: 'Erro ao buscar dados da API.',
+      message: 'Erro ao buscar dados da API.',
       type: 2,
     });
     console.error('Erro ao buscar dados da API:', error);
@@ -144,13 +144,13 @@ const addUser = () => {
         tableComponent.value?.manualRefresh();
         openNotificationPopup({
           title: 'Usuário criado!',
-          text: '',
+          message: '',
           type: 1,
         });
       } catch (error) {
         openNotificationPopup({
           title: 'Ops, algo deu errado',
-          text: 'Erro ao criar usuário.',
+          message: 'Erro ao criar usuário.',
           type: 2,
         });
         console.error('Erro ao criar usuário:', error);

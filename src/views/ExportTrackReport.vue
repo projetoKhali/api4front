@@ -2,7 +2,7 @@
   <div class="conteiner">
     <div class="table-list-track">
       <div class="button-div">
-        <button @click="() => exportCSV()">Exportar Relatório</button>
+        <button @click="exportCSV">Exportar Relatório</button>
       </div>
       <h2>Lista de Tracks</h2>
       <Table

@@ -69,7 +69,7 @@ export async function updatePartner(
   id: number,
   partner: PartnerPatchSchema,
 ): Promise<PartnerSchema | undefined> {
-  if (id < Number.MIN_VALUE) return;
+  if (id < 1) return; // TODO: id será usado ao trocar POST por PATCH
   // const response = await axios.patch(`${API_URL}/partner/edit/${id}`, partner);
   const response = await axios.post(`${API_URL}/partner`, partner);
   return parsePartner(response.data);

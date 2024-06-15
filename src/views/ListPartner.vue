@@ -148,11 +148,9 @@ const fetchData = async (pageIndex: number) => {
         () => {
           partner.value = item;
           isPopupOpen.value = !isPopupOpen.value;
-          console.log('Print', partner);
           actions.value = {
             salvar: async (_: PartnerSchema) => {
               if (partner.value === undefined) return;
-              // const {id, ...partnerData} = partner.value;
               try {
                 await updatePartner(partner.value.id, partner.value).then(
                   tableComponent.value?.manualRefresh,

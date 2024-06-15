@@ -1,5 +1,5 @@
 <script lang="ts">
-import {ref} from 'vue';
+import { ref, computed } from 'vue';
 
 
 export default {
@@ -11,9 +11,12 @@ export default {
             type: String,
             required: true
         },
-        duration:{
+        duration: {
             type: Number,
-            default: 5000
+            default: 3000
+        },
+        type: {
+            type: Number
         }
     },
     setup(props) {
@@ -27,9 +30,23 @@ export default {
             closePopup();
         }, props.duration);
 
+        const popupStyle = computed(() => {
+            switch (props.type) {
+                case 1:
+                    return { backgroundColor: '#90EE90' }
+                case 2:
+                    return { backgroundColor: '#FF6347' }
+                case 3:
+                    return { backgroundColor: '#FFD700' }
+                default:
+                    return { backgroundColor: '#fff' }
+            }
+        });
+
         return {
             isPopupOpen,
-            closePopup
+            closePopup,
+            popupStyle
         };
     }
 }
@@ -37,23 +54,26 @@ export default {
 </script>
 
 <template>
-    <div class="notif-popup" v-show="isPopupOpen">
+    <div class="notif-popup" v-show="isPopupOpen" :style="popupStyle">
         <button class="notif-popup__close" @click="closePopup">
-        <i class="fas fa-times"></i>
+            <i class="fa fa-times-circle" aria-hidden="true"></i>
         </button>
         <div class="notif-popup__content">
-        <div class="notif-popup__header">
-            <h2 class="notif-popup__title"> {{ title }}</h2>
-        </div>
-        <div class="notif-popup__body">
-            <p> {{ message }}</p>
-        </div>
+            <div class="notif-popup__header">
+                <h2 class="notif-popup__title"> {{ title }}</h2>
+            </div>
+            <div class="notif-popup__body">
+                <p> {{ message }}</p>
+            </div>
         </div>
     </div>
 </template>
 
 <style scoped>
-/* .notif-popup {
+.notif-popup {
+    display: flex;
+    padding: 10px;
+    flex-direction: column;
     position: fixed;
     top: 20px;
     right: 20px;
@@ -62,6 +82,32 @@ export default {
     border: 1px solid #ccc;
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    display: none;
-} */
+}
+
+.notif-popup__close {
+    position: absolute;
+    top: 5px;
+    right: 15px;
+    background-color: transparent;
+    border: none;
+    color: #333;
+    cursor: pointer;
+    width: 10px;
+    height: 10px;
+}
+
+.notif-popup__content {
+    padding: 10px;
+}
+
+.notif-popup__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.notif-popup__body {
+    margin-bottom: 10px;
+}
 </style>

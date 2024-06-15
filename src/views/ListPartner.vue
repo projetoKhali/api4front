@@ -237,17 +237,17 @@ const addPartner = () => {
 button {
   width: 20%;
   height: 60px;
-  background-color: #7ea774; /* cor de fundo */
-  color: white; /* cor do texto */
-  border: none; /* remove a borda */
-  border-radius: 5px; /* arredonda as bordas */
-  font-size: 80%; /* tamanho da fonte */
-  cursor: pointer; /* cursor ao passar por cima */
-  transition: background-color 0.3s; /* transição suave da cor de fundo */
+  background-color: #7ea774;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 80%;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
 .custom-button:hover {
-  background-color: #45a049; /* cor de fundo quando hover */
+  background-color: #45a049;
 }
 
 .button-div {

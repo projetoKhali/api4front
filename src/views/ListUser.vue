@@ -91,7 +91,6 @@ const fetchData = async (pageIndex: number) => {
       () => {
         user.value = item;
         isPopupOpen.value = !isPopupOpen.value;
-        console.log('Print', user);
         actions.value = {
           salvar: async (_: UserSchema) => {
             if (user.value === undefined) return;

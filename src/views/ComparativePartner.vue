@@ -275,24 +275,24 @@ function calculateCityPercentage(partners: PartnerMetricSchema[]) {
   height: 90vh;
   width: 100vw;
   background-color: #ebf2e8;
-  scrollbar-width: thin; /* Oculta as setas de rolagem no Firefox */
+  scrollbar-width: thin;
 }
 
 .dashboard-container::-webkit-scrollbar {
-  width: 8px; /* Largura da barra de rolagem */
+  width: 8px;
 }
 
 .dashboard-container::-webkit-scrollbar-track {
-  background: transparent; /* Cor de fundo da barra de rolagem */
+  background: transparent;
 }
 
 .dashboard-container::-webkit-scrollbar-thumb {
-  background-color: #888; /* Cor do indicador de rolagem */
-  border-radius: 8px; /* Border radius */
+  background-color: #888;
+  border-radius: 8px;
 }
 
 .dashboard-container::-webkit-scrollbar-thumb:hover {
-  background-color: #555; /* Cor do indicador de rolagem ao passar o mouse */
+  background-color: #555;
 }
 
 .top-side {
@@ -360,25 +360,26 @@ function calculateCityPercentage(partners: PartnerMetricSchema[]) {
   top: 100px;
   overflow-y: auto;
   border-radius: 8px;
-  scrollbar-width: thin; /* Oculta as setas de rolagem no Firefox */
+  scrollbar-width: thin;
 }
 
 .progressbar-container::-webkit-scrollbar {
-  width: 8px; /* Largura da barra de rolagem */
+  width: 8px;
 }
 
 .progressbar-container::-webkit-scrollbar-track {
-  background: transparent; /* Cor de fundo da barra de rolagem */
+  background: transparent;
 }
 
 .progressbar-container::-webkit-scrollbar-thumb {
-  background-color: #888; /* Cor do indicador de rolagem */
-  border-radius: 8px; /* Border radius */
+  background-color: #888;
+  border-radius: 8px;
 }
 
 .progressbar-container::-webkit-scrollbar-thumb:hover {
-  background-color: #555; /* Cor do indicador de rolagem ao passar o mouse */
+  background-color: #555;
 }
+
 .scketed-side {
   display: flex;
   flex-direction: column;

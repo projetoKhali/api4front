@@ -287,6 +287,7 @@ const calcularTotais = () => {
 .table-container {
   height: 5px;
 }
+
 .piechart-container {
   height: 50%;
   width: 100%;
@@ -337,6 +338,7 @@ const calcularTotais = () => {
   width: 100%;
   padding: 5px;
 }
+
 h2 {
   color: #222a49;
   text-align: left;

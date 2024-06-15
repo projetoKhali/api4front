@@ -114,13 +114,14 @@ const exportCSV = () => {
   try {
     downloadTrackCSV();
     openNotificationPopup({
-      title: 'Relatório exportado!',
+      title: 'Relatório gerado com sucesso!',
+      message: 'Iniciando download...',
       type: 1,
     });
   } catch (error) {
     openNotificationPopup({
       title: 'Ops, algo deu errado',
-      message: 'Erro ao exportar relatório.',
+      message: 'Erro ao gerar relatório.',
       type: 2,
     });
   }

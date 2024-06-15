@@ -1,4 +1,4 @@
-import { getTrackMetrics } from '../service/TrackMetricService';
+import { getTrackMetrics } from '../service/TrackMetricsService';
 import downloadCSV from './csv';
 import { TrackMetricsSchema } from '@/schemas/track/TrackMetrics';
 

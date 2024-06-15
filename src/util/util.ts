@@ -8,7 +8,7 @@ export function getDisplayName(key: string): string {
       return 'Nome';
     case 'password':
       return 'Senha';
-    case 'profileType':
+    case 'profile':
       return 'Perfil';
 
     // Partner fields

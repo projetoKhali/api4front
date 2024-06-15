@@ -23,7 +23,7 @@
 <script setup lang="ts">
 import { ref, onMounted, watch } from 'vue';
 import Table from '../components/Table.vue';
-import { getTrackMetrics } from '../service/TrackMetricService';
+import { getTrackMetrics } from '../service/TrackMetricsService';
 import { TrackMetricsSchema } from '../schemas/track/TrackMetrics';
 import downloadTrackCSV from '../report/track';
 import NotificationPopup, {
@@ -63,7 +63,7 @@ type TrackTableRow = [
   number,
 ];
 
-const fetchData = async (page: number) => {
+const fetchData = async () => {
   try {
     tracks.value = await getTrackMetrics();
     const formatted: TrackTableRow[] = tracks.value.map(track => [
@@ -85,7 +85,7 @@ const fetchData = async (page: number) => {
   }
 };
 
-onMounted(() => fetchData(1));
+onMounted(() => fetchData());
 
 const showPopup = ref(false);
 const notification: PopupProps = {

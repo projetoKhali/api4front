@@ -11,7 +11,7 @@ export async function parseUser(user: any): Promise<UserSchema> {
     id: user.id,
     name: user.name,
     login: user.login,
-    profileType: user.profileType,
+    profile: user.profileType,
   };
 }
 

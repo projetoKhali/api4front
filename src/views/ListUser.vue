@@ -39,7 +39,7 @@ import NotificationPopup, {
 } from '../components/popup/NotificationPopup.vue';
 
 const tableComponent = ref<Table>();
-const tableHeaders = ['ID', 'Email', 'Nome', 'Tipo', 'Edição'];
+const tableHeaders = ['ID', 'Login', 'Nome', 'Tipo', 'Edição'];
 
 const usersAtPage = ref<
   Array<[number, string, string, string, string, Function, Function]>
@@ -87,7 +87,7 @@ const fetchData = async (pageIndex: number) => {
       item.id,
       item.login,
       item.name,
-      item.profileType,
+      item.profile,
       () => {
         user.value = item;
         isPopupOpen.value = !isPopupOpen.value;
@@ -142,7 +142,7 @@ const addUser = () => {
     name: '',
     login: '',
     password: '',
-    profileType: 'PartnerAdmin',
+    profile: 'PartnerAdmin',
   };
   user.value = userPost;
   isPopupOpen.value = !isPopupOpen.value;

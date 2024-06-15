@@ -1,6 +1,13 @@
 <script lang="ts">
 import { ref, computed } from 'vue';
 
+export type PopupProps = {
+  title: string;
+  message: string;
+  type: number;
+  time?: number;
+};
+
 export default {
   props: {
     title: {

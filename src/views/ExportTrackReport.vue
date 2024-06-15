@@ -26,7 +26,9 @@ import Table from '../components/Table.vue';
 import { getTrackMetrics } from '../service/TrackMetricService';
 import { TrackMetricsSchema } from '@/schemas/track/TrackMetrics';
 import downloadTrackCSV from '../report/track';
-import NotificationPopup, { PopupProps } from '../components/popup/NotificationPopup.vue';
+import NotificationPopup, {
+  PopupProps,
+} from '../components/popup/NotificationPopup.vue';
 
 const tableComponent = ref<Table>();
 const tableHeaders = [
@@ -109,11 +111,19 @@ watch(showPopup, newValue => {
 });
 
 const exportCSV = () => {
-  downloadTrackCSV();
-  openNotificationPopup({
-    title: 'Relatório exportado!',
-    type: 1,
-  });
+  try {
+    downloadTrackCSV();
+    openNotificationPopup({
+      title: 'Relatório exportado!',
+      type: 1,
+    });
+  } catch (error) {
+    openNotificationPopup({
+      title: 'Ops, algo deu errado',
+      message: 'Erro ao exportar relatório.',
+      type: 2,
+    });
+  }
 };
 </script>
 

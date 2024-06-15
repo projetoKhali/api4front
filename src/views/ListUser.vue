@@ -34,7 +34,9 @@ import Table from '../components/Table.vue';
 import { UserSchema, UserPostSchema } from '../schemas/User';
 import { getUsers, createUser, updateUser } from '../service/UserService';
 import FormPopup from '../components/form/FormPopup.vue';
-import NotificationPopup, { PopupProps } from '../components/popup/NotificationPopup.vue';
+import NotificationPopup, {
+  PopupProps,
+} from '../components/popup/NotificationPopup.vue';
 
 const tableComponent = ref<Table>();
 const tableHeaders = ['ID', 'Email', 'Nome', 'Tipo', 'Edição'];
@@ -136,14 +138,23 @@ const addUser = () => {
       if (user.value === undefined) {
         return;
       }
-      createUser(user.value);
-      console.log('Valor user', user.value);
-      tableComponent.value?.manualRefresh();
-      openNotificationPopup({
-        title: 'Usuário criado!',
-        text: '',
-        type: 1,
-      });
+      try {
+        createUser(user.value);
+        console.log('Valor user', user.value);
+        tableComponent.value?.manualRefresh();
+        openNotificationPopup({
+          title: 'Usuário criado!',
+          text: '',
+          type: 1,
+        });
+      } catch (error) {
+        openNotificationPopup({
+          title: 'Ops, algo deu errado',
+          text: 'Erro ao criar usuário.',
+          type: 2,
+        });
+        console.error('Erro ao criar usuário:', error);
+      }
     },
   };
 };

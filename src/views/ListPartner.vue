@@ -40,7 +40,9 @@ import {
   updatePartner,
 } from '../service/PartnerService';
 import FormPopup from '../components/form/FormPopup.vue';
-import NotificationPopup, { PopupProps } from '../components/popup/NotificationPopup.vue';
+import NotificationPopup, {
+  PopupProps,
+} from '../components/popup/NotificationPopup.vue';
 
 const tableComponent = ref<Table>();
 const tableHeaders = [
@@ -203,14 +205,23 @@ const addPartner = () => {
       if (partner.value === undefined) {
         return;
       }
-      createPartner(partner.value);
-      console.log('Valor user', partner.value);
-      tableComponent.value?.manualRefresh();
-      openNotificationPopup({
-        title: 'Parceiro criado!',
-        text: '',
-        type: 1,
-      });
+      try {
+        createPartner(partner.value);
+        console.log('Valor user', partner.value);
+        tableComponent.value?.manualRefresh();
+        openNotificationPopup({
+          title: 'Parceiro criado!',
+          text: '',
+          type: 1,
+        });
+      } catch (e) {
+        openNotificationPopup({
+          title: 'Ops, algo deu errado',
+          text: 'Erro ao criar parceiro.',
+          type: 2,
+        });
+        console.error('Erro ao criar parceiro:', error);
+      }
     },
   };
 };

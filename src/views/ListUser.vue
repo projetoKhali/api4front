@@ -20,7 +20,12 @@
     :actions="actions"
     :togglePopup="() => (isPopupOpen = !isPopupOpen)"
   />
-  <NotifPopup v-if="showPopup" :title="notif.title" :message="notif.message" :type="notif.type" />
+  <NotifPopup
+    v-if="showPopup"
+    :title="notif.title"
+    :message="notif.message"
+    :type="notif.type"
+  />
 </template>
 
 <script setup lang="ts">
@@ -45,20 +50,20 @@ const actions = ref<{ salvar: (user: UserSchema) => void }>();
 
 const showPopup = ref(false);
 const notif = {
-    title: '',
-    message: '',
-    type: 1,
-    time: 3000,
+  title: '',
+  message: '',
+  type: 1,
+  time: 3000,
 };
 const openNotifPopup = () => {
-    showPopup.value = true;
-}
+  showPopup.value = true;
+};
 
-watch(showPopup, (newValue) => {
+watch(showPopup, newValue => {
   if (newValue) {
-      setTimeout(() => {
-          showPopup.value = false;
-      }, notif.time);
+    setTimeout(() => {
+      showPopup.value = false;
+    }, notif.time);
   }
 });
 

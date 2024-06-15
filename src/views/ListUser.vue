@@ -20,11 +20,11 @@
     :actions="actions"
     :togglePopup="() => (isPopupOpen = !isPopupOpen)"
   />
-  <NotifPopup
+  <NotificationPopup
     v-if="showPopup"
-    :title="notif.title"
-    :message="notif.message"
-    :type="notif.type"
+    :title="notification.title"
+    :message="notification.message"
+    :type="notification.type"
   />
 </template>
 
@@ -34,7 +34,7 @@ import Table from '../components/Table.vue';
 import { UserSchema, UserPostSchema } from '../schemas/User';
 import { getUsers, createUser, updateUser } from '../service/UserService';
 import FormPopup from '../components/form/FormPopup.vue';
-import NotifPopup, { PopupProps } from '../components/NotifPopup.vue';
+import NotificationPopup, { PopupProps } from '../components/NotificationPopup.vue';
 
 const tableComponent = ref<Table>();
 const tableHeaders = ['ID', 'Email', 'Nome', 'Tipo', 'Edição'];
@@ -49,17 +49,17 @@ const user = ref<UserSchema | UserPostSchema>();
 const actions = ref<{ salvar: (user: UserSchema) => void }>();
 
 const showPopup = ref(false);
-const notif: PopupProps = {
+const notification: PopupProps = {
   title: '',
   message: '',
   type: 1,
   time: 3000,
 };
 
-const openNotifPopup = ({ title, message, type }: PopupProps) => {
-  notif.title = title;
-  notif.message = message;
-  notif.type = type;
+const openNotificationPopup = ({ title, message, type }: PopupProps) => {
+  notification.title = title;
+  notification.message = message;
+  notification.type = type;
   showPopup.value = true;
 };
 
@@ -67,7 +67,7 @@ watch(showPopup, newValue => {
   if (newValue) {
     setTimeout(() => {
       showPopup.value = false;
-    }, notif.time);
+    }, notification.time);
   }
 });
 
@@ -102,7 +102,7 @@ const fetchData = async (pageIndex: number) => {
     ]);
     usersAtPage.value = formatted;
   } catch (error) {
-    openNotifPopup({
+    openNotificationPopup({
       title: 'Ops, algo deu errado',
       text: 'Erro ao buscar dados da API.',
       type: 2,
@@ -139,7 +139,7 @@ const addUser = () => {
       createUser(user.value);
       console.log('Valor user', user.value);
       tableComponent.value?.manualRefresh();
-      openNotifPopup({
+      openNotificationPopup({
         title: 'Usuário criado!',
         text: '',
         type: 1,

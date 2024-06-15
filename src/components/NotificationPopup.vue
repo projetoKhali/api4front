@@ -51,12 +51,12 @@ export default {
 </script>
 
 <template>
-  <div class="notif-popup" v-show="isPopupOpen" :style="popupStyle">
-    <div class="notif-popup__content">
+  <div class="notification-popup" v-show="isPopupOpen" :style="popupStyle">
+    <div class="notification-popup__content">
       <div>
-        <h2 class="notif-popup__title">{{ title }}</h2>
+        <h2 class="notification-popup__title">{{ title }}</h2>
       </div>
-      <div class="notif-popup__body">
+      <div class="notification-popup__body">
         <p>{{ message }}</p>
       </div>
     </div>
@@ -64,7 +64,7 @@ export default {
 </template>
 
 <style scoped>
-.notif-popup {
+.notification-popup {
   display: flex;
   padding: 10px;
   flex-direction: column;
@@ -78,7 +78,7 @@ export default {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.notif-popup__close {
+.notification-popup__close {
   position: absolute;
   top: 5px;
   right: 15px;
@@ -90,11 +90,11 @@ export default {
   height: 10px;
 }
 
-.notif-popup__content {
+.notification-popup__content {
   padding: 10px;
 }
 
-.notif-popup__body {
+.notification-popup__body {
   margin-bottom: 10px;
 }
 </style>

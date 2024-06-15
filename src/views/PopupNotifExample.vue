@@ -1,15 +1,15 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue';
-import NotifPopup from '../components/NotifPopup.vue';
+import NotificationPopup from '../components/NotificationPopup.vue';
 
 const showPopup = ref(false);
-const notif = {
+const notification = {
   title: 'Parceiro criado!',
   message: 'O parceiro foi criado com sucesso.',
   type: 1,
 };
 
-const openNotifPopup = () => {
+const openNotificationPopup = () => {
   showPopup.value = true;
 };
 
@@ -23,13 +23,13 @@ watch(showPopup, newValue => {
 </script>
 
 <template>
-  <button @click="openNotifPopup">Mostrar notificação</button>
+  <button @click="openNotificationPopup">Mostrar notificationicação</button>
   <transition name="fade">
-    <NotifPopup
+    <NotificationPopup
       v-if="showPopup"
-      :title="notif.title"
-      :message="notif.message"
-      :type="notif.type"
+      :title="notification.title"
+      :message="notification.message"
+      :type="notification.type"
     />
   </transition>
 </template>

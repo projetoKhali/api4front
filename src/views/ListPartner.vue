@@ -22,11 +22,11 @@
     :actions="actions"
     :togglePopup="() => (isPopupOpen = !isPopupOpen)"
   />
-  <NotifPopup
+  <NotificationPopup
     v-if="showPopup"
-    :title="notif.title"
-    :message="notif.message"
-    :type="notif.type"
+    :title="notification.title"
+    :message="notification.message"
+    :type="notification.type"
   />
 </template>
 
@@ -40,7 +40,7 @@ import {
   updatePartner,
 } from '../service/PartnerService';
 import FormPopup from '../components/form/FormPopup.vue';
-import NotifPopup, { PopupProps } from '../components/NotifPopup.vue';
+import NotificationPopup, { PopupProps } from '../components/NotificationPopup.vue';
 
 const tableComponent = ref<Table>();
 const tableHeaders = [
@@ -97,17 +97,17 @@ const formatDate = (dateString: string) => {
 };
 
 const showPopup = ref(false);
-const notif: PopupProps = {
+const notification: PopupProps = {
   title: '',
   message: '',
   type: 1,
   time: 3000,
 };
 
-const openNotifPopup = ({ title, message, type }: PopupProps) => {
-  notif.title = title;
-  notif.message = message;
-  notif.type = type;
+const openNotificationPopup = ({ title, message, type }: PopupProps) => {
+  notification.title = title;
+  notification.message = message;
+  notification.type = type;
   showPopup.value = true;
 };
 
@@ -115,7 +115,7 @@ watch(showPopup, newValue => {
   if (newValue) {
     setTimeout(() => {
       showPopup.value = false;
-    }, notif.time);
+    }, notification.time);
   }
 });
 
@@ -161,7 +161,7 @@ const fetchData = async (pageIndex: number) => {
     );
     fullData.value = formatted;
   } catch (error) {
-    openNotifPopup({
+    openNotificationPopup({
       title: 'Ops, algo deu errado',
       text: 'Erro ao buscar dados da API.',
       type: 2,
@@ -206,7 +206,7 @@ const addPartner = () => {
       createPartner(partner.value);
       console.log('Valor user', partner.value);
       tableComponent.value?.manualRefresh();
-      openNotifPopup({
+      openNotificationPopup({
         title: 'Parceiro criado!',
         text: '',
         type: 1,

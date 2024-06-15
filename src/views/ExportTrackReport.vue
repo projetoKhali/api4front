@@ -12,11 +12,11 @@
       />
     </div>
   </div>
-  <NotifPopup
+  <NotificationPopup
     v-if="showPopup"
-    :title="notif.title"
-    :message="notif.message"
-    :type="notif.type"
+    :title="notification.title"
+    :message="notification.message"
+    :type="notification.type"
   />
 </template>
 
@@ -26,7 +26,7 @@ import Table from '../components/Table.vue';
 import { getTrackMetrics } from '../service/TrackMetricService';
 import { TrackMetricsSchema } from '@/schemas/track/TrackMetrics';
 import downloadTrackCSV from '../report/track';
-import NotifPopup, { PopupProps } from '../components/NotifPopup.vue';
+import NotificationPopup, { PopupProps } from '../components/NotificationPopup.vue';
 
 const tableComponent = ref<Table>();
 const tableHeaders = [
@@ -86,17 +86,17 @@ const fetchData = async (page: number) => {
 onMounted(() => fetchData(1));
 
 const showPopup = ref(false);
-const notif: PopupProps = {
+const notification: PopupProps = {
   title: '',
   message: '',
   type: 1,
   time: 3000,
 };
 
-const openNotifPopup = ({ title, message, type }: PopupProps) => {
-  notif.title = title;
-  notif.message = message;
-  notif.type = type;
+const openNotificationPopup = ({ title, message, type }: PopupProps) => {
+  notification.title = title;
+  notification.message = message;
+  notification.type = type;
   showPopup.value = true;
 };
 
@@ -104,13 +104,13 @@ watch(showPopup, newValue => {
   if (newValue) {
     setTimeout(() => {
       showPopup.value = false;
-    }, notif.time);
+    }, notification.time);
   }
 });
 
 const exportCSV = () => {
   downloadTrackCSV();
-  openNotifPopup({
+  openNotificationPopup({
     title: 'Relatório exportado!',
     type: 1,
   });

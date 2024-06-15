@@ -14,10 +14,16 @@ export async function parseReport(
     track: partnerReport.track,
     trackStartDate: partnerReport.trackStart,
     trackEndDate: partnerReport.trackEnd,
+    trackStartDate: partnerReport.trackStart,
+    trackEndDate: partnerReport.trackEnd,
     expertise: partnerReport.expertise,
     expertiseStartDate: partnerReport.expertiseStart,
     expertiseEndDate: partnerReport.expertiseEnd,
+    expertiseStartDate: partnerReport.expertiseStart,
+    expertiseEndDate: partnerReport.expertiseEnd,
     qualifier: partnerReport.qualifier,
+    qualifierStartDate: partnerReport.qualifierStart,
+    qualifierEndDate: partnerReport.qualifierEnd,
     qualifierStartDate: partnerReport.qualifierStart,
     qualifierEndDate: partnerReport.qualifierEnd,
     qualifierExpiration: partnerReport.qualifierExpiration,
@@ -33,7 +39,7 @@ export async function mapPartnersReport(
 }
 /* eslint-enable @typescript-eslint/no-explicit-any */
 
-export async function getPartnerReports(
+export default async function getPartnerReports(
   page?: number,
   size?: number,
 ): Promise<Page<PartnerReportSchema>> {

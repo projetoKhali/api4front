@@ -30,7 +30,7 @@ import { getUsers, createUser, updateUser } from '../service/UserService';
 import FormPopup from '../components/form/FormPopup.vue';
 
 const tableComponent = ref<Table>();
-const tableHeaders = ['ID', 'Email', 'Nome', 'Type', 'Edição'];
+const tableHeaders = ['ID', 'Email', 'Nome', 'Tipo', 'Edição'];
 
 const usersAtPage = ref<
   Array<[number, string, string, string, string, Function, Function]>

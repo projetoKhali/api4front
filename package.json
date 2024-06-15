@@ -17,13 +17,17 @@
   "dependencies": {
     "axios": "^1.6.8",
     "chart.js": "^4.4.2",
+    "file-saver": "^2.0.5",
+    "papaparse": "^5.4.1",
     "primevue": "^3.52.0",
     "vue": "^3.4.21",
     "vue-chartjs": "^5.3.1",
     "vue-router": "^4.3.0"
   },
   "devDependencies": {
+    "@types/file-saver": "^2",
     "@types/jest": "^29.5.11",
+    "@types/papaparse": "^5",
     "@typescript-eslint/eslint-plugin": "^6.19.0",
     "@typescript-eslint/parser": "^6.19.0",
     "@vitejs/plugin-vue": "^5.0.4",

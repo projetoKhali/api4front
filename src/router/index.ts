@@ -51,6 +51,11 @@ const routes: Route[] = [
     name: 'Report Partner',
     component: () => import('../views/PartnerReport.vue'),
   },
+  {
+    path: '/report/track',
+    name: 'Report Track',
+    component: () => import('../views/ExportTrackReport.vue'),
+  },
 ];
 
 const routeRecordsRaw: RouteRecordRaw[] = routes

@@ -61,7 +61,7 @@ export default {
 
     const internalActions = {
       ...props.actions,
-      cancel: props.actions?.cancel || ((object: Object) => {}),
+      cancel: props.actions?.cancel || ((_: Object) => {}),
     };
 
     const actualActions = Object.keys(internalActions).reduce(

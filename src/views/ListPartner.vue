@@ -106,10 +106,11 @@ const notification: PopupProps = {
   time: 3000,
 };
 
-const openNotificationPopup = ({ title, message, type }: PopupProps) => {
+const openNotificationPopup = ({ title, message, type, time }: PopupProps) => {
   notification.title = title;
   notification.message = message;
   notification.type = type;
+  notification.time = time;
   showPopup.value = true;
 };
 
@@ -117,7 +118,7 @@ watch(showPopup, newValue => {
   if (newValue) {
     setTimeout(() => {
       showPopup.value = false;
-    }, notification.time);
+    }, notification.time || 3000);
   }
 });
 

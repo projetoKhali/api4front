@@ -1,10 +1,10 @@
 import {
-  ExpertisePartnerMetricSchema,
-  PartnerExpertiseMetricSchema,
+  ExpertisePartnerMetricsSchema,
+  PartnerExpertiseMetricsSchema,
 } from '../schemas/partner/PartnerExpertise';
-import { PartnerMetricSchema } from '../schemas/partner/PartnerMetric';
+import { PartnerMetricsSchema } from '../schemas/partner/PartnerMetric';
 import {
-  PartnerTrackMetricSchema,
+  PartnerTrackMetricsSchema,
   TrackDetailSchema,
 } from '../schemas/partner/PartnerTrack';
 
@@ -15,7 +15,7 @@ const API_URL: string = 'http://localhost:8080';
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export async function parseMetrics(
   partnerMetrics: any,
-): Promise<PartnerMetricSchema> {
+): Promise<PartnerMetricsSchema> {
   return {
     id: partnerMetrics.pt_id,
     name: partnerMetrics.pt_name,
@@ -29,21 +29,21 @@ export async function parseMetrics(
 
 export async function mapPartnersMetric(
   partners: any,
-): Promise<PartnerMetricSchema[]> {
+): Promise<PartnerMetricsSchema[]> {
   return partners
     ? await Promise.all(partners.map(async (p: any) => await parseMetrics(p)))
     : [];
 }
 /* eslint-enable @typescript-eslint/no-explicit-any */
 
-export async function getPartnerMetrics(): Promise<PartnerMetricSchema[]> {
+export async function getPartnerMetrics(): Promise<PartnerMetricsSchema[]> {
   const response = await axios.get(`${API_URL}/partnerMetrics`);
   return mapPartnersMetric(response.data);
 }
 
 export async function getPartnerMetric(
   partnerId: number,
-): Promise<PartnerMetricSchema> {
+): Promise<PartnerMetricsSchema> {
   const response = await axios.get(`${API_URL}/partnerMetrics/${partnerId}`);
   return parseMetrics(response.data);
 }
@@ -51,7 +51,7 @@ export async function getPartnerMetric(
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export async function getPartnerExpertiseQualifiers(
   partnerNames: string[],
-): Promise<ExpertisePartnerMetricSchema[]> {
+): Promise<ExpertisePartnerMetricsSchema[]> {
   const query = partnerNames
     .map(name => `partnerNames=${encodeURIComponent(name)}`)
     .join('&');
@@ -69,15 +69,15 @@ export async function getPartnerExpertiseQualifiers(
               partnerName: partner.partnerName,
               location: partner.location,
               finalizedQualifiers: partner.finalizedQualifiers,
-            }) as PartnerExpertiseMetricSchema,
+            }) as PartnerExpertiseMetricsSchema,
         ),
-      }) as ExpertisePartnerMetricSchema,
+      }) as ExpertisePartnerMetricsSchema,
   );
 }
 
 export async function getPartnerTrackExpertises(
   partnerNames: string[],
-): Promise<PartnerTrackMetricSchema[]> {
+): Promise<PartnerTrackMetricsSchema[]> {
   const query = partnerNames
     .map(name => `partnerNames=${encodeURIComponent(name)}`)
     .join('&');
@@ -98,7 +98,7 @@ export async function getPartnerTrackExpertises(
               finalizedExpertises: track.finalizedExpertises,
             }) as TrackDetailSchema,
         ),
-      }) as PartnerTrackMetricSchema,
+      }) as PartnerTrackMetricsSchema,
   );
 }
 /* eslint-enable @typescript-eslint/no-explicit-any */

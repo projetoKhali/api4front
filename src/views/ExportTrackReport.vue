@@ -17,7 +17,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import Table from '../components/Table.vue';
-import { getTrackMetrics } from '../service/TrackMetricService';
+import { getTrackMetrics } from '../service/TrackMetricsService';
 import { TrackMetricsSchema } from '../schemas/track/TrackMetrics';
 import downloadTrackCSV from '../report/track';
 

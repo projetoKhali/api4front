@@ -7,12 +7,12 @@ export interface PartnerExpertiseSchema {
   qualifiers: PartnerQualifierSchema[];
 }
 
-export interface ExpertisePartnerMetricSchema {
+export interface ExpertisePartnerMetricsSchema {
   expertise: string;
   qualifiersExpertise: number;
-  partners: PartnerExpertiseMetricSchema[];
+  partners: PartnerExpertiseMetricsSchema[];
 }
-export interface PartnerExpertiseMetricSchema {
+export interface PartnerExpertiseMetricsSchema {
   partnerName: string;
   location: string;
   finalizedQualifiers: number;

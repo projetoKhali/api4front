@@ -56,25 +56,25 @@
 <script setup lang="ts">
 import { ref, onMounted, watch, computed } from 'vue';
 import MultiSelect from 'primevue/multiselect';
-import { PartnerMetricSchema } from '../schemas/partner/PartnerMetric';
+import { PartnerMetricsSchema } from '../schemas/partner/PartnerMetric';
 import {
   getPartnerMetrics,
   getPartnerExpertiseQualifiers,
   getPartnerTrackExpertises,
-} from '../service/PartnerMetricService';
+} from '../service/PartnerMetricsService';
 import StackedBarChart from '../components/StackedBarChart.vue';
 import ProgressBar from '../components/ProgressBar.vue';
 import Table from '../components/Table.vue';
 import PieChart from '../components/charts/PieChart.vue';
-import { PartnerTrackMetricSchema } from '../schemas/partner/PartnerTrack';
-import { ExpertisePartnerMetricSchema } from '../schemas/partner/PartnerExpertise';
+import { PartnerTrackMetricsSchema } from '../schemas/partner/PartnerTrack';
+import { ExpertisePartnerMetricsSchema } from '../schemas/partner/PartnerExpertise';
 
-const partners = ref<PartnerMetricSchema[]>([]);
-const selectedPartners = ref<PartnerMetricSchema[]>([]);
-const partnerOptions = ref<PartnerMetricSchema[]>([]);
+const partners = ref<PartnerMetricsSchema[]>([]);
+const selectedPartners = ref<PartnerMetricsSchema[]>([]);
+const partnerOptions = ref<PartnerMetricsSchema[]>([]);
 const tableBodyTrack = ref<PartnerTableRow[]>([]);
 const formattedPieChartData = ref<{ [key: string]: number }>({});
-const trackExpertises = ref<PartnerTrackMetricSchema[]>([]);
+const trackExpertises = ref<PartnerTrackMetricsSchema[]>([]);
 const tracksData = ref<{ [key: string]: { [key: string]: number } }>({});
 
 const tableHeadPartner = [
@@ -167,7 +167,7 @@ onMounted(async () => {
 });
 
 const calcularProgressoExpertise = (
-  expertiseData: ExpertisePartnerMetricSchema[],
+  expertiseData: ExpertisePartnerMetricsSchema[],
 ) => {
   const progressoExpertises: { [key: string]: { [key: string]: number } } = {};
 
@@ -246,7 +246,7 @@ function getPartnerOptions() {
   console.log('selected', selectedPartners);
 }
 
-function calculateCityPercentage(partners: PartnerMetricSchema[]) {
+function calculateCityPercentage(partners: PartnerMetricsSchema[]) {
   const cityCounts: { [key: string]: number } = {};
   partners.forEach(partner => {
     if (cityCounts[partner.city]) {

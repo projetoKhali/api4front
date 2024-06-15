@@ -16,7 +16,7 @@
 </template>
 
 <script lang="ts">
-import Popup from '../components/Popup.vue';
+import Popup from '../components/popup/Popup.vue';
 import FormPopup from '../components/form/FormPopup.vue';
 import { ref } from 'vue';
 

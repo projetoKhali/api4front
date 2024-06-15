@@ -40,7 +40,7 @@ import {
   updatePartner,
 } from '../service/PartnerService';
 import FormPopup from '../components/form/FormPopup.vue';
-import NotificationPopup, { PopupProps } from '../components/NotificationPopup.vue';
+import NotificationPopup, { PopupProps } from '../components/popup/NotificationPopup.vue';
 
 const tableComponent = ref<Table>();
 const tableHeaders = [

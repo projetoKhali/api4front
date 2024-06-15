@@ -34,7 +34,7 @@ import Table from '../components/Table.vue';
 import { UserSchema, UserPostSchema } from '../schemas/User';
 import { getUsers, createUser, updateUser } from '../service/UserService';
 import FormPopup from '../components/form/FormPopup.vue';
-import NotificationPopup, { PopupProps } from '../components/NotificationPopup.vue';
+import NotificationPopup, { PopupProps } from '../components/popup/NotificationPopup.vue';
 
 const tableComponent = ref<Table>();
 const tableHeaders = ['ID', 'Email', 'Nome', 'Tipo', 'Edição'];

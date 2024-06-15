@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue';
-import NotificationPopup from '../components/NotificationPopup.vue';
+import NotificationPopup from '../components/popup/NotificationPopup.vue';
 
 const showPopup = ref(false);
 const notification = {

@@ -26,7 +26,7 @@ import Table from '../components/Table.vue';
 import { getTrackMetrics } from '../service/TrackMetricService';
 import { TrackMetricsSchema } from '@/schemas/track/TrackMetrics';
 import downloadTrackCSV from '../report/track';
-import NotificationPopup, { PopupProps } from '../components/NotificationPopup.vue';
+import NotificationPopup, { PopupProps } from '../components/popup/NotificationPopup.vue';
 
 const tableComponent = ref<Table>();
 const tableHeaders = [

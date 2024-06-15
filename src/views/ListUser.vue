@@ -20,14 +20,16 @@
     :actions="actions"
     :togglePopup="() => (isPopupOpen = !isPopupOpen)"
   />
+  <NotifPopup v-if="showPopup" :title="notif.title" :message="notif.message" :type="notif.type" />
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, watch } from 'vue';
 import Table from '../components/Table.vue';
 import { UserSchema, UserPostSchema } from '../schemas/User';
 import { getUsers, createUser, updateUser } from '../service/UserService';
 import FormPopup from '../components/form/FormPopup.vue';
+import NotifPopup from '../components/NotifPopup.vue';
 
 const tableComponent = ref<Table>();
 const tableHeaders = ['ID', 'Email', 'Nome', 'Tipo', 'Edição'];
@@ -40,6 +42,25 @@ const totalPages = ref(0);
 const isPopupOpen = ref(false);
 const user = ref<UserSchema | UserPostSchema>();
 const actions = ref<{ salvar: (user: UserSchema) => void }>();
+
+const showPopup = ref(false);
+const notif = {
+    title: '',
+    message: '',
+    type: 1,
+    time: 3000,
+};
+const openNotifPopup = () => {
+    showPopup.value = true;
+}
+
+watch(showPopup, (newValue) => {
+  if (newValue) {
+      setTimeout(() => {
+          showPopup.value = false;
+      }, notif.time);
+  }
+});
 
 const fetchData = async (pageIndex: number) => {
   try {
@@ -72,6 +93,10 @@ const fetchData = async (pageIndex: number) => {
     ]);
     usersAtPage.value = formatted;
   } catch (error) {
+    notif.title = 'Ops, algo deu errado';
+    notif.message = 'Erro ao buscar dados da API.';
+    notif.type = 2;
+    openNotifPopup();
     console.error('Erro ao buscar dados da API:', error);
   }
 };
@@ -104,6 +129,10 @@ const addUser = () => {
       createUser(user.value);
       console.log('Valor user', user.value);
       tableComponent.value?.manualRefresh();
+      notif.title = 'Usuário criado!';
+      notif.message = '';
+      notif.type = 1;
+      openNotifPopup();
     },
   };
 };

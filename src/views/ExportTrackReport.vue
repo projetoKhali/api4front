@@ -12,14 +12,16 @@
       />
     </div>
   </div>
+  <NotifPopup v-if="showPopup" :title="notif.title" :message="notif.message" :type="notif.type" />
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, watch } from 'vue';
 import Table from '../components/Table.vue';
 import { getTrackMetrics } from '../service/TrackMetricService';
 import { TrackMetricsSchema } from '@/schemas/track/TrackMetrics';
 import downloadTrackCSV from '../report/track';
+import NotifPopup from '../components/NotifPopup.vue';
 
 const tableComponent = ref<Table>();
 const tableHeaders = [
@@ -78,8 +80,30 @@ const fetchData = async (page: number) => {
 
 onMounted(() => fetchData(1));
 
+const showPopup = ref(false);
+const notif = {
+    title: '',
+    message: '',
+    type: 1,
+    time: 3000,
+};
+const openNotifPopup = () => {
+    showPopup.value = true;
+}
+
+watch(showPopup, (newValue) => {
+  if (newValue) {
+      setTimeout(() => {
+          showPopup.value = false;
+      }, notif.time);
+  }
+});
+
 const exportCSV = () => {
   downloadTrackCSV();
+  notif.title = 'Relatório exportado!';
+  notif.type = 1;
+  openNotifPopup();
 };
 </script>
 

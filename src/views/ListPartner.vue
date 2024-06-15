@@ -22,10 +22,11 @@
     :actions="actions"
     :togglePopup="() => (isPopupOpen = !isPopupOpen)"
   />
+  <NotifPopup v-if="showPopup" :title="notif.title" :message="notif.message" :type="notif.type" />
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, watch } from 'vue';
 import Table from '../components/Table.vue';
 import { PartnerPostSchema, PartnerSchema } from '../schemas/Partner';
 import {
@@ -34,6 +35,7 @@ import {
   updatePartner,
 } from '../service/PartnerService';
 import FormPopup from '../components/form/FormPopup.vue';
+import NotifPopup from '../components/NotifPopup.vue';
 
 const tableComponent = ref<Table>();
 const tableHeaders = [
@@ -89,6 +91,25 @@ const formatDate = (dateString: string) => {
   return `${day}/${month}/${year}`;
 };
 
+const showPopup = ref(false);
+const notif = {
+    title: '',
+    message: '',
+    type: 1,
+    time: 3000,
+};
+const openNotifPopup = () => {
+    showPopup.value = true;
+}
+
+watch(showPopup, (newValue) => {
+  if (newValue) {
+      setTimeout(() => {
+          showPopup.value = false;
+      }, notif.time);
+  }
+});
+
 const fetchData = async (pageIndex: number) => {
   try {
     const partnersPage = await getPartners(pageIndex, itemsPerPage);
@@ -124,7 +145,6 @@ const fetchData = async (pageIndex: number) => {
               updatePartner(partner.value.id, partner.value).then(
                 tableComponent.value?.manualRefresh,
               );
-              console.log('Valor partner', partner.value);
             },
           };
         },
@@ -132,6 +152,10 @@ const fetchData = async (pageIndex: number) => {
     );
     fullData.value = formatted;
   } catch (error) {
+    notif.title = 'Ops, algo deu errado';
+    notif.message = 'Erro ao buscar dados da API.';
+    notif.type = 2;
+    openNotifPopup();
     console.error('Erro ao buscar dados da API:', error);
   }
 };
@@ -172,6 +196,10 @@ const addPartner = () => {
       createPartner(partner.value);
       console.log('Valor user', partner.value);
       tableComponent.value?.manualRefresh();
+      notif.title = 'Parceiro criado!';
+      notif.message = '';
+      notif.type = 1;
+      openNotifPopup();
     },
   };
 };

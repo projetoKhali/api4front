@@ -11,7 +11,7 @@
 
 <script lang="ts">
 import Form from './Form.vue';
-import Popup from '../Popup.vue';
+import Popup from '../popup/Popup.vue';
 
 export default {
   props: {

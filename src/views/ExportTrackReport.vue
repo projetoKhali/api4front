@@ -26,7 +26,7 @@ import Table from '../components/Table.vue';
 import { getTrackMetrics } from '../service/TrackMetricService';
 import { TrackMetricsSchema } from '@/schemas/track/TrackMetrics';
 import downloadTrackCSV from '../report/track';
-import NotifPopup from '../components/NotifPopup.vue';
+import NotifPopup, { PopupProps } from '../components/NotifPopup.vue';
 
 const tableComponent = ref<Table>();
 const tableHeaders = [
@@ -86,13 +86,17 @@ const fetchData = async (page: number) => {
 onMounted(() => fetchData(1));
 
 const showPopup = ref(false);
-const notif = {
+const notif: PopupProps = {
   title: '',
   message: '',
   type: 1,
   time: 3000,
 };
-const openNotifPopup = () => {
+
+const openNotifPopup = ({ title, message, type }: PopupProps) => {
+  notif.title = title;
+  notif.message = message;
+  notif.type = type;
   showPopup.value = true;
 };
 
@@ -106,9 +110,10 @@ watch(showPopup, newValue => {
 
 const exportCSV = () => {
   downloadTrackCSV();
-  notif.title = 'Relatório exportado!';
-  notif.type = 1;
-  openNotifPopup();
+  openNotifPopup({
+    title: 'Relatório exportado!',
+    type: 1,
+  });
 };
 </script>
 

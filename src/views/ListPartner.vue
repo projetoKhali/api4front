@@ -40,7 +40,7 @@ import {
   updatePartner,
 } from '../service/PartnerService';
 import FormPopup from '../components/form/FormPopup.vue';
-import NotifPopup from '../components/NotifPopup.vue';
+import NotifPopup, { PopupProps } from '../components/NotifPopup.vue';
 
 const tableComponent = ref<Table>();
 const tableHeaders = [
@@ -97,13 +97,17 @@ const formatDate = (dateString: string) => {
 };
 
 const showPopup = ref(false);
-const notif = {
+const notif: PopupProps = {
   title: '',
   message: '',
   type: 1,
   time: 3000,
 };
-const openNotifPopup = () => {
+
+const openNotifPopup = ({ title, message, type }: PopupProps) => {
+  notif.title = title;
+  notif.message = message;
+  notif.type = type;
   showPopup.value = true;
 };
 
@@ -157,10 +161,11 @@ const fetchData = async (pageIndex: number) => {
     );
     fullData.value = formatted;
   } catch (error) {
-    notif.title = 'Ops, algo deu errado';
-    notif.message = 'Erro ao buscar dados da API.';
-    notif.type = 2;
-    openNotifPopup();
+    openNotifPopup({
+      title: 'Ops, algo deu errado',
+      text: 'Erro ao buscar dados da API.',
+      type: 2,
+    });
     console.error('Erro ao buscar dados da API:', error);
   }
 };
@@ -201,10 +206,11 @@ const addPartner = () => {
       createPartner(partner.value);
       console.log('Valor user', partner.value);
       tableComponent.value?.manualRefresh();
-      notif.title = 'Parceiro criado!';
-      notif.message = '';
-      notif.type = 1;
-      openNotifPopup();
+      openNotifPopup({
+        title: 'Parceiro criado!',
+        text: '',
+        type: 1,
+      });
     },
   };
 };

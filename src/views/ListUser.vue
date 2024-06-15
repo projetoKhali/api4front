@@ -34,7 +34,7 @@ import Table from '../components/Table.vue';
 import { UserSchema, UserPostSchema } from '../schemas/User';
 import { getUsers, createUser, updateUser } from '../service/UserService';
 import FormPopup from '../components/form/FormPopup.vue';
-import NotifPopup from '../components/NotifPopup.vue';
+import NotifPopup, { PopupProps } from '../components/NotifPopup.vue';
 
 const tableComponent = ref<Table>();
 const tableHeaders = ['ID', 'Email', 'Nome', 'Tipo', 'Edição'];
@@ -49,13 +49,17 @@ const user = ref<UserSchema | UserPostSchema>();
 const actions = ref<{ salvar: (user: UserSchema) => void }>();
 
 const showPopup = ref(false);
-const notif = {
+const notif: PopupProps = {
   title: '',
   message: '',
   type: 1,
   time: 3000,
 };
-const openNotifPopup = () => {
+
+const openNotifPopup = ({ title, message, type }: PopupProps) => {
+  notif.title = title;
+  notif.message = message;
+  notif.type = type;
   showPopup.value = true;
 };
 
@@ -98,10 +102,11 @@ const fetchData = async (pageIndex: number) => {
     ]);
     usersAtPage.value = formatted;
   } catch (error) {
-    notif.title = 'Ops, algo deu errado';
-    notif.message = 'Erro ao buscar dados da API.';
-    notif.type = 2;
-    openNotifPopup();
+    openNotifPopup({
+      title: 'Ops, algo deu errado',
+      text: 'Erro ao buscar dados da API.',
+      type: 2,
+    });
     console.error('Erro ao buscar dados da API:', error);
   }
 };
@@ -134,10 +139,11 @@ const addUser = () => {
       createUser(user.value);
       console.log('Valor user', user.value);
       tableComponent.value?.manualRefresh();
-      notif.title = 'Usuário criado!';
-      notif.message = '';
-      notif.type = 1;
-      openNotifPopup();
+      openNotifPopup({
+        title: 'Usuário criado!',
+        text: '',
+        type: 1,
+      });
     },
   };
 };

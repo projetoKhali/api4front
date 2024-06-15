@@ -1,6 +1,7 @@
 <script lang="ts">
 import {ref} from 'vue';
 
+
 export default {
     props: {
         title: {
@@ -16,11 +17,15 @@ export default {
         }
     },
     setup(props) {
-        const isPopupOpen = ref(false);
+        const isPopupOpen = ref(true);
 
         const closePopup = () => {
             isPopupOpen.value = false;
         };
+
+        setTimeout(() => {
+            closePopup();
+        }, props.duration);
 
         return {
             isPopupOpen,
@@ -32,13 +37,13 @@ export default {
 </script>
 
 <template>
-    <div class="notif-popup">
+    <div class="notif-popup" v-show="isPopupOpen">
+        <button class="notif-popup__close" @click="closePopup">
+        <i class="fas fa-times"></i>
+        </button>
         <div class="notif-popup__content">
         <div class="notif-popup__header">
             <h2 class="notif-popup__title"> {{ title }}</h2>
-            <button class="notif-popup__close" @click="closePopup">
-            <i class="fas fa-times"></i>
-            </button>
         </div>
         <div class="notif-popup__body">
             <p> {{ message }}</p>
@@ -48,7 +53,7 @@ export default {
 </template>
 
 <style scoped>
-.notif-popup {
+/* .notif-popup {
     position: fixed;
     top: 20px;
     right: 20px;
@@ -58,5 +63,5 @@ export default {
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     display: none;
-}
+} */
 </style>

@@ -12,7 +12,7 @@ export default {
 
 <template>
     <div className="pop">
-        <NotifPopup :title="'Notificação'" :message="'Essa é uma notificação de teste'" :duration="6000"/>
+        <NotifPopup :title="'Notificação'" :message="'Essa é uma notificação de teste'" :duration="3000"/>
     </div>
 </template>
 

@@ -54,7 +54,7 @@ type TrackTableRow = [
   number,
 ];
 
-const fetchData = async (page: number) => {
+const fetchData = async () => {
   try {
     tracks.value = await getTrackMetrics();
     const formatted: TrackTableRow[] = tracks.value.map(track => [
@@ -76,7 +76,7 @@ const fetchData = async (page: number) => {
   }
 };
 
-onMounted(() => fetchData(1));
+onMounted(() => fetchData());
 
 const exportCSV = () => {
   downloadTrackCSV();

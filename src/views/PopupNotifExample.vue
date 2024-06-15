@@ -1,19 +1,26 @@
-<script lang="ts">
+<script setup lang="ts">
 import { ref } from 'vue';
 import NotifPopup from '../components/NotifPopup.vue';
 
-export default {
-    components: {
-        NotifPopup
-    }
+const showPopup = ref(false);
+const popupData = {
+    title: 'Parceiro criado!',
+    message: 'O parceiro foi criado com sucesso.',
+    type: 1
+};
+
+const openNotifPopup = () => {
+    showPopup.value = true;
+    setTimeout(() => {
+        showPopup.value = false;
+    }, 3000);
 }
 
 </script>
 
 <template>
-    <div className="pop">
-        <NotifPopup :title="'Notificação'" :message="'Essa é uma notificação de teste'" :duration="4000" :type="1"/>
-    </div>
+    <button @click="openNotifPopup">Mostrar notificação</button>
+    <NotifPopup v-show="showPopup" :title="popupData.title" :message="popupData.message" :type="popupData.type" />
 </template>
 
 <style scoped>
@@ -24,7 +31,7 @@ body {
     background-color: #464646;
 }
 
-.pop{
+.pop {
     display: flex;
     justify-content: center;
     align-items: center;

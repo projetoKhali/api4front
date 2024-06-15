@@ -1,7 +1,6 @@
 <script lang="ts">
 import { ref, computed } from 'vue';
 
-
 export default {
     props: {
         title: {
@@ -10,10 +9,6 @@ export default {
         message: {
             type: String,
             required: true
-        },
-        duration: {
-            type: Number,
-            default: 3000
         },
         type: {
             type: Number
@@ -25,10 +20,6 @@ export default {
         const closePopup = () => {
             isPopupOpen.value = false;
         };
-
-        setTimeout(() => {
-            closePopup();
-        }, props.duration);
 
         const popupStyle = computed(() => {
             switch (props.type) {
@@ -55,11 +46,8 @@ export default {
 
 <template>
     <div class="notif-popup" v-show="isPopupOpen" :style="popupStyle">
-        <button class="notif-popup__close" @click="closePopup">
-            <i class="fa fa-times-circle" aria-hidden="true"></i>
-        </button>
         <div class="notif-popup__content">
-            <div class="notif-popup__header">
+            <div>
                 <h2 class="notif-popup__title"> {{ title }}</h2>
             </div>
             <div class="notif-popup__body">
@@ -98,13 +86,6 @@ export default {
 
 .notif-popup__content {
     padding: 10px;
-}
-
-.notif-popup__header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
 }
 
 .notif-popup__body {

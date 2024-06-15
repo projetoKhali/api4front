@@ -134,13 +134,13 @@ const addUser = () => {
   user.value = userPost;
   isPopupOpen.value = !isPopupOpen.value;
   actions.value = {
-    salvar: (_: UserSchema) => {
+    salvar: async (_: UserSchema) => {
       if (user.value === undefined) {
         return;
       }
       try {
-        createUser(user.value);
         console.log('Valor user', user.value);
+        await createUser(user.value);
         tableComponent.value?.manualRefresh();
         openNotificationPopup({
           title: 'Usuário criado!',

@@ -110,9 +110,9 @@ watch(showPopup, newValue => {
   }
 });
 
-const exportCSV = () => {
+const exportCSV = async () => {
   try {
-    downloadTrackCSV();
+    await downloadTrackCSV();
     openNotificationPopup({
       title: 'Relatório gerado com sucesso!',
       message: 'Iniciando download...',

@@ -201,20 +201,20 @@ const addPartner = () => {
   partner.value = partnerPost;
   isPopupOpen.value = !isPopupOpen.value;
   actions.value = {
-    salvar: (_: PartnerSchema) => {
+    salvar: async (_: PartnerSchema) => {
       if (partner.value === undefined) {
         return;
       }
       try {
-        createPartner(partner.value);
         console.log('Valor user', partner.value);
+        await createPartner(partner.value);
         tableComponent.value?.manualRefresh();
         openNotificationPopup({
           title: 'Parceiro criado!',
           message: '',
           type: 1,
         });
-      } catch (e) {
+      } catch (error) {
         openNotificationPopup({
           title: 'Ops, algo deu errado',
           message: 'Erro ao criar parceiro.',

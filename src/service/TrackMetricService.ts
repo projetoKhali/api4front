@@ -4,22 +4,24 @@ import axios from 'axios';
 const API_URL: string = 'http://localhost:8080';
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-export async function parseTrackMetrics(
-  tracks: any,
+export async function parseMetrics(
+  trackMetrics: any,
 ): Promise<TrackMetricsSchema> {
   return {
-    trackId: tracks.tkId,
-    trackName: tracks.tkName,
-    expertiseCount: tracks.expertiseCount,
-    qualifierCount: tracks.qualifierCount,
-    partnerCount: tracks.partnerCount,
-    expertiseCompletedOnTime: tracks.avgExpertiseCompletionTime,
-    qualifierCompletedOnTime: tracks.avgQualifierCompletionTime,
-    expertiseCompletedOnPercentage: tracks.avgExpertiseCompletionPercentage,
-    qualifierCompletedOnPercentage: tracks.avgQualifierCompletionPercentage,
-    avgExpiredQualifiers: tracks.avgExpiredQualifiers,
-    avgTrackCompletionPercentage: tracks.avgTrackCompletionPercentage,
-    avgTrackCompletionTime: tracks.avgTrackCompletionTime,
+    trackId: trackMetrics.tkId,
+    trackName: trackMetrics.tkName,
+    expertiseCount: trackMetrics.expertiseCount,
+    qualifierCount: trackMetrics.qualifierCount,
+    partnerCount: trackMetrics.partnerCount,
+    expertiseCompletedOnTime: trackMetrics.avgExpertiseCompletionTime,
+    qualifierCompletedOnTime: trackMetrics.avgQualifierCompletionTime,
+    expertiseCompletedOnPercentage:
+      trackMetrics.avgExpertiseCompletionPercentage,
+    qualifierCompletedOnPercentage:
+      trackMetrics.avgQualifierCompletionPercentage,
+    avgExpiredQualifiers: trackMetrics.avgExpiredQualifiers,
+    avgTrackCompletionPercentage: trackMetrics.avgTrackCompletionPercentage,
+    avgTrackCompletionTime: trackMetrics.avgTrackCompletionTime,
   };
 }
 
@@ -27,9 +29,7 @@ export async function mapTrackMetrics(
   tracks: any,
 ): Promise<TrackMetricsSchema[]> {
   return tracks
-    ? await Promise.all(
-        tracks.map(async (item: any) => await parseTrackMetrics(item)),
-      )
+    ? await Promise.all(tracks.map(async (t: any) => await parseMetrics(t)))
     : [];
 }
 
@@ -43,5 +43,5 @@ export async function getTrackMetric(
   trackId: number,
 ): Promise<TrackMetricsSchema> {
   const response = await axios.get(`${API_URL}/trackmetrics/${trackId}`);
-  return await parseTrackMetrics(response.data);
+  return await parseMetrics(response.data);
 }

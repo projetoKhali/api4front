@@ -24,7 +24,7 @@
 import { ref, onMounted, watch } from 'vue';
 import Table from '../components/Table.vue';
 import { getTrackMetrics } from '../service/TrackMetricService';
-import { TrackMetricsSchema } from '@/schemas/track/TrackMetrics';
+import { TrackMetricsSchema } from '../schemas/track/TrackMetrics';
 import downloadTrackCSV from '../report/track';
 import NotificationPopup, {
   PopupProps,

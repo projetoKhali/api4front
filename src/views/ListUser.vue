@@ -92,12 +92,24 @@ const fetchData = async (pageIndex: number) => {
         isPopupOpen.value = !isPopupOpen.value;
         console.log('Print', user);
         actions.value = {
-          salvar: (_: UserSchema) => {
+          salvar: async (_: UserSchema) => {
             if (user.value === undefined) return;
-            updateUser(user.value.id, user.value).then(
-              tableComponent.value?.manualRefresh,
-            );
-            console.log('Valor user', user.value);
+            try {
+              await updateUser(user.value.id, user.value).then(
+                tableComponent.value?.manualRefresh,
+              );
+              openNotificationPopup({
+                title: 'Usuário atualizado!',
+                message: '',
+                type: 1,
+              });
+            } catch (error) {
+              openNotificationPopup({
+                title: 'Ops, algo deu errado',
+                message: 'Erro ao atualizar usuário.',
+                type: 2,
+              });
+            }
           },
         };
       },

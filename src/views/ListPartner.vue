@@ -150,12 +150,25 @@ const fetchData = async (pageIndex: number) => {
           isPopupOpen.value = !isPopupOpen.value;
           console.log('Print', partner);
           actions.value = {
-            salvar: (_: PartnerSchema) => {
+            salvar: async (_: PartnerSchema) => {
               if (partner.value === undefined) return;
               // const {id, ...partnerData} = partner.value;
-              updatePartner(partner.value.id, partner.value).then(
-                tableComponent.value?.manualRefresh,
-              );
+              try {
+                await updatePartner(partner.value.id, partner.value).then(
+                  tableComponent.value?.manualRefresh,
+                );
+                openNotificationPopup({
+                  title: 'Parceiro atualizado!',
+                  message: '',
+                  type: 1,
+                });
+              } catch (error) {
+                openNotificationPopup({
+                  title: 'Ops, algo deu errado',
+                  message: 'Erro ao atualizar parceiro.',
+                  type: 2,
+                });
+              }
             },
           };
         },

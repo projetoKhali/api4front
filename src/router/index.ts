@@ -46,6 +46,11 @@ const routes: Route[] = [
     name: 'Compartive Partner',
     component: () => import('../views/ComparativePartner.vue'),
   },
+  {
+    path: '/popup/notif',
+    name: 'Popup Notif',
+    component: () => import('../views/PopupNotifExample.vue'),
+  },
 ];
 
 const routeRecordsRaw: RouteRecordRaw[] = routes

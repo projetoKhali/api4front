@@ -164,8 +164,9 @@ const fetchData = async (pageIndex: number) => {
               } catch (error) {
                 openNotificationPopup({
                   title: 'Ops, algo deu errado',
-                  message: 'Erro ao atualizar parceiro.',
+                  message: `Erro ao atualizar parceiro. ${error.response.data.message}`,
                   type: 2,
+                  time: 9000,
                 });
               }
             },
@@ -228,8 +229,9 @@ const addPartner = () => {
       } catch (error) {
         openNotificationPopup({
           title: 'Ops, algo deu errado',
-          message: 'Erro ao criar parceiro.',
+          message: `Erro ao criar parceiro. ${error.response.data.message}`,
           type: 2,
+          time: 9000,
         });
       }
     },

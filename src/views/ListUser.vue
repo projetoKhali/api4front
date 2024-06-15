@@ -107,8 +107,9 @@ const fetchData = async (pageIndex: number) => {
             } catch (error) {
               openNotificationPopup({
                 title: 'Ops, algo deu errado',
-                message: 'Erro ao atualizar usuário.',
+                message: `Erro ao atualizar usuário. ${error.response.data.message}`,
                 type: 2,
+                time: 9000,
               });
             }
           },
@@ -162,8 +163,9 @@ const addUser = () => {
       } catch (error) {
         openNotificationPopup({
           title: 'Ops, algo deu errado',
-          message: 'Erro ao criar usuário.',
+          message: `Erro ao criar usuário. ${error.response.data.message}`,
           type: 2,
+          time: 9000,
         });
       }
     },

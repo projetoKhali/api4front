@@ -54,7 +54,7 @@ const fetchData = async (pageIndex: number) => {
       item.id,
       item.login,
       item.name,
-      item.profileType,
+      item.profile,
       () => {
         user.value = item;
         isPopupOpen.value = !isPopupOpen.value;
@@ -92,7 +92,7 @@ const addUser = () => {
     name: '',
     login: '',
     password: '',
-    profileType: 'PartnerAdmin',
+    profile: 'PartnerAdmin',
   };
   user.value = userPost;
   isPopupOpen.value = !isPopupOpen.value;

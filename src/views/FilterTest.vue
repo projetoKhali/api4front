@@ -6,7 +6,7 @@
       <p>{{ item.age }}</p>
       <p>{{ item.birthday }}</p>
       <p>{{ item.isActive }}</p>
-      <p>{{ item.profileType }}</p>
+      <p>{{ item.profile }}</p>
     </li>
   </ul>
   <p v-else>No data found :/</p>
@@ -22,119 +22,119 @@ const data = [
     age: 30,
     birthday: '1990-01-01',
     isActive: false,
-    profileType: 'PartnerAdmin',
+    profile: 'PartnerAdmin',
   },
   {
     name: 'Jane Doe',
     age: 25,
     birthday: '1995-01-01',
     isActive: true,
-    profileType: 'Oracle',
+    profile: 'Oracle',
   },
   {
     name: 'John Smith',
     age: 35,
     birthday: '1985-01-01',
     isActive: true,
-    profileType: 'PartnerAdmin',
+    profile: 'PartnerAdmin',
   },
   {
     name: 'Jane Smith',
     age: 40,
     birthday: '1980-01-01',
     isActive: false,
-    profileType: 'Oracle',
+    profile: 'Oracle',
   },
   {
     name: 'John Johnson',
     age: 45,
     birthday: '1975-01-01',
     isActive: false,
-    profileType: 'PartnerAdmin',
+    profile: 'PartnerAdmin',
   },
   {
     name: 'Jane Johnson',
     age: 50,
     birthday: '1970-01-01',
     isActive: true,
-    profileType: 'Oracle',
+    profile: 'Oracle',
   },
   {
     name: 'John Jackson',
     age: 55,
     birthday: '1965-01-01',
     isActive: true,
-    profileType: 'PartnerAdmin',
+    profile: 'PartnerAdmin',
   },
   {
     name: 'Jane Jackson',
     age: 60,
     birthday: '1960-01-01',
     isActive: false,
-    profileType: 'Oracle',
+    profile: 'Oracle',
   },
   {
     name: 'John James',
     age: 65,
     birthday: '1955-01-01',
     isActive: false,
-    profileType: 'PartnerAdmin',
+    profile: 'PartnerAdmin',
   },
   {
     name: 'Jane James',
     age: 70,
     birthday: '1950-01-01',
     isActive: true,
-    profileType: 'Oracle',
+    profile: 'Oracle',
   },
   {
     name: 'John Brown',
     age: 75,
     birthday: '1945-01-01',
     isActive: true,
-    profileType: 'PartnerAdmin',
+    profile: 'PartnerAdmin',
   },
   {
     name: 'Jane Brown',
     age: 80,
     birthday: '1940-01-01',
     isActive: false,
-    profileType: 'Oracle',
+    profile: 'Oracle',
   },
   {
     name: 'John White',
     age: 85,
     birthday: '1935-01-01',
     isActive: true,
-    profileType: 'PartnerAdmin',
+    profile: 'PartnerAdmin',
   },
   {
     name: 'Jane White',
     age: 90,
     birthday: '1930-01-01',
     isActive: true,
-    profileType: 'Oracle',
+    profile: 'Oracle',
   },
   {
     name: 'John Black',
     age: 95,
     birthday: '1925-01-01',
     isActive: true,
-    profileType: 'PartnerAdmin',
+    profile: 'PartnerAdmin',
   },
   {
     name: 'Jane Black',
     age: 100,
     birthday: '1920-01-01',
     isActive: false,
-    profileType: 'Oracle',
+    profile: 'Oracle',
   },
   {
     name: 'John Green',
     age: 105,
     birthday: '1915-01-01',
     isActive: false,
-    profileType: 'PartnerAdmin',
+    profile: 'PartnerAdmin',
   },
 ];
 
@@ -145,13 +145,13 @@ const currentFilters = ref<{
   age: number | null;
   birthday: string | null;
   isActive: string | null;
-  profileType: string | null;
+  profile: string | null;
 }>({
   name: '',
   age: null,
   birthday: null,
   isActive: true,
-  profileType: null,
+  profile: null,
 });
 
 const filterData = () => {
@@ -182,8 +182,8 @@ const filterData = () => {
     }
 
     if (
-      currentFilters.value.profileType !== null &&
-      item.profileType !== currentFilters.value.profileType
+      currentFilters.value.profile !== null &&
+      item.profile !== currentFilters.value.profile
     ) {
       return false;
     }
@@ -232,11 +232,11 @@ const fields: FilterField[] = [
   {
     title: 'Profile Type',
     onChange: value => {
-      currentFilters.value.profileType = value;
+      currentFilters.value.profile = value;
       filterData();
     },
     dropdown: ['PartnerAdmin', 'Oracle'],
-    default: currentFilters.value.profileType,
+    default: currentFilters.value.profile,
   },
 ];
 

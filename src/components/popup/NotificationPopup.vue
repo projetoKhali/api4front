@@ -2,9 +2,9 @@
 import { ref, computed } from 'vue';
 
 export type PopupProps = {
-  title: string;
-  message: string;
-  type: number;
+  title?: string;
+  message?: string;
+  type?: number;
   time?: number;
 };
 
@@ -15,7 +15,6 @@ export default {
     },
     message: {
       type: String,
-      required: true,
     },
     type: {
       type: Number,
@@ -54,10 +53,10 @@ export default {
   <div class="notification-popup" v-show="isPopupOpen" :style="popupStyle">
     <div class="notification-popup__content">
       <div>
-        <h2 class="notification-popup__title">{{ title }}</h2>
+        <h2 class="notification-popup__title">{{ title || '' }}</h2>
       </div>
       <div class="notification-popup__body">
-        <p>{{ message }}</p>
+        <p>{{ message || '' }}</p>
       </div>
     </div>
   </div>

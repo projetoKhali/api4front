@@ -22,10 +22,16 @@
     :actions="actions"
     :togglePopup="() => (isPopupOpen = !isPopupOpen)"
   />
+  <NotificationPopup
+    v-if="showPopup"
+    :title="notification.title"
+    :message="notification.message"
+    :type="notification.type"
+  />
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, watch } from 'vue';
 import Table from '../components/Table.vue';
 import { PartnerPostSchema, PartnerSchema } from '../schemas/Partner';
 import {
@@ -34,6 +40,9 @@ import {
   updatePartner,
 } from '../service/PartnerService';
 import FormPopup from '../components/form/FormPopup.vue';
+import NotificationPopup, {
+  PopupProps,
+} from '../components/popup/NotificationPopup.vue';
 
 const tableComponent = ref<Table>();
 const tableHeaders = [
@@ -89,6 +98,30 @@ const formatDate = (dateString: string) => {
   return `${day}/${month}/${year}`;
 };
 
+const showPopup = ref(false);
+const notification: PopupProps = {
+  title: '',
+  message: '',
+  type: 1,
+  time: 3000,
+};
+
+const openNotificationPopup = ({ title, message, type, time }: PopupProps) => {
+  notification.title = title;
+  notification.message = message;
+  notification.type = type;
+  notification.time = time;
+  showPopup.value = true;
+};
+
+watch(showPopup, newValue => {
+  if (newValue) {
+    setTimeout(() => {
+      showPopup.value = false;
+    }, notification.time || 3000);
+  }
+});
+
 const fetchData = async (pageIndex: number) => {
   try {
     const partnersPage = await getPartners(pageIndex, itemsPerPage);
@@ -117,15 +150,26 @@ const fetchData = async (pageIndex: number) => {
         () => {
           partner.value = item;
           isPopupOpen.value = !isPopupOpen.value;
-          console.log('Print', partner);
           actions.value = {
-            salvar: (_: PartnerSchema) => {
+            salvar: async (_: PartnerSchema) => {
               if (partner.value === undefined) return;
-              // const {id, ...partnerData} = partner.value;
-              updatePartner(partner.value.id, partner.value).then(
-                tableComponent.value?.manualRefresh,
-              );
-              console.log('Valor partner', partner.value);
+              try {
+                await updatePartner(partner.value.id, partner.value).then(
+                  tableComponent.value?.manualRefresh,
+                );
+                openNotificationPopup({
+                  title: 'Parceiro atualizado!',
+                  message: '',
+                  type: 1,
+                });
+              } catch (error) {
+                openNotificationPopup({
+                  title: 'Ops, algo deu errado',
+                  message: `Erro ao atualizar parceiro. ${error.response.data.message}`,
+                  type: 2,
+                  time: 9000,
+                });
+              }
             },
           };
         },
@@ -133,6 +177,11 @@ const fetchData = async (pageIndex: number) => {
     );
     fullData.value = formatted;
   } catch (error) {
+    openNotificationPopup({
+      title: 'Ops, algo deu errado',
+      message: 'Erro ao buscar dados da API.',
+      type: 2,
+    });
     console.error('Erro ao buscar dados da API:', error);
   }
 };
@@ -166,13 +215,26 @@ const addPartner = () => {
   partner.value = partnerPost;
   isPopupOpen.value = !isPopupOpen.value;
   actions.value = {
-    salvar: (_: PartnerSchema) => {
+    salvar: async (_: PartnerSchema) => {
       if (partner.value === undefined) {
         return;
       }
-      createPartner(partner.value);
-      console.log('Valor user', partner.value);
-      tableComponent.value?.manualRefresh();
+      try {
+        await createPartner(partner.value);
+        tableComponent.value?.manualRefresh();
+        openNotificationPopup({
+          title: 'Parceiro criado!',
+          message: '',
+          type: 1,
+        });
+      } catch (error) {
+        openNotificationPopup({
+          title: 'Ops, algo deu errado',
+          message: `Erro ao criar parceiro. ${error.response.data.message}`,
+          type: 2,
+          time: 9000,
+        });
+      }
     },
   };
 };
@@ -200,17 +262,17 @@ const addPartner = () => {
 button {
   width: 20%;
   height: 60px;
-  background-color: #7ea774; /* cor de fundo */
-  color: white; /* cor do texto */
-  border: none; /* remove a borda */
-  border-radius: 5px; /* arredonda as bordas */
-  font-size: 80%; /* tamanho da fonte */
-  cursor: pointer; /* cursor ao passar por cima */
-  transition: background-color 0.3s; /* transição suave da cor de fundo */
+  background-color: #7ea774;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 80%;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
 .custom-button:hover {
-  background-color: #45a049; /* cor de fundo quando hover */
+  background-color: #45a049;
 }
 
 .button-div {

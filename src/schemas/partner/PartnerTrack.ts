@@ -5,7 +5,7 @@ export interface PartnerTrackSchema {
   expertises: PartnerExpertiseSchema[];
 }
 
-export interface PartnerTrackMetricSchema {
+export interface PartnerTrackMetricsSchema {
   partner: string;
   location: string;
   tracks: TrackDetailSchema[];

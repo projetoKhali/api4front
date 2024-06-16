@@ -20,17 +20,26 @@
     :actions="actions"
     :togglePopup="() => (isPopupOpen = !isPopupOpen)"
   />
+  <NotificationPopup
+    v-if="showPopup"
+    :title="notification.title"
+    :message="notification.message"
+    :type="notification.type"
+  />
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, watch } from 'vue';
 import Table from '../components/Table.vue';
 import { UserSchema, UserPostSchema } from '../schemas/User';
 import { getUsers, createUser, updateUser } from '../service/UserService';
 import FormPopup from '../components/form/FormPopup.vue';
+import NotificationPopup, {
+  PopupProps,
+} from '../components/popup/NotificationPopup.vue';
 
 const tableComponent = ref<Table>();
-const tableHeaders = ['ID', 'Email', 'Nome', 'Tipo', 'Edição'];
+const tableHeaders = ['ID', 'Login', 'Nome', 'Tipo', 'Edição'];
 
 const usersAtPage = ref<
   Array<[number, string, string, string, string, Function, Function]>
@@ -40,6 +49,30 @@ const totalPages = ref(0);
 const isPopupOpen = ref(false);
 const user = ref<UserSchema | UserPostSchema>();
 const actions = ref<{ salvar: (user: UserSchema) => void }>();
+
+const showPopup = ref(false);
+const notification: PopupProps = {
+  title: '',
+  message: '',
+  type: 1,
+  time: 3000,
+};
+
+const openNotificationPopup = ({ title, message, type, time }: PopupProps) => {
+  notification.title = title;
+  notification.message = message;
+  notification.type = type;
+  notification.time = time;
+  showPopup.value = true;
+};
+
+watch(showPopup, newValue => {
+  if (newValue) {
+    setTimeout(() => {
+      showPopup.value = false;
+    }, notification.time || 3000);
+  }
+});
 
 const fetchData = async (pageIndex: number) => {
   try {
@@ -54,24 +87,41 @@ const fetchData = async (pageIndex: number) => {
       item.id,
       item.login,
       item.name,
-      item.profileType,
+      item.profile,
       () => {
         user.value = item;
         isPopupOpen.value = !isPopupOpen.value;
-        console.log('Print', user);
         actions.value = {
-          salvar: (_: UserSchema) => {
+          salvar: async (_: UserSchema) => {
             if (user.value === undefined) return;
-            updateUser(user.value.id, user.value).then(
-              tableComponent.value?.manualRefresh,
-            );
-            console.log('Valor user', user.value);
+            try {
+              await updateUser(user.value.id, user.value).then(
+                tableComponent.value?.manualRefresh,
+              );
+              openNotificationPopup({
+                title: 'Usuário atualizado!',
+                message: '',
+                type: 1,
+              });
+            } catch (error) {
+              openNotificationPopup({
+                title: 'Ops, algo deu errado',
+                message: `Erro ao atualizar usuário. ${error.response.data.message}`,
+                type: 2,
+                time: 9000,
+              });
+            }
           },
         };
       },
     ]);
     usersAtPage.value = formatted;
   } catch (error) {
+    openNotificationPopup({
+      title: 'Ops, algo deu errado',
+      message: 'Erro ao buscar dados da API.',
+      type: 2,
+    });
     console.error('Erro ao buscar dados da API:', error);
   }
 };
@@ -92,18 +142,31 @@ const addUser = () => {
     name: '',
     login: '',
     password: '',
-    profileType: 'PartnerAdmin',
+    profile: 'PartnerAdmin',
   };
   user.value = userPost;
   isPopupOpen.value = !isPopupOpen.value;
   actions.value = {
-    salvar: (_: UserSchema) => {
+    salvar: async (_: UserSchema) => {
       if (user.value === undefined) {
         return;
       }
-      createUser(user.value);
-      console.log('Valor user', user.value);
-      tableComponent.value?.manualRefresh();
+      try {
+        await createUser(user.value);
+        tableComponent.value?.manualRefresh();
+        openNotificationPopup({
+          title: 'Usuário criado!',
+          message: '',
+          type: 1,
+        });
+      } catch (error) {
+        openNotificationPopup({
+          title: 'Ops, algo deu errado',
+          message: `Erro ao criar usuário. ${error.response.data.message}`,
+          type: 2,
+          time: 9000,
+        });
+      }
     },
   };
 };
@@ -130,17 +193,17 @@ const addUser = () => {
 button {
   width: 20%;
   height: 60px;
-  background-color: #7ea774; /* cor de fundo */
-  color: white; /* cor do texto */
-  border: none; /* remove a borda */
-  border-radius: 5px; /* arredonda as bordas */
-  font-size: 80%; /* tamanho da fonte */
-  cursor: pointer; /* cursor ao passar por cima */
-  transition: background-color 0.3s; /* transição suave da cor de fundo */
+  background-color: #7ea774;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 80%;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
 .custom-button:hover {
-  background-color: #45a049; /* cor de fundo quando hover */
+  background-color: #45a049;
 }
 
 .button-div {

@@ -179,6 +179,7 @@ const formatarTracksData = (parceiroData: PartnerSchemaDashboard[]) => {
   background-color: #ebf2e8;
   gap: 2%;
 }
+
 .left-side {
   display: flex;
   flex-direction: column;

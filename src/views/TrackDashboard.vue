@@ -291,6 +291,7 @@ track.value.forEach(trackItem => {
 .table-container {
   height: 5px;
 }
+
 .piechart-container {
   height: 50%;
   width: 100%;
@@ -341,6 +342,7 @@ track.value.forEach(trackItem => {
   width: 100%;
   padding: 5px;
 }
+
 h2 {
   color: #222a49;
   text-align: left;

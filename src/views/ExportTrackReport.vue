@@ -2,7 +2,7 @@
   <div class="conteiner">
     <div class="table-list-track">
       <div class="button-div">
-        <button @click="() => exportCSV()">Exportar Relatório</button>
+        <button @click="exportCSV">Exportar Relatório</button>
       </div>
       <h2>Lista de Tracks</h2>
       <Table
@@ -12,14 +12,23 @@
       />
     </div>
   </div>
+  <NotificationPopup
+    v-if="showPopup"
+    :title="notification.title"
+    :message="notification.message"
+    :type="notification.type"
+  />
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, watch } from 'vue';
 import Table from '../components/Table.vue';
-import { getTrackMetrics } from '../service/TrackMetricService';
-import { TrackMetricsSchema } from '@/schemas/track/TrackMetrics';
+import { getTrackMetrics } from '../service/TrackMetricsService';
+import { TrackMetricsSchema } from '../schemas/track/TrackMetrics';
 import downloadTrackCSV from '../report/track';
+import NotificationPopup, {
+  PopupProps,
+} from '../components/popup/NotificationPopup.vue';
 
 const tableComponent = ref<Table>();
 const tableHeaders = [
@@ -54,7 +63,7 @@ type TrackTableRow = [
   number,
 ];
 
-const fetchData = async (page: number) => {
+const fetchData = async () => {
   try {
     tracks.value = await getTrackMetrics();
     const formatted: TrackTableRow[] = tracks.value.map(track => [
@@ -76,10 +85,46 @@ const fetchData = async (page: number) => {
   }
 };
 
-onMounted(() => fetchData(1));
+onMounted(() => fetchData());
 
-const exportCSV = () => {
-  downloadTrackCSV();
+const showPopup = ref(false);
+const notification: PopupProps = {
+  title: '',
+  message: '',
+  type: 1,
+  time: 3000,
+};
+
+const openNotificationPopup = ({ title, message, type }: PopupProps) => {
+  notification.title = title;
+  notification.message = message;
+  notification.type = type;
+  showPopup.value = true;
+};
+
+watch(showPopup, newValue => {
+  if (newValue) {
+    setTimeout(() => {
+      showPopup.value = false;
+    }, notification.time);
+  }
+});
+
+const exportCSV = async () => {
+  try {
+    await downloadTrackCSV();
+    openNotificationPopup({
+      title: 'Relatório gerado com sucesso!',
+      message: 'Iniciando download...',
+      type: 1,
+    });
+  } catch (error) {
+    openNotificationPopup({
+      title: 'Ops, algo deu errado',
+      message: 'Erro ao gerar relatório.',
+      type: 2,
+    });
+  }
 };
 </script>
 
@@ -104,17 +149,17 @@ const exportCSV = () => {
 button {
   width: 20%;
   height: 100px;
-  background-color: #7ea774; /* cor de fundo */
-  color: white; /* cor do texto */
-  border: none; /* remove a borda */
-  border-radius: 5px; /* arredonda as bordas */
-  font-size: 80%; /* tamanho da fonte */
-  cursor: pointer; /* cursor ao passar por cima */
-  transition: background-color 0.3s; /* transição suave da cor de fundo */
+  background-color: #7ea774;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 80%;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
 .custom-button:hover {
-  background-color: #45a049; /* cor de fundo quando hover */
+  background-color: #45a049;
 }
 
 .button-div {

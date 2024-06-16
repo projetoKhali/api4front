@@ -30,7 +30,7 @@
 import { onMounted, ref } from 'vue';
 import LineChart from '../components/charts/LineChart.vue';
 import Table from '../components/Table.vue';
-import { getTrackMetrics } from '../service/TrackMetricService';
+import { getTrackMetrics } from '../service/TrackMetricsService';
 import { TrackMetricsSchema } from '../schemas/track/TrackMetrics';
 
 const tableBodyTrack = ref<TrackTableRow[]>([]);
@@ -243,6 +243,7 @@ function updateChartData() {
   height: 100%;
   width: 100%;
 }
+
 h3 {
   font-size: 0.8rem;
 }

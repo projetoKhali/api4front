@@ -47,6 +47,11 @@ const routes: Route[] = [
     component: () => import('../views/ComparativePartner.vue'),
   },
   {
+    path: '/report/partner',
+    name: 'Report Partner',
+    component: () => import('../views/PartnerReport.vue'),
+  },
+  {
     path: '/report/track',
     name: 'Report Track',
     component: () => import('../views/ExportTrackReport.vue'),

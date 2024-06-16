@@ -260,15 +260,19 @@ const calcularTotais = () => {
     return total + trackItem.expertises.length;
   }, 0);
 
-  const uniqueQualifiers = new Set<string>();
+  const uniqueQualifiersSet = new Set();
 
-  track.value.forEach(trackItem => {
-    trackItem.expertises.forEach(expertise => {
-      expertise.qualifiers.forEach(qualifiers => {
-        uniqueQualifiers.add(qualifiers.name);
-      });
+function uniqueQualifiers(qualifier: unknown) {
+  uniqueQualifiersSet.add(qualifier);
+}
+
+track.value.forEach(trackItem => {
+  trackItem.expertises.forEach(expertise => {
+    expertise.qualifiers.forEach(qualifier => {
+      uniqueQualifiers(qualifier);
     });
   });
+});
 
   totalQualificadores.value = uniqueQualifiers.size;
 };

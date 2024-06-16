@@ -147,7 +147,7 @@ const fetchData = async (pageIndex: number) => {
         item.status ? 'Ativo' : 'Inativo',
         item.memberType ? 'Sim' : 'Não',
         formatDate(item.insertDate),
-        `${getListPath('partner')}${item.id}`,
+        `/dashboard/${getListPath('partner')}${item.id}`,
         () => {
           partner.value = item;
           isPopupOpen.value = !isPopupOpen.value;

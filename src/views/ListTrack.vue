@@ -34,7 +34,7 @@ const fetchData = async () => {
         item.id,
         item.name,
         item.insertDate,
-        `${getListPath('track')}${item.id}`,
+        `/dashboard/${getListPath('track')}${item.id}`,
       ],
     );
     fullData.value = formatted;

@@ -10,17 +10,17 @@ export async function parseReport(
   partnerReport: any,
 ): Promise<PartnerReportSchema> {
   return {
-    partner: partnerReport.pt_name,
-    track: partnerReport.tk_name,
-    trackStartDate: partnerReport.tk_start_date,
-    trackEndDate: partnerReport.tk_end_date,
-    expertise: partnerReport.ex_name,
-    expertiseStartDate: partnerReport.ex_start_date,
-    expertiseEndDate: partnerReport.ex_end_date,
-    qualifier: partnerReport.ql_name,
-    qualifierStartDate: partnerReport.ql_start_date,
-    qualifierEndDate: partnerReport.ql_end_date,
-    qualifierExpiration: partnerReport.ql_due_date,
+    partner: partnerReport.partnerName,
+    track: partnerReport.trackName,
+    trackStartDate: partnerReport.trackStartDate,
+    trackEndDate: partnerReport.trackEndDate,
+    expertise: partnerReport.expertiseName,
+    expertiseStartDate: partnerReport.expertiseStartDate,
+    expertiseEndDate: partnerReport.expertiseEndDate,
+    qualifier: partnerReport.qualifierName,
+    qualifierStartDate: partnerReport.qualifierStartDate,
+    qualifierEndDate: partnerReport.qualifierEndDate,
+    qualifierExpiration: partnerReport.qualifierDueDate,
   };
 }
 

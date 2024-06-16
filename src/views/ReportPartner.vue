@@ -1,14 +1,15 @@
 <template>
-    <div class="dashboard-container">
-      <div class="left-side">
-        <h2>Relatório de Parceiro</h2>
-        <div class="button-div">
-          <button @click="downloadPartnerCSV">
-            Extrair Relatório
-          </button>
-        </div>
-      <Table :headers="tableHeaders" :initialData="fullData"
-      :pagination="pagination"/>
+  <div class="dashboard-container">
+    <div class="left-side">
+      <h2>Relatório de Parceiro</h2>
+      <div class="button-div">
+        <button @click="downloadPartnerCSV">Extrair Relatório</button>
+      </div>
+      <Table
+        :headers="tableHeaders"
+        :initialData="fullData"
+        :pagination="pagination"
+      />
     </div>
   </div>
 </template>
@@ -21,8 +22,20 @@ import { PartnerReportSchema } from '../schemas/partner/PartnerReport';
 import downloadPartnerCSV from '../report/partner';
 
 //Colocar os campos que deseja ver:
-const tableHeaders = ['Parceiro', 'Track' , 'Início da Track', 'Conclusão da Track', 'Expertise', 'Início da Expertise', 'Conclusão da Expertise', 'Qualifier', 'Início do Qualifier', 'Conclusão do Qualifier', 'Data de expiração qualifier'];
-//total de paginas 
+const tableHeaders = [
+  'Parceiro',
+  'Track',
+  'Início da Track',
+  'Conclusão da Track',
+  'Expertise',
+  'Início da Expertise',
+  'Conclusão da Expertise',
+  'Qualifier',
+  'Início do Qualifier',
+  'Conclusão do Qualifier',
+  'Data de expiração qualifier',
+];
+//total de paginas
 const totalPages = ref(0);
 //numero de itens na pagina
 const itemsPerPage: number = 10;
@@ -40,13 +53,13 @@ type PartnerReportRow = [
   string,
   Date,
   Date,
-  Date
+  Date,
 ];
 const fullData = ref<PartnerReportRow[]>([]);
 
 const pagination = {
   getTotalPages: () => totalPages.value,
-  getPageData: ( pageIndex: number): Array<PartnerReportRow> => {
+  getPageData: (pageIndex: number): Array<PartnerReportRow> => {
     return fetchData(pageIndex);
   },
 };
@@ -60,102 +73,102 @@ const fetchData = async (pageIndex: number) => {
 
     const data = partnerPage.content;
     const formatted: Array<PartnerReportRow> = data.map(
-    (item: PartnerReportSchema) => [
-      item.partner,
-      item.track,
-      item.trackStartDate,
-      item.trackEndDate,
-      item.expertise,
-      item.expertiseStartDate,
-      item.expertiseEndDate,
-      item.qualifier,
-      item.qualifierStartDate,
-      item.qualifierEndDate,
-      item.qualifierExpiration 
-    ]);
+      (item: PartnerReportSchema) => [
+        item.partner,
+        item.track,
+        item.trackStartDate,
+        item.trackEndDate,
+        item.expertise,
+        item.expertiseStartDate,
+        item.expertiseEndDate,
+        item.qualifier,
+        item.qualifierStartDate,
+        item.qualifierEndDate,
+        item.qualifierExpiration,
+      ],
+    );
     fullData.value = formatted;
   } catch (error) {
     console.error('Erro ao buscar dados da API:', error);
   }
 };
-
 </script>
-  
-  <style scoped>
-  .dashboard-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    height: 100vh;
-    padding: 20px;
-    background-color: #ebf2e8;
-    gap: 2%;
-  }
-  .left-side {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    width: 100%;
-    border-radius: 5px;
-    gap: 10px;
-  }
-  
-  .right-side {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    width: 100%;
-  }
-  
-  .chart-container {
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-    height: 100%;
-    width: 100%;
-    gap: 2%;
-    border-radius: 10px;
-  }
-  
-  .progressbar-container {
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-    background: #fff;
-    height: 100%;
-    width: 100%;
-    border-radius: 10px;
-  }
-  
-  .barchart-container {
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-    height: 100%;
-    width: 100%;
-    border-radius: 10px;
-    background: #fff;
-  }
-  
-  .statcircle-container {
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-    height: 100%;
-    width: 100%;
-    border-radius: 10px;
-    background-color: #fff;
-  }
-  
-  .piechart-container {
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-    height: 100%;
-    width: 100%;
-    border-radius: 10px;
-  }
-  button {
+
+<style scoped>
+.dashboard-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 100vh;
+  padding: 20px;
+  background-color: #ebf2e8;
+  gap: 2%;
+}
+.left-side {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  border-radius: 5px;
+  gap: 10px;
+}
+
+.right-side {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
+
+.chart-container {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  height: 100%;
+  width: 100%;
+  gap: 2%;
+  border-radius: 10px;
+}
+
+.progressbar-container {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  background: #fff;
+  height: 100%;
+  width: 100%;
+  border-radius: 10px;
+}
+
+.barchart-container {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  height: 100%;
+  width: 100%;
+  border-radius: 10px;
+  background: #fff;
+}
+
+.statcircle-container {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  height: 100%;
+  width: 100%;
+  border-radius: 10px;
+  background-color: #fff;
+}
+
+.piechart-container {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  height: 100%;
+  width: 100%;
+  border-radius: 10px;
+}
+button {
   width: 20%;
   height: 60px;
   background-color: #7ea774; /* cor de fundo */
@@ -184,5 +197,4 @@ const fetchData = async (pageIndex: number) => {
 * {
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
-  </style>
-  
+</style>

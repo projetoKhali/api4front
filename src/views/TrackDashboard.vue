@@ -262,17 +262,17 @@ const calcularTotais = () => {
 
   const uniqueQualifiersSet = new Set();
 
-function uniqueQualifiers(qualifier: unknown) {
-  uniqueQualifiersSet.add(qualifier);
-}
+  function uniqueQualifiers(qualifier: unknown) {
+    uniqueQualifiersSet.add(qualifier);
+  }
 
-track.value.forEach(trackItem => {
-  trackItem.expertises.forEach(expertise => {
-    expertise.qualifiers.forEach(qualifier => {
-      uniqueQualifiers(qualifier);
+  track.value.forEach(trackItem => {
+    trackItem.expertises.forEach(expertise => {
+      expertise.qualifiers.forEach(qualifier => {
+        uniqueQualifiers(qualifier);
+      });
     });
   });
-});
 
   totalQualificadores.value = uniqueQualifiers.size;
 };

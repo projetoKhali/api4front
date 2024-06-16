@@ -262,19 +262,15 @@ const calcularTotais = () => {
 
   const uniqueQualifiersSet = new Set();
 
-function uniqueQualifiers(qualifier: unknown) {
-  uniqueQualifiersSet.add(qualifier);
-}
-
-track.value.forEach(trackItem => {
-  trackItem.expertises.forEach(expertise => {
-    expertise.qualifiers.forEach(qualifier => {
-      uniqueQualifiers(qualifier);
+  track.value.forEach(trackItem => {
+    trackItem.expertises.forEach(expertise => {
+      expertise.qualifiers.forEach(qualifier => {
+        uniqueQualifiersSet.add(qualifier); // Adicionando ao Set
+      });
     });
   });
-});
 
-  totalQualificadores.value = uniqueQualifiers.size;
+  totalQualificadores.value = uniqueQualifiersSet.size;
 };
 </script>
 

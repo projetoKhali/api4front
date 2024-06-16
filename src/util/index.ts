@@ -42,3 +42,9 @@ export function getDisplayName(key: string): string {
       return key.charAt(0).toUpperCase() + key.slice(1);
   }
 }
+
+// removes anything that is not a letter, number or `-`
+// replaces `_` and spaces with `-`
+export function removeSpecialCharacters(value: string): string {
+  return value?.replace(/[^a-zA-Z0-9-]/g, '').replace(/[_ ]/g, '-') || value;
+}

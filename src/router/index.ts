@@ -1,74 +1,98 @@
 import { RouteRecordRaw, createRouter, createWebHistory } from 'vue-router';
 
-interface Route {
-  path: string;
-  name: string;
-  hide?: boolean;
-  // eslint-disable-next-line @typescript-eslint/ban-types
-  component: Function;
-}
-
-const routes: Route[] = [
-  {
-    path: '/track/:trackId',
-    name: '[hide] Track Dashboard',
-    hide: true,
-    component: () => import('../views/TrackDashboard.vue'),
-  },
-  {
-    path: '/tracks',
-    name: 'Tracks',
-    component: () => import('../views/ListTrack.vue'),
-  },
-  {
-    path: '/partners',
-    name: 'Partners',
-    component: () => import('../views/ListPartner.vue'),
-  },
-  {
-    path: '/users',
-    name: 'Users',
-    component: () => import('../views/ListUser.vue'),
-  },
-  {
-    path: '/partner/:partnerId',
-    name: '[hide] Partner Dashboard',
-    hide: true,
-    component: () => import('../views/PartnerDashboard.vue'),
-  },
-  {
-    path: '/compartive/track',
-    name: 'Compartive Track',
-    component: () => import('../views/ComparativeTracks.vue'),
-  },
-  {
-    path: '/compartive/partner',
-    name: 'Compartive Partner',
-    component: () => import('../views/ComparativePartner.vue'),
-  },
-  {
-    path: '/report/partner',
-    name: 'Report Partner',
-    component: () => import('../views/PartnerReport.vue'),
-  },
-  {
-    path: '/report/track',
-    name: 'Report Track',
-    component: () => import('../views/ExportTrackReport.vue'),
-  },
-];
-
-const routeRecordsRaw: RouteRecordRaw[] = routes
-  // .filter((route: Route) => !route.hide)
-  .map((route: Route) => ({
-    path: route.path,
-    name: route.name,
-    component: route.component,
-  }));
-
 const router = createRouter({
   history: createWebHistory(),
-  routes: routeRecordsRaw,
+  routes: [
+    {
+      path: '/',
+      name: 'Home',
+      component: null,
+    },
+    {
+      path: '/list',
+      name: 'Listagem',
+      children: [
+        {
+          path: 'tracks',
+          name: 'Tracks',
+          component: () => import('../views/ListTrack.vue'),
+        },
+        {
+          path: 'partners',
+          name: 'Partners',
+          component: () => import('../views/ListPartner.vue'),
+        },
+        {
+          path: 'users',
+          name: 'Users',
+          component: () => import('../views/ListUser.vue'),
+        },
+      ],
+    },
+    {
+      path: '/dashboard',
+      name: 'Dashboard',
+      meta: { hide: true },
+      children: [
+        {
+          path: 'track/:trackId',
+          name: 'Dashboard Individual de Trilha',
+          meta: { name: 'Track' },
+          component: () => import('../views/TrackDashboard.vue'),
+        },
+        {
+          path: 'partner/:partnerId',
+          name: 'Dashboard Individual de Parceiro',
+          meta: { name: 'Partner' },
+          component: () => import('../views/PartnerDashboard.vue'),
+        },
+      ],
+    },
+    {
+      path: '/comparative',
+      name: 'Comparativo',
+      children: [
+        {
+          path: 'track',
+          name: 'Dashboard Comparativo de Trilhas',
+          meta: { name: 'Tracks' },
+          component: () => import('../views/ComparativeTracks.vue'),
+        },
+        {
+          path: 'partner',
+          name: 'Dashboard Comparativo de Parceiros',
+          meta: { name: 'Partners' },
+          component: () => import('../views/ComparativePartner.vue'),
+        },
+      ],
+    },
+    {
+      path: '/report',
+      name: 'Relatório',
+      children: [
+        {
+          path: 'track',
+          name: 'Relatório de Trilhas',
+          meta: { name: 'Tracks' },
+          component: () => import('../views/ReportTrack.vue'),
+        },
+        {
+          path: 'partner',
+          name: 'Relatório de Parceiros',
+          meta: { name: 'Partners' },
+          component: () => import('../views/ReportPartner.vue'),
+        },
+      ],
+    },
+  ],
 });
+
+export function getListPath(context: string): string {
+  return (
+    router?.options?.routes
+      ?.find((route: RouteRecordRaw) => route.path === '/list')
+      ?.children?.find(route => route.path.includes(context))?.path || ''
+  );
+}
 
 export default router;

@@ -35,13 +35,13 @@ const router = createRouter({
       meta: { hide: true },
       children: [
         {
-          path: 'track/:trackId',
+          path: 'tracks/:trackId',
           name: 'Dashboard Individual de Trilha',
           meta: { name: 'Track' },
           component: () => import('../views/TrackDashboard.vue'),
         },
         {
-          path: 'partner/:partnerId',
+          path: 'partners/:partnerId',
           name: 'Dashboard Individual de Parceiro',
           meta: { name: 'Partner' },
           component: () => import('../views/PartnerDashboard.vue'),

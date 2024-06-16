@@ -88,11 +88,11 @@ const router = createRouter({
 });
 
 export function getListPath(context: string): string {
-  return (
+  return `${
     router?.options?.routes
       ?.find((route: RouteRecordRaw) => route.path === '/list')
       ?.children?.find(route => route.path.includes(context))?.path || ''
-  );
+  }/`;
 }
 
 export default router;

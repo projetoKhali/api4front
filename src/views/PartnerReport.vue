@@ -3,7 +3,7 @@
       <div class="left-side">
         <h2>Relatório de Parceiro</h2>
         <div class="button-div">
-          <button @click="() => exportCSV()">
+          <button @click="downloadPartnerCSV">
             Extrair Relatório
           </button>
         </div>
@@ -26,7 +26,7 @@ const tableHeaders = ['Parceiro', 'Track' , 'Início da Track', 'Conclusão da T
 const totalPages = ref(0);
 //numero de itens na pagina
 const itemsPerPage: number = 10;
-//
+
 onMounted(() => fetchData(0));
 
 type PartnerReportRow = [
@@ -78,10 +78,6 @@ const fetchData = async (pageIndex: number) => {
     console.error('Erro ao buscar dados da API:', error);
   }
 };
-
-const exportCSV = () => {
-  downloadPartnerCSV();
-}
 
 </script>
   

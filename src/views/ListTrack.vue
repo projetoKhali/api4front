@@ -11,6 +11,7 @@
 import { ref, onMounted } from 'vue';
 import Table from '../components/Table.vue';
 import { TrackSchema } from '../schemas/Track';
+import { getListPath } from '../router';
 
 const tableHeaders = ['ID', 'Nome', 'Data de criação', 'Dashboard'];
 
@@ -33,7 +34,7 @@ const fetchData = async () => {
         item.id,
         item.name,
         item.insertDate,
-        `/track/${item.id}`,
+        `${getListPath('track')}${item.id}`,
       ],
     );
     fullData.value = formatted;

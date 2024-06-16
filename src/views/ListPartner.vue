@@ -43,6 +43,7 @@ import FormPopup from '../components/form/FormPopup.vue';
 import NotificationPopup, {
   PopupProps,
 } from '../components/popup/NotificationPopup.vue';
+import { getListPath } from '../router';
 
 const tableComponent = ref<Table>();
 const tableHeaders = [
@@ -146,7 +147,7 @@ const fetchData = async (pageIndex: number) => {
         item.status ? 'Ativo' : 'Inativo',
         item.memberType ? 'Sim' : 'Não',
         formatDate(item.insertDate),
-        `/partner/${item.id}`,
+        `${getListPath('partner')}${item.id}`,
         () => {
           partner.value = item;
           isPopupOpen.value = !isPopupOpen.value;

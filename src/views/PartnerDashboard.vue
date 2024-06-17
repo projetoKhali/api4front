@@ -1,20 +1,24 @@
 <template>
   <div class="dashboard-container">
-    <div class="chart-container">
-      <div class="statcircle-container">
-        <StatCircle
-          :percentage="calcularPorcentagemTotalFinalizadas(partner)"
-        />
+    <div class="left-side">
+      <div class="chart-container">
+        <div class="statcircle-container">
+          <StatCircle
+            :percentage="calcularPorcentagemTotalFinalizadas(partner)"
+          />
+        </div>
+        <div class="barchart-container">
+          <BarChart :chartData="formattedBarChartData" />
+        </div>
       </div>
-      <div class="barchart-container">
-        <BarChart :chartData="formattedBarChartData" />
+      <div class="pie-chart-container">
+        <PieChart :chartData="formattedPieChartData" />
       </div>
     </div>
-    <div class="progressbar-container">
-      <ProgressBar :tracks="tracksData" />
-    </div>
-    <div class="piechart-container">
-      <PieChart :chartData="formattedPieChartData" />
+    <div class="right-side">
+      <div class="progressbar-container">
+        <ProgressBar :tracks="tracksData" />
+      </div>
     </div>
   </div>
 </template>
@@ -27,6 +31,7 @@ import StatCircle from '../components/StatCircle.vue';
 import BarChart from '../components/charts/BarChart.vue';
 import PieChart from '../components/charts/PieChart.vue';
 import ProgressBar from '../components/ProgressBar.vue';
+import { useRoute } from 'vue-router';
 
 const partner = ref<PartnerSchemaDashboard[]>([]);
 const pieChartData = ref<{ [key: string]: number }>({});
@@ -34,10 +39,12 @@ const barChartData = ref<{ [key: string]: number }>({});
 const formattedBarChartData = ref<{ [key: string]: number }>({});
 const formattedPieChartData = ref<{ [key: string]: number }>({});
 const tracksData = ref<{ [key: string]: { [key: string]: number } }>({});
+const route = useRoute();
 
 onMounted(async () => {
   try {
-    partner.value = await getDashboardData(1);
+    const partnerId = Number(route.params.partnerId);
+    partner.value = await getDashboardData(partnerId);
     console.log('Dados dos partner:', partner.value);
 
     barChartData.value = calcularPorcentagemFinalizadas(partner.value);
@@ -61,11 +68,22 @@ const calcularPorcentagemFinalizadas = (
 
   parceiroData.forEach(parceiro => {
     parceiro.tracks.forEach(track => {
-      const expertisesFinalizadas = track.expertises.filter(
-        expertise => expertise.endDate !== null,
-      ).length;
-      const totalExpertises = track.expertises.length;
-      const porcentagem = (expertisesFinalizadas / totalExpertises) * 100 || 0;
+      let totalQualifiers = 0;
+      let totalQualifiersCompleted = 0;
+
+      track.expertises.forEach(expertise => {
+        totalQualifiers += expertise.qualifiers.length;
+        expertise.qualifiers.forEach(qualifier => {
+          if (qualifier.completeDate !== null) {
+            totalQualifiersCompleted++;
+          }
+        });
+      });
+
+      const porcentagem = totalQualifiers
+        ? (totalQualifiersCompleted / totalQualifiers) * 100
+        : 0;
+
       data[track.name] = porcentagem;
     });
   });
@@ -83,7 +101,7 @@ const calcularPorcentagemTotalFinalizadas = (
     parceiro.tracks.forEach(track => {
       track.expertises.forEach(expertise => {
         totalExpertises++;
-        if (expertise.endDate) {
+        if (expertise.completeDate) {
           expertisesFinalizadas++;
         }
       });
@@ -99,7 +117,7 @@ const calcularPorcentagemTotalFinalizadas = (
 
 const calcularEstadoExpertises = (parceiroData: PartnerSchemaDashboard[]) => {
   const data: { [key: string]: number } = {
-    'Finalizados': 0,
+    'Finalizadas': 0,
     'Em progresso': 0,
     'Não iniciou': 0,
   };
@@ -107,11 +125,11 @@ const calcularEstadoExpertises = (parceiroData: PartnerSchemaDashboard[]) => {
   parceiroData.forEach(parceiro => {
     parceiro.tracks.forEach(track => {
       track.expertises.forEach(expertise => {
-        if (expertise.endDate) {
-          data['Finalizados']++;
+        if (expertise.completeDate) {
+          data['Finalizadas']++;
         } else if (
           expertise.qualifiers &&
-          expertise.qualifiers.some(qualifiers => qualifiers.endDate)
+          expertise.qualifiers.some(qualifier => qualifier.completeDate)
         ) {
           data['Em progresso']++;
         } else {
@@ -134,7 +152,7 @@ const formatarTracksData = (parceiroData: PartnerSchemaDashboard[]) => {
       track.expertises.forEach(expertise => {
         const totalqualifiers = expertise.qualifiers.length;
         const qualifiersConcluidos = expertise.qualifiers.filter(
-          qualifiers => qualifiers.endDate !== null,
+          qualifiers => qualifiers.completeDate !== null,
         ).length;
         const progress =
           totalqualifiers > 0
@@ -154,26 +172,76 @@ const formatarTracksData = (parceiroData: PartnerSchemaDashboard[]) => {
 <style scoped>
 .dashboard-container {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 100vh;
+  padding: 20px;
+  background-color: #ebf2e8;
+  gap: 2%;
+}
+
+.left-side {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  border-radius: 5px;
+  gap: 10px;
+}
+
+.right-side {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
 }
 
 .chart-container {
   display: flex;
   align-items: center;
-  gap: 20px;
-}
-
-.statcircle-container,
-.barchart-container {
+  flex-direction: row;
+  height: 100%;
+  width: 100%;
+  gap: 2%;
+  border-radius: 10px;
 }
 
 .progressbar-container {
-  flex: 0.7;
-  height: 80px;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  background: #fff;
+  height: 100%;
+  width: 100%;
+  border-radius: 10px;
+}
+
+.barchart-container {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  height: 100%;
+  width: 100%;
+  border-radius: 10px;
+  background: #fff;
+}
+
+.statcircle-container {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  height: 100%;
+  width: 100%;
+  border-radius: 10px;
+  background-color: #fff;
 }
 
 .piechart-container {
-  flex: 1.4;
-  padding-top: 20px;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  height: 100%;
+  width: 100%;
+  border-radius: 10px;
 }
 </style>

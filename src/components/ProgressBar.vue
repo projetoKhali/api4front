@@ -1,5 +1,5 @@
 <template>
-  <div id="progressbar">
+  <div id="scrollable-progressbar">
     <div
       v-for="(trackData, trackName) in tracks"
       :key="trackName"
@@ -17,7 +17,7 @@
           <div class="bar-wrapper">
             <div class="shell">
               <div class="bar" :style="{ width: progress + '%' }">
-                <span>{{ progress }}%</span>
+                <span>{{ progress.toFixed(2) }}%</span>
               </div>
             </div>
           </div>
@@ -36,62 +36,73 @@ export default {
 </script>
 
 <style scoped>
-#progressbar {
+#scrollable-progressbar {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  justify-content: top;
+  align-items: bottom;
   font-family: sans-serif;
   background-color: #fff;
-  width: 600px; /* Adjust the width as desired */
-  height: 400px; /* Adjust the height as desired */
-  box-shadow: 0 5px 0 0 rgba(0, 0, 0, 0.1);
-  border-radius: 5px;
-  transition:
-    border-color 0.3s,
-    transform 0.3s;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
 }
 
 .track-wrapper {
-  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: top;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background-color: #ffffff;
+  border-radius: 10px;
 }
 
 .wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
 }
 
 .labeltrack {
+  padding-top: 20px;
   margin-bottom: 10px;
   font-size: 1.2em;
-  color: #333;
+  color: #333333;
   font-weight: bold;
 }
 
 .toplabel {
-  margin-bottom: 10px;
-  font-size: 1.2em;
-  color: #333;
+  padding-left: 40px;
+  font-size: 80%;
+  color: #504e4e;
   font-weight: semi-bold;
-  padding-right: 10px;
+  vertical-align: middle;
+  text-align: left;
+  width: 30%;
+  max-width: 120px;
+  font-weight: bold;
 }
 
 .bar-wrapper {
   flex-grow: 1;
   padding-right: 10px;
+  width: 100%;
+  padding: 40px;
 }
 
 .shell {
-  height: 20px;
-  width: 250px;
+  height: 30px;
+  width: 100%;
   border: 1px solid #aaa;
   border-radius: 13px;
   padding: 3px;
 }
 
 .bar {
-  background: #94df49;
+  background: #a3c7ac;
   height: 100%;
   border-radius: 10px;
   transition: width 0.5s ease;
@@ -102,11 +113,19 @@ export default {
   padding: 4px 5px;
   color: #fff;
   font-size: 0.7em;
+  font-weight: bold;
 }
 
 .container {
   display: flex;
-  justify-content: space-between; /* Adjust as needed */
+  justify-content: space-between;
   align-items: center;
+  height: 100%;
+  width: 100%;
+  gap: 20px;
+}
+
+* {
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 </style>

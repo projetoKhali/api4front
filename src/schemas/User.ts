@@ -3,7 +3,7 @@ export type UserType = 'Oracle' | 'PartnerAdmin';
 export interface UserSchema {
   id: number;
   name: string;
-  email: string;
+  login: string;
   profile: UserType;
 }
 

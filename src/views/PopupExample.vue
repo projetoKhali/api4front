@@ -1,55 +1,56 @@
 <template>
   <div>
     <h1>Vue Pop Up</h1>
-    <button @click="() => TogglePopup('buttonTrigger')">Open Popup</button>
+    <button @click="() => togglePopup('buttonTrigger')">Open Popup</button>
     <Popup
       v-if="popupTriggers.buttonTrigger"
-      :TogglePopup="() => TogglePopup('buttonTrigger')"
+      :togglePopup="() => togglePopup('buttonTrigger')"
     >
-      <UserForm
+      <FormPopup
         :formActionTitle="'Título do Formulário'"
         :user="user"
         :actions="actions"
-      ></UserForm>
+      ></FormPopup>
     </Popup>
   </div>
 </template>
 
 <script lang="ts">
-import Popup from '../components/Popup.vue';
-import UserForm from '../components/form/UserForm.vue';
+import Popup from '../components/popup/Popup.vue';
+import FormPopup from '../components/form/FormPopup.vue';
+import { UserSchema } from '../schemas/User';
 import { ref } from 'vue';
 
 const popupTriggers = ref({ buttomTrigger: false });
 
-const TogglePopup = trigger => {
+const togglePopup = trigger => {
   popupTriggers.value[trigger] = !popupTriggers.value[trigger];
 };
 
-const user: User = {
+const user: UserSchema = {
   id: 1,
   name: 'John Doe',
-  email: 'john@doe.com',
+  login: 'johndoe',
   profile: 'Oracle',
 };
 
 const actions = {
-  salvar: (data: User) => {
+  salvar: (data: UserSchema) => {
     console.log('Data submitted:', data);
-    TogglePopup();
+    togglePopup();
   },
 };
 
 export default {
   components: {
-    UserForm,
+    FormPopup,
     Popup,
   },
   setup() {
     return {
       user,
       actions,
-      TogglePopup,
+      togglePopup,
       popupTriggers,
     };
   },

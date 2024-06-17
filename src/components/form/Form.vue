@@ -34,7 +34,7 @@
 </template>
 
 <script lang="ts">
-import { getDisplayName } from '../../util/util';
+import { getDisplayName } from '../../util';
 
 function getFormFieldInputType(data: Object, key: string): string {
   if (data[key] instanceof Date) {
